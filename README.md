@@ -10,13 +10,13 @@ npm i --save re-animate
 ```
 
 ## Usage
-```
-#1:
+```jsx
 <Animate to="0" attributeName="opacity">
   <div>
 </Animate>
-
-#2:
+```
+or
+```js
 const steps = [{
   style: {
     opacity: 0,
@@ -31,9 +31,12 @@ const steps = [{
 }, {
   style: {
     transform: 'translate(100px, 100px)',
-  }
+  },
+  moment: 1200,
 }];
+```
 
+```jsx
 <Animate steps={steps}>
   <div>
 </Animate>
