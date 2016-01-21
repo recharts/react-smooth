@@ -20,6 +20,12 @@
     "reactjs",
     "ramda"
   ],
+  "maintainers": [
+    {
+      "name": "hzongquan",
+      "email": "hzongquan@126.com"
+    }
+  ],
   "author": "Jason",
   "license": "MIT",
   "bugs": {
