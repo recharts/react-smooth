@@ -14,7 +14,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react-css-animation': path.join(__dirname, '..', 'src/index.js'),
+      're-animate': path.join(__dirname, '..', 'src/index.js'),
     },
   },
   webpackServer: {
