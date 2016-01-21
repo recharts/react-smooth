@@ -14,7 +14,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      're-animate': path.join(__dirname, '..', 'src/index.js'),
+      're-animate': path.join(__dirname, '..', 'lib/index.js'),
     },
   },
   webpackServer: {
@@ -27,7 +27,7 @@ module.exports = {
         loader: 'babel-loader',
         include: [
           __dirname,
-          path.join(__dirname, '..', 'src'),
+          path.join(__dirname, '..', 'lib'),
           path.join(__dirname, '..', 'node_modules'),
         ],
       },
