@@ -1,0 +1,58 @@
+{
+  "name": "react-css-animation",
+  "version": "0.0.1",
+  "description": "react animation",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/karma start --single-run",
+    "demo": "./node_modules/.bin/webpack-dev-server  --progress --port 3000  --colors --content-base demo --hot --inline --config demo/webpack.config.js",
+    "test-watch": "./node_modules/.bin/karma start",
+    "watch": "NODE_ENV=production ./node_modules/.bin/webpack -w",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/recharts/react-css-animation.git"
+  },
+  "keywords": [
+    "react",
+    "animation",
+    "reactjs",
+    "ramda"
+  ],
+  "author": "Jason",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/recharts/react-css-animation/issues"
+  },
+  "homepage": "https://github.com/recharts/react-css-animation#readme",
+  "dependencies": {
+    "babel-register": "^6.4.3",
+    "pure-render-decorator": "^0.2.0",
+    "ramda": "^0.19.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-eslint": "^5.0.0-beta6",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-transform-decorators-legacy": "1.3.4",
+    "babel-plugin-transform-export-extensions": "6.3.13",
+    "babel-polyfill": "^6.3.14",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-react": "6.3.13",
+    "babel-preset-stage-0": "6.3.13",
+    "chai": "^3.4.1",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.1.0",
+    "eslint-plugin-react": "^3.15.0",
+    "karma": "^0.13.19",
+    "karma-mocha": "^0.2.1",
+    "karma-phantomjs-launcher": "^0.2.3",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.4",
+    "phantomjs": "^1.9.18",
+    "react-addons-test-utils": "^0.14.6",
+    "webpack": "^1.12.11"
+  }
+}
