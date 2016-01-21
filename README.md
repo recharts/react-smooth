@@ -31,7 +31,8 @@ const steps = [{
 }, {
   style: {
     transform: 'translate(100px, 100px)',
-  }
+  },
+  moment: 1200,
 }];
 ```
 
