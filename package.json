@@ -1,8 +1,11 @@
 {
   "name": "re-animate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "react animation",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run",
     "demo": "./node_modules/.bin/webpack-dev-server  --progress --port 3000  --colors --content-base demo --hot --inline --config demo/webpack.config.js",
