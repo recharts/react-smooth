@@ -1,4 +1,4 @@
-import Animate from '../lib/';
+import Animate from '../src/';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
