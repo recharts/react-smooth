@@ -1,8 +1,8 @@
 # ReAnimate
 ReAnimate = React + Animate
 
-[![npm version](https://badge.fury.io/js/react-css-animation.png)](https://badge.fury.io/js/react-css-animation)
-[![build status](https://travis-ci.org/recharts/react-css-animation.svg)](https://travis-ci.org/recharts/react-css-animation)
+[![npm version](https://badge.fury.io/js/re-animate.png)](https://badge.fury.io/js/re-animate)
+[![build status](https://travis-ci.org/recharts/reanimate.svg)](https://travis-ci.org/recharts/reanimate)
 
 ## install
 ```
