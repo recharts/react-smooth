@@ -12,7 +12,7 @@ npm i --save re-animate
 ## Usage
 ```jsx
 <Animate to="0" attributeName="opacity">
-  <div>
+  <div />
 </Animate>
 ```
 or
@@ -38,7 +38,7 @@ const steps = [{
 
 ```jsx
 <Animate steps={steps}>
-  <div>
+  <div />
 </Animate>
 ```
 
