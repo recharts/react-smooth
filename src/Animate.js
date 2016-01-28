@@ -96,7 +96,7 @@ class Animate extends Component {
 
       const duration = moment - preItem.moment;
       const transition = properties.map(prop => {
-        return `${prop} ${duration}ms easing`;
+        return `${prop} ${duration}ms ${easing}`;
       }).join(',');
 
       const newStyle = {
@@ -163,6 +163,7 @@ class Animate extends Component {
 
   handleStyleChange() {
     const style = this.manager.getStyle();
+    console.log(style);
     this.setState({ style });
   }
 

@@ -1,10 +1,10 @@
 {
   "name": "react-smooth",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "react animation library",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "files": [
-    "lib"
+    "src"
   ],
   "keywords": [
     "react",
@@ -55,7 +55,8 @@
     "mocha": "^2.3.4",
     "phantomjs": "^1.9.18",
     "react-addons-test-utils": "^0.14.6",
-    "webpack": "^1.12.11"
+    "webpack": "^1.12.11",
+    "webpack-dev-server": "^1.14.1"
   },
   "license": "MIT"
 }

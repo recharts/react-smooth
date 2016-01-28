@@ -1,4 +1,4 @@
-import Animate from 're-animate';
+import Animate from 'react-smooth';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 
@@ -86,15 +86,15 @@ class Gossip extends Component {
       style: {
         opacity: 1,
         transform: 'rotate(0deg) translate(0px, 0px)',
-        easing: 'ease-in',
       },
+      easing: 'ease-in',
     }, {
       moment: 3000,
       style: {
         transformOrigin: '110px 110px',
         transform: 'rotate(500deg) translate(0px, 0px)',
-        easing: 'ease-in-out',
       },
+      easing: 'ease-in-out',
     }, {
       moment: 5000,
       style: {

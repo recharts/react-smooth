@@ -160,7 +160,7 @@ export const translateStyle = style => {
   return Object.keys(style).reduce((res, key) => {
     if (containsNeedTranslated(key)) {
       return {
-        ...style,
+        ...res,
         ...generatePrefixStyle(key, res[key]),
       };
     }

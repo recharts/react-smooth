@@ -1,4 +1,4 @@
-import Animate from 're-animate';
+import Animate from 'react-smooth';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 

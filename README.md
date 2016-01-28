@@ -2,8 +2,8 @@
 
 react-smooth is a animation library work on React.
 
-[![npm version](https://badge.fury.io/js/re-animate.png)](https://badge.fury.io/js/re-animate)
-[![build status](https://travis-ci.org/recharts/reanimate.svg)](https://travis-ci.org/recharts/reanimate)
+[![npm version](https://badge.fury.io/js/react-smooth.png)](https://badge.fury.io/js/react-smooth)
+[![build status](https://travis-ci.org/recharts/react-smooth.svg)](https://travis-ci.org/recharts/react-smooth)
 
 ## install
 ```
