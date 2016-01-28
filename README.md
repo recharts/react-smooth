@@ -1,12 +1,13 @@
-# ReAnimate
-ReAnimate = React + Animate
+# react-smooth
+
+react-smooth is a animation library work on React.
 
 [![npm version](https://badge.fury.io/js/re-animate.png)](https://badge.fury.io/js/re-animate)
 [![build status](https://travis-ci.org/recharts/reanimate.svg)](https://travis-ci.org/recharts/reanimate)
 
 ## install
 ```
-npm i --save re-animate
+npm install --save react-smooth
 ```
 
 ## Usage

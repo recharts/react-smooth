@@ -1,10 +1,15 @@
 {
-  "name": "re-animate",
+  "name": "react-smooth",
   "version": "0.0.3",
-  "description": "react animation",
+  "description": "react animation library",
   "main": "lib/index.js",
   "files": [
     "lib"
+  ],
+  "keywords": [
+    "react",
+    "animation",
+    "reactjs"
   ],
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run",
@@ -15,25 +20,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/recharts/react-css-animation.git"
+    "url": "https://github.com/recharts/react-smooth.git"
   },
-  "keywords": [
-    "react",
-    "animation",
-    "reactjs"
-  ],
-  "maintainers": [
-    {
-      "name": "hzongquan",
-      "email": "hzongquan@126.com"
-    }
-  ],
-  "author": "Jason",
-  "license": "MIT",
+  "author": "JasonHzq",
   "bugs": {
-    "url": "https://github.com/recharts/react-css-animation/issues"
+    "url": "https://github.com/recharts/react-smooth/issues"
   },
-  "homepage": "https://github.com/recharts/react-css-animation#readme",
+  "homepage": "https://github.com/recharts/react-smooth#readme",
   "dependencies": {
     "babel-register": "^6.4.3",
     "pure-render-decorator": "^0.2.0",
@@ -63,5 +56,6 @@
     "phantomjs": "^1.9.18",
     "react-addons-test-utils": "^0.14.6",
     "webpack": "^1.12.11"
-  }
+  },
+  "license": "MIT"
 }
