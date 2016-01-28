@@ -1,7 +1,7 @@
 import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import createAnimateManager from './AnimateManager';
 import pureRender from 'pure-render-decorator';
-import { getDashCase, debug, getIntersectionKeys } from './util';
+import { getDashCase, getIntersectionKeys } from './util';
 
 @pureRender
 class Animate extends Component {
@@ -163,7 +163,6 @@ class Animate extends Component {
 
   handleStyleChange() {
     const style = this.manager.getStyle();
-    console.log(style);
     this.setState({ style });
   }
 
@@ -180,22 +179,30 @@ class Animate extends Component {
       to,
       ...others,
     } = this.props;
-    const container = Children.only(children);
-    // todo: set animation to all children
-    const { style = {}, className } = container.props;
+    const count = Children.count(children);
 
-    if (!isActive) {
+    if (!isActive || count === 0) {
       return children;
     }
 
-    return cloneElement(container, {
-      ...others,
-      style: {
-        ...this.state.style,
-        ...style,
-      },
-      className,
-    });
+    const cloneContainer = container => {
+      const { style = {}, className } = container.props;
+
+      return cloneElement(container, {
+        ...others,
+        style: {
+          ...this.state.style,
+          ...style,
+        },
+        className,
+      });
+    };
+
+    if (count === 1) {
+      return cloneContainer(Children.only(children));
+    }
+
+    return <div>{Children.map(children, child => cloneContainer(child))}</div>;
   }
 }
 

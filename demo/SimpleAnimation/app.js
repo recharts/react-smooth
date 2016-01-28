@@ -5,7 +5,8 @@ import ReactDom from 'react-dom';
 const Simple = props => (
   <div>
     <Animate to="0.2" attributeName="opacity" easing="ease-in-out">
-      <div style={{ width: 100, height: 100, backgroundColor: 'red' }}></div>
+      <div style={{ width: 100, height: 50, backgroundColor: 'red' }}></div>
+      <div style={{ width: 100, height: 50, backgroundColor: 'red' }}></div>
     </Animate>
     <Animate begin={2000} from="0.8" to="0.2" attributeName="opacity">
       <div style={{ width: 100, height: 100, backgroundColor: 'red' }}></div>
