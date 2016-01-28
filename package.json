@@ -20,8 +20,7 @@
   "keywords": [
     "react",
     "animation",
-    "reactjs",
-    "ramda"
+    "reactjs"
   ],
   "maintainers": [
     {
@@ -38,7 +37,6 @@
   "dependencies": {
     "babel-register": "^6.4.3",
     "pure-render-decorator": "^0.2.0",
-    "ramda": "^0.19.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6"
   },

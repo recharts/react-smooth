@@ -1,8 +1,7 @@
 import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import createAnimateManager from './AnimateManager';
 import pureRender from 'pure-render-decorator';
-import R from 'ramda';
-import { getDashCase, debug } from './util';
+import { getDashCase, debug, getIntersectionKeys } from './util';
 
 @pureRender
 class Animate extends Component {
@@ -90,32 +89,35 @@ class Animate extends Component {
         properties: nextProperties,
         onAnimationEnd,
       } = nextItem;
-      const preItem = R.ifElse(R.lte(0), R.nth(R.__, steps), R.always(nextItem))(index - 1);
+
+      const preItem = index > 0 ? steps[index - 1] : nextItem;
       const properties = nextProperties ||
-        R.map(
-          getDashCase,
-          R.intersection(R.keys(preItem.style), R.keys(style))
-      );
+        getIntersectionKeys(preItem.style, style).map(getDashCase);
+
       const duration = moment - preItem.moment;
-      const transition = R.map(R.add(R.__, ' ' + duration + 'ms ' + easing), properties).join(',');
+      const transition = properties.map(prop => {
+        return `${prop} ${duration}ms easing`;
+      }).join(',');
+
       const newStyle = {
         ...nextItem.style,
         transition,
       };
-      const appendSequence = R.append(R.__, sequence);
 
-      return R.ifElse(
-        R.isNil,
-        R.always([...sequence, newStyle, duration]),
-        R.always([...sequence, newStyle, duration, onAnimationEnd])
-      )(onAnimationEnd);
+      const list = [...sequence, newStyle, duration];
+
+      if (onAnimationEnd) {
+        return [...list, onAnimationEnd];
+      }
+
+      return list;
     };
 
     return this.manager.setStyle(
-      R.append(
+      [
+        ...steps.reduce(addStyle, [initialStyle, initialTime]),
         this.props.onAnimationEnd,
-        R.addIndex(R.reduce)(addStyle, [initialStyle, initialTime], steps)
-      )
+      ]
     );
   }
 
@@ -147,16 +149,14 @@ class Animate extends Component {
     const from = attributeName ? { [attributeName]: propsFrom } : propsFrom;
     const to = attributeName ? { [attributeName]: propsTo } : propsTo;
 
-    const getTransitionValue = (d, e) => key => `${getDashCase(key)} ${d}ms ${e}`;
-    const getTransitionValues = (pre, next, getTransitionVal) =>
-      R.map(getTransitionVal, R.intersection(R.keys(pre), R.keys(next))).join(',');
-
     if (steps.length > 1) {
       this.runStepAnimation(steps);
       return;
     }
 
-    const transition = getTransitionValues(from, to, getTransitionValue(duration, easing));
+    const transition = getIntersectionKeys(from, to).map(key => {
+      return `${getDashCase(key)} ${duration}ms ${easing}`;
+    }).join(',');
 
     manager.setStyle([from, begin, { ...to, transition }, duration, onAnimationEnd]);
   }

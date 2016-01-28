@@ -1,7 +1,84 @@
-import R from 'ramda';
-
 const PREFIX_LIST = ['Webkit', 'Moz', 'O', 'ms'];
 const IN_COMPATIBLE_PROPERTY = ['transform', 'transformOrigin', 'transition'];
+
+export const __ = {
+  '@@functional/placeholder': true,
+};
+
+const isPlaceHolder = val => val === __;
+
+const _curry0 = (fn) => {
+  return function _curried(...args) {
+    if (args.length === 0 || args.length === 1 && isPlaceHolder(args[0])) {
+      return _curried;
+    }
+
+    return fn(...args);
+  };
+};
+
+const curryN = (n, fn) => {
+  if (n === 1) {
+    return fn;
+  }
+
+  return _curry0((...args) => {
+    const argsLength = args.filter(arg => arg !== __).length;
+
+    if (argsLength >= n) {
+      return fn(...args);
+    }
+
+    return curryN(n - argsLength, _curry0((...restArgs) => {
+      const newArgs = args.map(arg =>
+        isPlaceHolder(arg) ? restArgs.shift() : arg
+      );
+
+      return fn(...newArgs, ...restArgs);
+    }));
+  });
+};
+
+export const curry = fn => {
+  return curryN(fn.length, fn);
+};
+
+export const compose = (...args) => {
+  if (!args.length) {
+    return identity;
+  }
+
+  const fns = args.reverse();
+  // first function can receive multiply arguments
+  const firstFn = fns[0];
+  const tailsFn = fns.slice(1);
+
+  return (...composeArgs) =>
+    tailsFn.reduce((res, fn) =>
+      fn(res),
+      firstFn(...composeArgs)
+  );
+};
+
+const keys = obj => Object.keys(obj);
+const intersection = (preArr, nextArr) => {
+  let res = [];
+
+  for (let i = 0, preLength = preArr.length; i < preLength; ++i) {
+    for (let j = 0, nextLength = nextArr.length; j < nextLength; ++j) {
+      if (preArr[i] === nextArr[j]) {
+        res = [...res, preArr[i]];
+        break;
+      }
+    }
+  }
+
+  return res;
+};
+
+export const getIntersectionKeys = (preObj, nextObj) => {
+  return intersection(keys(preObj), keys(nextObj));
+};
 
 /*
  * @description: convert camel case to dash case
@@ -60,7 +137,7 @@ export const debugf = (f, tag) => (...args) => {
  * @description: checks if the input style property need add compatible style prefix
  * string => boolean
  */
-export const containsNeedTranslated = R.contains(R.__, IN_COMPATIBLE_PROPERTY);
+export const containsNeedTranslated = key => IN_COMPATIBLE_PROPERTY.indexOf(key) !== -1;
 
 /*
  * @description: log name, args, return value of a function
@@ -72,17 +149,22 @@ export const toObj = ([key, val]) => ({ [key]: val });
  * @description: add compatible prefix to style
  * object => object
  */
-export const translateStyle = R.pipe(
-  R.converge(R.zip, [R.keys, R.values]),
-  R.map(
-    R.ifElse(
-      R.pipe(
-        R.head,
-        containsNeedTranslated
-      ),
-      R.apply(generatePrefixStyle),
-      toObj,
-    )
-  ),
-  R.mergeAll,
+
+const mapObj = curry((fn, obj) =>
+  Object.keys(obj).map(key =>
+    obj[key]
+  ).map(fn)
 );
+
+export const translateStyle = style => {
+  return Object.keys(style).reduce((res, key) => {
+    if (containsNeedTranslated(key)) {
+      return {
+        ...style,
+        ...generatePrefixStyle(key, res[key]),
+      };
+    }
+
+    return res;
+  }, style);
+};

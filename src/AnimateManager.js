@@ -1,5 +1,5 @@
 import { translateStyle, debugf } from './util';
-import R from 'ramda';
+import { compose } from './util';
 
 const createAnimateManager = initialStyle => {
   let currStyle = initialStyle;
@@ -28,7 +28,7 @@ const applyMiddleware = (...middlewares) => {
       setStyle: (action) => setStyle(action),
     };
     chain = middlewares.map(middleware => middleware(middlewareAPI));
-    setStyle = R.compose(...chain)(manager.setStyle);
+    setStyle = compose(...chain)(manager.setStyle);
 
     return {
       ...manager,
@@ -83,7 +83,7 @@ const thunkMiddeware = ({ setStyle, getStyle }) => next => style => {
   return next(style);
 };
 
-const finalCreateAniamteManager = R.compose(
+const finalCreateAniamteManager = compose(
   applyMiddleware(setStyleAsync, sequenceMiddleware, thunkMiddeware)
 )(createAnimateManager);
 
