@@ -11,9 +11,11 @@ const createAnimateManager = initialStyle => {
       handleChange = listener;
     },
     setStyle: (style) => {
-      shouldStop = false;
       currStyle = translateStyle(style);
       handleChange();
+    },
+    start: () => {
+      shouldStop = false;
     },
     getShouldStop: () => shouldStop,
     getStyle: () => currStyle,
@@ -31,7 +33,7 @@ const applyMiddleware = (...middlewares) => {
 
     var middlewareAPI = {
       ...manager,
-      setStyle: (action) => setStyle(action),
+      setStyle: (_style) => setStyle(_style),
     };
     chain = middlewares.map(middleware => middleware(middlewareAPI));
     setStyle = compose(...chain)(manager.setStyle);
@@ -39,6 +41,10 @@ const applyMiddleware = (...middlewares) => {
     return {
       ...manager,
       setStyle,
+      start: (_style) => {
+        manager.start();
+        return setStyle(_style);
+      },
     };
   };
 };
@@ -50,7 +56,9 @@ const setStyleAsync = ({ setStyle, getShouldStop }) => next => {
     if (getShouldStop()) {
       clearTimeout(timeout);
 
-      return new Promise((resolve, reject) => reject());
+      return new Promise((resolve, reject) => {
+        reject();
+      });
     }
 
     if ((typeof style === 'function' || Array.isArray(style))) {
@@ -99,6 +107,15 @@ const thunkMiddeware = ({ setStyle, getStyle }) => next => style => {
   return next(style);
 };
 
+
+/*
+ * manager.setStyle:
+ * if style is an object, manager will set a new style.
+ * if style is a number, manager will wait time of style microsecond.
+ * if style is a function, manager will run this function bind arguments of
+ *  getStyle and setStyle.
+ * if style is an array, manager will run setStyle of every element in order.
+ */
 const finalCreateAniamteManager = compose(
   applyMiddleware(setStyleAsync, sequenceMiddleware, thunkMiddeware)
 )(createAnimateManager);

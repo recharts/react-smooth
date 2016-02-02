@@ -6,14 +6,12 @@ import {
 } from './util';
 import { filter } from 'lodash/collection';
 
-const ACCURACY = 1e-2;
-
 const alpha = (begin, end, k) => {
   return begin + (end - begin) * k;
 };
 
-const isAlmostEqual = ({ from, to }) => {
-  return Math.abs(from - to) < ACCURACY;
+const needContinue = ({ from, to }) => {
+  return from !== to;
 };
 
 /*
@@ -22,7 +20,7 @@ const isAlmostEqual = ({ from, to }) => {
  */
 const calStepperVals = (easing, preVals, steps) => {
   const nextStepVals = mapObject((key, val) => {
-    if (!isAlmostEqual(val)) {
+    if (needContinue(val)) {
       const [newX, newV] = easing(val.from, val.to, val.velocity);
       return {
         ...val,
@@ -36,7 +34,7 @@ const calStepperVals = (easing, preVals, steps) => {
 
   if (steps < 1) {
     return mapObject((key, val) => {
-      if (!isAlmostEqual(val)) {
+      if (needContinue(val)) {
         return {
           ...val,
           velocity: alpha(val.velocity, nextStepVals[key].velocity, steps),
@@ -81,7 +79,7 @@ export default (from, to, easing, duration, render) => {
       return mapObject((key, val) => val.from, stepperStyle);
     };
     const shouldStopAnimation = () => {
-      return filter(stepperStyle, val => !isAlmostEqual(val)).length;
+      return !filter(stepperStyle, needContinue).length;
     };
 
     update = (now) => {

@@ -128,10 +128,21 @@ class Animate extends Component {
   }
 
   runJSAnimation(props) {
-    const { from, to, duration, easing } = props;
+    const { from, to, duration, easing, begin, onAnimationEnd } = props;
     const render = style => this.setState({ style });
     const startAnimation = configUpdate(from, to, configEasing(easing), duration, render);
-    this.stopJSAnimation = startAnimation();
+
+    const finalStartAnimation = () => {
+      this.stopJSAnimation = startAnimation();
+    };
+
+    this.manager.start([
+      from,
+      begin,
+      finalStartAnimation,
+      duration,
+      onAnimationEnd,
+    ]);
   }
 
   runStepAnimation(props) {
@@ -184,15 +195,7 @@ class Animate extends Component {
       return list;
     };
 
-    /*
-     * manager.setStyle:
-     * if style is an object, manager will set a new style.
-     * if style is a number, manager will wait time of style microsecond.
-     * if style is a function, manager will run this function bind arguments of
-     *  getStyle and setStyle.
-     * if style is an array, manager will run setStyle of every element in order.
-     */
-    return this.manager.setStyle(
+    return this.manager.start(
       [
         ...steps.reduce(addStyle, [initialStyle, initialTime]),
         props.onAnimationEnd,
@@ -216,13 +219,13 @@ class Animate extends Component {
       children,
     } = props;
 
+    const manager = this.manager;
+    manager.subscribe(::this.handleStyleChange);
+
     if (typeof easing === 'function' || typeof children === 'function' || easing === 'spring') {
       this.runJSAnimation(props);
       return;
     }
-
-    const manager = this.manager;
-    manager.subscribe(::this.handleStyleChange);
 
     const from = attributeName ? { [attributeName]: propsFrom } : propsFrom;
     const to = attributeName ? { [attributeName]: propsTo } : propsTo;
@@ -236,7 +239,7 @@ class Animate extends Component {
       return `${getDashCase(key)} ${duration}ms ${easing}`;
     }).join(',');
 
-    manager.setStyle([from, begin, { ...to, transition }, duration, onAnimationEnd]);
+    manager.start([from, begin, { ...to, transition }, duration, onAnimationEnd]);
   }
 
   handleStyleChange() {

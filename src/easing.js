@@ -1,5 +1,7 @@
 import invariant from 'invariant';
 
+const ACCURACY = 1e-3;
+
 const _cubicBezier = (c1, c2) => {
   return [
     0,
@@ -64,6 +66,15 @@ export const configBezier = (...args) => {
   const curveX = cubicBezier(x1, x2);
   const curveY = cubicBezier(y1, y2);
   const derCurveX = derivativeCubicBezier(x1, x2);
+  const rangeValue = value => {
+    if (value > 1) {
+      return 1;
+    } else if (value < 0) {
+      return 0;
+    }
+
+    return value;
+  };
 
   const bezier = _t => {
     const t = _t > 1 ? 1 : _t;
@@ -73,11 +84,11 @@ export const configBezier = (...args) => {
       const evalT = curveX(x) - t;
       const derVal = derCurveX(x);
 
-      if (Math.abs(evalT - t) < 1e-5 || derVal < 1e-5) {
+      if (Math.abs(evalT - t) < ACCURACY || derVal < ACCURACY) {
         return curveY(x);
       }
 
-      x = x - evalT / derVal;
+      x = rangeValue(x - evalT / derVal);
     }
 
     return curveY(x);
@@ -95,6 +106,10 @@ export const configSpring = (config = {}) => {
     const FDamping = currV * damping;
     const newV = currV + (FSpring - FDamping) * dt / 1000;
     const newX = currV * dt / 1000 + currX;
+
+    if (Math.abs(newX - destX) < ACCURACY && Math.abs(newV) < ACCURACY) {
+      return [destX, 0];
+    }
     return [newX, newV];
   };
 
