@@ -1,3 +1,7 @@
+### 0.0.4 / 2016-02-02
+===
+- fix: support onAnimationEnd in js animation
+
 ### 0.0.3 / 2016-02-02
 ===
 - refactor: refactor the import path of lodash function
