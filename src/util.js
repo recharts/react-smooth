@@ -1,11 +1,10 @@
-import { keys } from 'lodash/object';
-import { intersection } from 'lodash/array';
+import intersection from 'lodash/intersection';
 
 const PREFIX_LIST = ['Webkit', 'Moz', 'O', 'ms'];
 const IN_COMPATIBLE_PROPERTY = ['transform', 'transformOrigin', 'transition'];
 
 export const getIntersectionKeys = (preObj, nextObj) => {
-  return intersection(keys(preObj), keys(nextObj));
+  return intersection(Object.keys(preObj), Object.keys(nextObj));
 };
 
 /*
