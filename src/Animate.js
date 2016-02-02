@@ -1,10 +1,10 @@
 import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import createAnimateManager from './AnimateManager';
 import pureRender from 'pure-render-decorator';
-import { omit } from 'lodash/fp';
+import omit from 'lodash/fp/omit';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
-import { isEqual } from 'lodash/lang';
+import isEqual from 'lodash/isEqual';
 import { getDashCase, getIntersectionKeys } from './util';
 
 @pureRender
