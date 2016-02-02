@@ -11,13 +11,16 @@ npm install --save react-smooth
 ```
 
 ## Usage
+ordinary animation
+
 ```jsx
 <Animate to="0" attributeName="opacity">
   <div />
 </Animate>
 ```
-or
-```js
+steps animation
+
+```jsx
 const steps = [{
   style: {
     opacity: 0,
@@ -35,17 +38,71 @@ const steps = [{
   },
   moment: 1200,
 }];
-```
 
-```jsx
 <Animate steps={steps}>
   <div />
 </Animate>
 ```
+children can be a function
+
+```jsx
+<Animate from={{ opacity: 0 }}
+  to={{ opacity: 1 }}
+  easing="ease-in"
+  >
+  {
+    ({ opacity }) => <div style={{ opacity }}></div>
+  }
+</Animate>
+```
+
+you can configure js timing function
+
+```js
+const easing = configureEasing('linear');
+const easing = configureEasing('spring');
+const easing = configureEasing('ease-in-out');
+const easing = configureBezier(0.1, 0.1, 0.5, 0.8);
+const easing = configureSpring({ stiff: 170, damping: 20 });
+```
+
+group animation
+
+```jsx
+const appear = {
+  from: 0,
+  to: 1,
+  attributeName: 'opacity',
+};
+
+const leave = {
+  steps: [{
+    moment: 0,
+    style: {
+      transform: 'translateX(0)',
+    },
+  }, {
+    moment: 1000,
+    style: {
+      transform: 'translateX(300)',
+      height: 50,
+    },
+  }, {
+    moment: 2000,
+    style: {
+      height: 0,
+    },
+  }]
+}
+
+<AnimateGroup appear={appear} leave={leave}>
+  { list }
+</AnimateGroup>
+```
 
 ## API
 
-### props
+### Animate
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -122,6 +179,39 @@ const steps = [{
           <td>element</td>
           <td></td>
           <td>support only child temporary</td>
+        </tr>
+    </tbody>
+</table>
+
+### AnimateGroup
+
+<table class="table table-bordered table-striped animate-group">
+    <thead>
+    <tr>
+        <th style="width: 40px">name</th>
+        <th style="width: 40px">type</th>
+        <th style="width: 40px">default</th>
+        <th style="width: 100px">description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>appear</td>
+          <td>object</td>
+          <td>undefined</td>
+          <td>configure element appear animation</td>
+        </tr>
+        <tr>
+          <td>enter</td>
+          <td>object</td>
+          <td>undefined</td>
+          <td>configure element appear animation</td>
+        </tr>
+        <tr>
+          <td>leave</td>
+          <td>object</td>
+          <td>undefined</td>
+          <td>configure element appear animation</td>
         </tr>
     </tbody>
 </table>
