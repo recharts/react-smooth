@@ -1,19 +1,25 @@
-import { translateStyle, debugf } from './util';
-import { compose } from './util';
+import { translateStyle } from './util';
+import { compose } from 'lodash/fp';
 
 const createAnimateManager = initialStyle => {
   let currStyle = initialStyle;
   let handleChange = () => {};
+  let shouldStop = false;
 
   return {
     subscribe: listener => {
       handleChange = listener;
     },
     setStyle: (style) => {
+      shouldStop = false;
       currStyle = translateStyle(style);
       handleChange();
     },
+    getShouldStop: () => shouldStop,
     getStyle: () => currStyle,
+    stop: () => {
+      shouldStop = true;
+    },
   };
 };
 
@@ -24,7 +30,7 @@ const applyMiddleware = (...middlewares) => {
     var chain = [];
 
     var middlewareAPI = {
-      getStyle: manager.getStyle,
+      ...manager,
       setStyle: (action) => setStyle(action),
     };
     chain = middlewares.map(middleware => middleware(middlewareAPI));
@@ -37,27 +43,37 @@ const applyMiddleware = (...middlewares) => {
   };
 };
 
-const setStyleAsync = ({ setStyle }) => next => style => {
-  if (typeof style === 'function' || Array.isArray(style)) {
-    return next(style);
-  }
+const setStyleAsync = ({ setStyle, getShouldStop }) => next => {
+  let timeout = null;
 
-  return new Promise((resolve, reject) => {
-    let timeout = 0;
-    let callback = next;
+  return style => {
+    if (getShouldStop()) {
+      clearTimeout(timeout);
 
-    if (typeof style === 'number') {
-      timeout = style;
-      callback = () => {};
+      return new Promise((resolve, reject) => reject());
     }
 
-    setTimeout(() => {
-      const res = callback(style);
-      resolve();
+    if ((typeof style === 'function' || Array.isArray(style))) {
+      return next(style);
+    }
 
-      return res;
-    }, timeout);
-  });
+    return new Promise((resolve, reject) => {
+      let delay = 0;
+      let callback = next;
+
+      if (typeof style === 'number') {
+        delay = style;
+        callback = () => {};
+      }
+
+      timeout = setTimeout(() => {
+        const res = callback(style);
+        resolve();
+
+        return res;
+      }, delay);
+    });
+  };
 };
 
 const sequenceMiddleware = ({ setStyle }) => next => style => {
@@ -67,7 +83,7 @@ const sequenceMiddleware = ({ setStyle }) => next => style => {
     return styles.reduce(
       (result, currStyle) => result.then(() => {
         return setStyle(currStyle);
-      }),
+      }).catch(() => {}),
       Promise.resolve()
     );
   }

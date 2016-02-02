@@ -5,6 +5,7 @@ var path = require('path');
 module.exports = {
   entry: {
     Gossip: __dirname + '/Gossip/app.js',
+    GroupAnimation: __dirname + '/GroupAnimation/app.js',
     SimpleAnimation: __dirname + '/SimpleAnimation/app.js',
   },
   devtool: 'sourcemap',
