@@ -28,15 +28,15 @@
   },
   "homepage": "https://github.com/recharts/react-smooth#readme",
   "peerDependencies": {
-    "react": "0.14.6",
-    "react-dom": "0.14.6"
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "dependencies": {
     "invariant": "2.2.0",
     "lodash": "4.1.0",
     "pure-render-decorator": "0.2.0",
     "raf": "3.1.0",
-    "react-addons-transition-group": "0.14.6"
+    "react-addons-transition-group": "^0.14.0"
   },
   "devDependencies": {
     "babel-register": "6.4.3",
@@ -60,9 +60,9 @@
     "karma-webpack": "1.7.0",
     "mocha": "2.3.4",
     "phantomjs": "1.9.18",
-    "react": "0.14.7",
-    "react-addons-test-utils": "0.14.6",
-    "react-dom": "0.14.7",
+    "react": "^0.14.0",
+    "react-addons-test-utils": "^0.14.0",
+    "react-dom": "^0.14.0",
     "webpack": "1.12.11",
     "webpack-dev-server": "1.14.1"
   },
