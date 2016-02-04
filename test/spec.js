@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 
-const MIN_TIME = 20;
+const MIN_TIME = 60;
 
 describe('Animate', () => {
 

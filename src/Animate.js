@@ -7,7 +7,7 @@ import configUpdate from './configUpdate';
 import isEqual from 'lodash/isEqual';
 import { getDashCase, getIntersectionKeys } from './util';
 
-const MIN_TIME = 10;
+const MIN_TIME = 50;
 
 @pureRender
 class Animate extends Component {

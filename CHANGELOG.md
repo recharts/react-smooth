@@ -1,3 +1,7 @@
+### 0.0.6 / 2016-02-04
+===
+- fix: set min time longer
+
 ### 0.0.5 / 2016-02-04
 ===
 - fix: fix animation not valid for set css styles too quick.
