@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 
+const MIN_TIME = 20;
+
 describe('Animate', () => {
 
   it('Should change the style of children', (done) => {
@@ -71,7 +73,7 @@ describe('Animate', () => {
     expect(ReactDOM.findDOMNode(instance).style.opacity).to.equal('0');
     setTimeout(() => {
       expect(ReactDOM.findDOMNode(instance).style.opacity).to.equal('1');
-    });
+    }, MIN_TIME);
     setTimeout(() => {
       expect(status).to.equal('second');
       expect(ReactDOM.findDOMNode(instance).style.opacity).to.equal('0.5');

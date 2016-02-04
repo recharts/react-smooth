@@ -1,3 +1,7 @@
+### 0.0.5 / 2016-02-04
+===
+- fix: fix animation not valid for set css styles too quick.
+
 ### 0.0.4 / 2016-02-02
 ===
 - fix: support onAnimationEnd in js animation

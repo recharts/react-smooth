@@ -7,6 +7,8 @@ import configUpdate from './configUpdate';
 import isEqual from 'lodash/isEqual';
 import { getDashCase, getIntersectionKeys } from './util';
 
+const MIN_TIME = 10;
+
 @pureRender
 class Animate extends Component {
   static displayName = 'Animate';
@@ -197,7 +199,7 @@ class Animate extends Component {
 
     return this.manager.start(
       [
-        ...steps.reduce(addStyle, [initialStyle, initialTime]),
+        ...steps.reduce(addStyle, [initialStyle, Math.max(initialTime, MIN_TIME)]),
         props.onAnimationEnd,
       ]
     );
@@ -239,7 +241,7 @@ class Animate extends Component {
       return `${getDashCase(key)} ${duration}ms ${easing}`;
     }).join(',');
 
-    manager.start([from, begin, { ...to, transition }, duration, onAnimationEnd]);
+    manager.start([from, Math.max(begin, MIN_TIME), { ...to, transition }, duration, onAnimationEnd]);
   }
 
   handleStyleChange() {

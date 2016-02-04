@@ -59,9 +59,6 @@ children can be a function
 you can configure js timing function
 
 ```js
-const easing = configureEasing('linear');
-const easing = configureEasing('spring');
-const easing = configureEasing('ease-in-out');
 const easing = configureBezier(0.1, 0.1, 0.5, 0.8);
 const easing = configureSpring({ stiff: 170, damping: 20 });
 ```

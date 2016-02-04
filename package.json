@@ -1,6 +1,6 @@
 {
   "name": "react-smooth",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "react animation library",
   "main": "src/index.js",
   "files": [
@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/recharts/react-smooth#readme",
   "peerDependencies": {
-    "react": ^"0.14.0",
-    "react-dom": ^"0.14.0"
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "dependencies": {
     "invariant": "2.2.0",
@@ -60,7 +60,7 @@
     "karma-webpack": "1.7.0",
     "mocha": "2.3.4",
     "phantomjs": "1.9.18",
-    "react": ^"0.14.0",
+    "react": "^0.14.0",
     "react-addons-test-utils": "^0.14.0",
     "react-dom": "^0.14.0",
     "webpack": "1.12.11",
