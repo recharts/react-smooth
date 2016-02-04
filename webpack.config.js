@@ -1,10 +1,7 @@
-'use strict';
+var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/index.js',
   output: {
-    path: __dirname + '/lib',
-    filename: 'ReactSmooth.js',
     library: 'ReactSmooth',
     libraryTarget: 'umd',
   },
@@ -39,4 +36,13 @@ module.exports = {
       },
     ],
   },
+  node: {
+    Buffer: false
+  },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    })
+  ]
 };
