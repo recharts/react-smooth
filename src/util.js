@@ -1,4 +1,4 @@
-import intersection from 'lodash/intersection';
+import { intersection } from 'lodash';
 
 const PREFIX_LIST = ['Webkit', 'Moz', 'O', 'ms'];
 const IN_COMPATIBLE_PROPERTY = ['transform', 'transformOrigin', 'transition'];

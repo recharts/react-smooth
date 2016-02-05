@@ -1,5 +1,5 @@
 import { translateStyle } from './util';
-import compose from 'lodash/fp/compose';
+import { compose } from 'lodash';
 
 const createAnimateManager = initialStyle => {
   let currStyle = initialStyle;

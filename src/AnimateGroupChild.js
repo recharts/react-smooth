@@ -1,5 +1,4 @@
 import React, { Component, Children, PropTypes } from 'react';
-
 import Animate from './Animate';
 
 class AnimateGroupChild extends Component {

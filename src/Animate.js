@@ -1,10 +1,9 @@
 import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import createAnimateManager from './AnimateManager';
 import pureRender from 'pure-render-decorator';
-import omit from 'lodash/fp/omit';
+import _ from 'lodash';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
-import isEqual from 'lodash/isEqual';
 import { getDashCase, getIntersectionKeys } from './util';
 
 const MIN_TIME = 50;
@@ -101,9 +100,10 @@ class Animate extends Component {
       return;
     }
 
-    const omitSpec = omit(['children', 'onAnimationEnd']);
+    const omitSpec = _.omit(this.props, ['children', 'onAnimationEnd']);
+    const omitNextSpec = _.omit(nextProps, ['children', 'onAnimationEnd']);
 
-    if (isEqual(omitSpec(this.props), omitSpec(nextProps))) {
+    if (_.isEqual(omitSpec, omitNextSpec)) {
       return;
     }
 

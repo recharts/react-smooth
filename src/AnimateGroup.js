@@ -1,6 +1,5 @@
 import React, { Component, PropTypes, createElement, Children } from 'react';
 import ReactTransitionGroup from 'react-addons-transition-group';
-
 import AnimateGroupChild from './AnimateGroupChild';
 
 class AnimateGroup extends Component {

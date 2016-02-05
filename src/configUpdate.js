@@ -4,7 +4,7 @@ import {
   mapObject,
   translateStyle,
 } from './util';
-import { filter } from 'lodash/collection';
+import { filter } from 'lodash';
 
 const alpha = (begin, end, k) => {
   return begin + (end - begin) * k;

@@ -1,10 +1,15 @@
+var path = require('path');
+var fs = require('fs');
 var webpack = require('webpack')
 
 module.exports = {
+  entry: './src/index.js',
+
   output: {
     library: 'ReactSmooth',
     libraryTarget: 'umd',
   },
+
   externals: [{
     'react': {
       root: 'React',
@@ -27,19 +32,22 @@ module.exports = {
       amd: 'ReactTransitionGroup'
     }
   }],
+
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
+        include: [
+          path.resolve(__dirname, 'src'),
+        ],
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: 'babel',
       },
     ],
   },
-  node: {
-    Buffer: false
-  },
+
   plugins: [
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
