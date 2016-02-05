@@ -1,3 +1,7 @@
+### 0.0.9 / 2016-02-05
+===
+- fix: fix don't build on npm publish
+
 ### 0.0.8 / 2016-02-05
 ===
 - fix: fix lodash minify problem
