@@ -1,3 +1,7 @@
+### 0.0.8 / 2016-02-05
+===
+- fix: fix lodash minify problem
+
 ### 0.0.7 / 2016-02-04
 ===
 - chore: optimize npm script commands

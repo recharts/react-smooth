@@ -1,6 +1,6 @@
 {
   "name": "react-smooth",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "react animation library",
   "main": "lib/index",
   "jsnext:main": "es6/index",
@@ -14,8 +14,9 @@
   ],
   "keywords": [
     "react",
+    "reactjs",
     "animation",
-    "reactjs"
+    "react-component"
   ],
   "scripts": {
     "build": "npm run build-cjs && npm run build-es6",
