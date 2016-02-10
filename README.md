@@ -95,6 +95,22 @@ const leave = {
 <AnimateGroup appear={appear} leave={leave}>
   { list }
 </AnimateGroup>
+
+/*
+ *  style = { transform: xxx, ...others };
+ *
+ *  translatedStyle = {
+ *    WebkitTransform: xxx,
+ *    MozTransform: xxx,
+ *    OTransform: xxx,
+ *    ms: xxx,
+ *    ...others,
+ *  };
+ */
+
+const translatedStyle = translateStyle(style);
+
+
 ```
 
 ## API
