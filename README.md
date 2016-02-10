@@ -97,13 +97,15 @@ const leave = {
 </AnimateGroup>
 
 /*
+ *  @description: add compatible prefix in style
+ *
  *  style = { transform: xxx, ...others };
  *
  *  translatedStyle = {
  *    WebkitTransform: xxx,
  *    MozTransform: xxx,
  *    OTransform: xxx,
- *    ms: xxx,
+ *    msTransform: xxx,
  *    ...others,
  *  };
  */
