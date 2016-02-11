@@ -168,7 +168,7 @@ const translatedStyle = translateStyle(style);
         <tr>
           <td>onAnimationEnd</td>
           <td>function</td>
-          <td>() => {}</td>
+          <td>() => null</td>
           <td>called when animation finished</td>
         </tr>
         <tr>
