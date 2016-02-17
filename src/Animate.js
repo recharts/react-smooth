@@ -147,7 +147,7 @@ class Animate extends Component {
 
   runStepAnimation(props) {
     const { steps } = props;
-    const { style: initialStyle, duration: initialTime } = steps[0];
+    const { style: initialStyle, duration: initialTime = 0 } = steps[0];
 
     const addStyle = (sequence, nextItem, index) => {
       if (index === 0) {

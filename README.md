@@ -27,18 +27,18 @@ const steps = [{
   style: {
     opacity: 0,
   },
-  moment: 400,
+  duration: 400,
 }, {
   style: {
     opacity: 1,
     transform: 'translate(0, 0)',
   },
-  moment: 1000,
+  duration: 1000,
 }, {
   style: {
     transform: 'translate(100px, 100px)',
   },
-  moment: 1200,
+  duration: 1200,
 }];
 
 <Animate steps={steps}>
@@ -76,18 +76,17 @@ const appear = {
 
 const leave = {
   steps: [{
-    moment: 0,
     style: {
       transform: 'translateX(0)',
     },
   }, {
-    moment: 1000,
+    duration: 1000,
     style: {
       transform: 'translateX(300)',
       height: 50,
     },
   }, {
-    moment: 2000,
+    duration: 2000,
     style: {
       height: 0,
     },
