@@ -1,3 +1,8 @@
+### 0.0.10 / 2016-02-17
+===
+- refactor: remove lodash compose method
+- refactor: refactor configUpdate.js
+
 ### 0.0.9 / 2016-02-05
 ===
 - fix: fix don't build on npm publish
