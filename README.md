@@ -4,6 +4,8 @@ react-smooth is a animation library work on React.
 
 [![npm version](https://badge.fury.io/js/react-smooth.png)](https://badge.fury.io/js/react-smooth)
 [![build status](https://travis-ci.org/recharts/react-smooth.svg)](https://travis-ci.org/recharts/react-smooth)
+[![npm downloads](https://img.shields.io/npm/dt/react-smooth.svg?style=flat-square)](https://www.npmjs.com/package/react-smooth)
+[![Gitter](https://badges.gitter.im/recharts/react-smooth.svg)](https://gitter.im/recharts/react-smooth?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## install
 ```
@@ -97,13 +99,15 @@ const leave = {
 </AnimateGroup>
 
 /*
+ *  @description: add compatible prefix in style
+ *
  *  style = { transform: xxx, ...others };
  *
  *  translatedStyle = {
  *    WebkitTransform: xxx,
  *    MozTransform: xxx,
  *    OTransform: xxx,
- *    ms: xxx,
+ *    msTransform: xxx,
  *    ...others,
  *  };
  */
@@ -166,7 +170,7 @@ const translatedStyle = translateStyle(style);
         <tr>
           <td>onAnimationEnd</td>
           <td>function</td>
-          <td>() => {}</td>
+          <td>() => null</td>
           <td>called when animation finished</td>
         </tr>
         <tr>
