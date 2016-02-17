@@ -95,3 +95,21 @@ export const translateStyle = style => {
     return res;
   }, style);
 };
+
+export const compose = (...args) => {
+  if (!args.length) {
+    return identity;
+  }
+
+  const fns = args.reverse();
+  // first function can receive multiply arguments
+  const firstFn = fns[0];
+  const tailsFn = fns.slice(1);
+
+  return (...composeArgs) =>
+    tailsFn.reduce((res, fn) =>
+      fn(res),
+      firstFn(...composeArgs)
+  );
+};
+

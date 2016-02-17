@@ -58,6 +58,7 @@ export default (from, to, easing, duration, render) => {
       [key]: [from[key], to[key]],
     };
   }, {});
+
   let stepperStyle = interKeys.reduce((res, key) => {
     return {
       ...res,
@@ -69,62 +70,62 @@ export default (from, to, easing, duration, render) => {
     };
   }, {});
   let cafId = -1;
-  let update = () => {};
   let preTime;
   let beginTime;
 
+  const getCurrStyle = () => {
+    return mapObject((key, val) => val.from, stepperStyle);
+  };
+  const shouldStopAnimation = () => {
+    return !filter(stepperStyle, needContinue).length;
+  };
+
   // stepper timing function like spring
-  if (easing.isStepper) {
-    const getCurrStyle = () => {
-      return mapObject((key, val) => val.from, stepperStyle);
-    };
-    const shouldStopAnimation = () => {
-      return !filter(stepperStyle, needContinue).length;
-    };
-
-    update = (now) => {
-      if (!preTime) {
-        preTime = now;
-      }
-      const deltaTime = now - preTime;
-      const steps = deltaTime / easing.dt;
-
-      stepperStyle = calStepperVals(easing, stepperStyle, steps);
-      // get union set and add compatible prefix
-      render(translateStyle({
-        ...from,
-        ...to,
-        ...getCurrStyle(stepperStyle),
-      }));
-
+  const stepperUpdate = (now) => {
+    if (!preTime) {
       preTime = now;
+    }
+    const deltaTime = now - preTime;
+    const steps = deltaTime / easing.dt;
 
-      if (!shouldStopAnimation()) {
-        cafId = raf(update);
-      }
-    };
-  } else {
-    // t => val timing function like cubic-bezier
-    update = (now) => {
-      if (!beginTime) {
-        beginTime = now;
-      }
+    stepperStyle = calStepperVals(easing, stepperStyle, steps);
+    // get union set and add compatible prefix
+    render(translateStyle({
+      ...from,
+      ...to,
+      ...getCurrStyle(stepperStyle),
+    }));
 
-      const t = (now - beginTime) / duration;
-      const currStyle = mapObject((key, val) =>
-        alpha(...val, easing(t)), timingStyle);
-      // get union set and add compatible prefix
-      render(translateStyle({
-        ...from,
-        ...to,
-        ...currStyle,
-      }));
+    preTime = now;
 
-      if (t < 1) {
-        cafId = raf(update);
-      }
-    };
-  }
+    if (!shouldStopAnimation()) {
+      cafId = raf(update);
+    }
+  };
+
+  // t => val timing function like cubic-bezier
+  const timingUpdate = (now) => {
+    if (!beginTime) {
+      beginTime = now;
+    }
+
+    const t = (now - beginTime) / duration;
+    const currStyle = mapObject((key, val) =>
+      alpha(...val, easing(t)), timingStyle);
+
+    // get union set and add compatible prefix
+    render(translateStyle({
+      ...from,
+      ...to,
+      ...currStyle,
+    }));
+
+    if (t < 1) {
+      cafId = raf(update);
+    }
+  };
+
+  const update = easing.isStepper ? stepperUpdate : timingUpdate;
 
   // return start animation method
   return () => {

@@ -1,5 +1,4 @@
-import { translateStyle } from './util';
-import { compose } from 'lodash';
+import { translateStyle, compose } from './util';
 import raf from 'raf';
 
 const createAnimateManager = initialStyle => {

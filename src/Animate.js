@@ -146,7 +146,7 @@ class Animate extends Component {
   }
 
   runStepAnimation(props) {
-    const { steps } = props;
+    const { steps, begin } = props;
     const { style: initialStyle, duration: initialTime = 0 } = steps[0];
 
     const addStyle = (sequence, nextItem, index) => {
@@ -196,7 +196,7 @@ class Animate extends Component {
 
     return this.manager.start(
       [
-        ...steps.reduce(addStyle, [initialStyle, initialTime]),
+        ...steps.reduce(addStyle, [initialStyle, Math.max(initialTime, begin)]),
         props.onAnimationEnd,
       ]
     );
