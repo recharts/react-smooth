@@ -1,5 +1,6 @@
 import { translateStyle } from './util';
 import { compose } from 'lodash';
+import raf from 'raf';
 
 const createAnimateManager = initialStyle => {
   let currStyle = initialStyle;
@@ -75,10 +76,16 @@ const setStyleAsync = ({ setStyle, getShouldStop }) => next => {
       }
 
       timeout = setTimeout(() => {
-        const res = callback(style);
-        resolve();
+        // set style in next frame to avoid batch set style
+        let res = null;
 
-        return res;
+        raf(() => {
+          raf(() => {
+            res = callback(style);
+            resolve();
+            return res;
+          });
+        });
       }, delay);
     });
   };

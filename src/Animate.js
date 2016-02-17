@@ -6,8 +6,6 @@ import { configEasing } from './easing';
 import configUpdate from './configUpdate';
 import { getDashCase, getIntersectionKeys } from './util';
 
-const MIN_TIME = 50;
-
 @pureRender
 class Animate extends Component {
   static displayName = 'Animate';
@@ -21,7 +19,7 @@ class Animate extends Component {
     begin: PropTypes.number,
     easing: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     steps: PropTypes.arrayOf(PropTypes.shape({
-      moment: PropTypes.number.isRequired,
+      duration: PropTypes.number.isRequired,
       style: PropTypes.object.isRequired,
       easing: PropTypes.oneOfType([
         PropTypes.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear']),
@@ -149,7 +147,7 @@ class Animate extends Component {
 
   runStepAnimation(props) {
     const { steps } = props;
-    const { style: initialStyle, moment: initialTime } = steps[0];
+    const { style: initialStyle, duration: initialTime } = steps[0];
 
     const addStyle = (sequence, nextItem, index) => {
       if (index === 0) {
@@ -157,7 +155,7 @@ class Animate extends Component {
       }
 
       const {
-        moment,
+        duration,
         easing = 'ease',
         style,
         properties: nextProperties,
@@ -167,7 +165,6 @@ class Animate extends Component {
       const preItem = index > 0 ? steps[index - 1] : nextItem;
       const properties = nextProperties ||
         getIntersectionKeys(preItem.style, style).map(getDashCase);
-      const duration = moment - preItem.moment;
 
       if (typeof easing === 'function') {
         return [...sequence, this.runJSAnimation.bind(this, {
@@ -199,7 +196,7 @@ class Animate extends Component {
 
     return this.manager.start(
       [
-        ...steps.reduce(addStyle, [initialStyle, Math.max(initialTime, MIN_TIME)]),
+        ...steps.reduce(addStyle, [initialStyle, initialTime]),
         props.onAnimationEnd,
       ]
     );
@@ -241,7 +238,7 @@ class Animate extends Component {
       return `${getDashCase(key)} ${duration}ms ${easing}`;
     }).join(',');
 
-    manager.start([from, Math.max(begin, MIN_TIME), { ...to, transition }, duration, onAnimationEnd]);
+    manager.start([from, begin, { ...to, transition }, duration, onAnimationEnd]);
   }
 
   handleStyleChange() {

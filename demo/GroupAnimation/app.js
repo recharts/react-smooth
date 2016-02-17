@@ -66,18 +66,18 @@ class GroupAnimation extends Component {
     });
 
     const leaveSteps = [{
-      moment: 0,
+      duration: 0,
       style: {
         transform: 'translateX(0)',
       },
     }, {
-      moment: 1000,
+      duration: 1000,
       style: {
         transform: 'translateX(302px)',
         height: 50,
       },
     }, {
-      moment: 2000,
+      duration: 1000,
       style: {
         height: 0,
       },
