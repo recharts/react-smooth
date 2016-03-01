@@ -1,6 +1,6 @@
 import invariant from 'invariant';
 
-const ACCURACY = 1e-3;
+const ACCURACY = 1e-4;
 
 const _cubicBezier = (c1, c2) => {
   return [

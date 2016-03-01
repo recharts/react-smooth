@@ -117,6 +117,10 @@ class Animate extends Component {
   }
 
   componentWillUnmount() {
+    if (this.unSubscribe) {
+      this.unSubscribe();
+    }
+
     if (this.manager) {
       this.manager.stop();
       this.manager = null;
@@ -219,7 +223,8 @@ class Animate extends Component {
     } = props;
 
     const manager = this.manager;
-    manager.subscribe(::this.handleStyleChange);
+    
+    this.unSubscribe = manager.subscribe(::this.handleStyleChange);
 
     if (typeof easing === 'function' || typeof children === 'function' || easing === 'spring') {
       this.runJSAnimation(props);

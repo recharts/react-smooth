@@ -9,6 +9,10 @@ const createAnimateManager = initialStyle => {
   return {
     subscribe: listener => {
       handleChange = listener;
+
+      return () => {
+        handleChange = () => null;
+      };
     },
     setStyle: (style) => {
       currStyle = translateStyle(style);
