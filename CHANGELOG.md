@@ -1,3 +1,7 @@
+### 0.0.11 / 2016-03-01
+===
+- fix: fix haven't unsubscribe handleStyleChange
+
 ### 0.0.10 / 2016-02-17
 ===
 - refactor: remove lodash compose method
