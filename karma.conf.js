@@ -9,7 +9,7 @@ module.exports = function (config) {
     preprocessors: {
       'test/spec.js': ['webpack', 'sourcemap'],
     },
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     webpack: {
       devtool: 'inline-source-map',
       module: {
