@@ -1,3 +1,7 @@
+### 0.0.13 / 2016-03-15
+===
+- fix: fix update animation judgement
+
 ### 0.0.12 / 2016-03-15
 ===
 - fix: fix compatable prefix in transition property
