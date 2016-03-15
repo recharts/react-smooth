@@ -1,3 +1,7 @@
+### 0.0.13/0.0.15 / 2016-03-15
+===
+- fix: using isEqual in lodash and remove isEqual in utils
+
 ### 0.0.13/0.0.14 / 2016-03-15
 ===
 - fix: fix update animation judgement
