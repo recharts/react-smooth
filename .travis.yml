@@ -1,4 +1,4 @@
 language: node_js
 node_js:
   - "5.5.0"
-script: "./node_modules/karma/bin/karma start test/karma.conf.js --browsers Firefox --single-run --no-auto-watch --capture-timeout 60000"
+script: "./node_modules/karma/bin/karma start ./karma.conf.js --browsers Firefox --single-run --no-auto-watch --capture-timeout 60000"
