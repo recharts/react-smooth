@@ -1,3 +1,9 @@
+### 0.0.12 / 2016-03-15
+===
+- fix: fix compatable prefix in transition property
+- refactor: refactor some function in utils
+- refactor: using JSX instead of createElement
+
 ### 0.0.11 / 2016-03-01
 ===
 - fix: fix haven't unsubscribe handleStyleChange

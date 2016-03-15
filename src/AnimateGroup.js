@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, createElement, Children } from 'react';
+import React, { Component, PropTypes, Children } from 'react';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import AnimateGroupChild from './AnimateGroupChild';
 
