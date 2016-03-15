@@ -1,4 +1,4 @@
-import { translateStyle, compose } from './util';
+import { compose } from './util';
 import raf from 'raf';
 
 const createAnimateManager = initialStyle => {
@@ -15,7 +15,7 @@ const createAnimateManager = initialStyle => {
       };
     },
     setStyle: (style) => {
-      currStyle = translateStyle(style);
+      currStyle = style;
       handleChange();
     },
     start: () => {

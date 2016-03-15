@@ -8,26 +8,38 @@ class AnimateGroup extends Component {
     leave: PropTypes.object,
     enter: PropTypes.object,
     children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
+    component: PropTypes.any,
+  };
+
+  static defaultProps = {
+    component: 'span',
   };
 
   _wrapChild(child) {
     const { appear, leave, enter } = this.props;
 
-    return createElement(
-      AnimateGroupChild,
-      {
-        appear,
-        leave,
-        enter,
-      },
-      child
+    return (
+      <AnimateGroupChild
+        appear={appear}
+        leave={leave}
+        enter={enter}
+      >
+        { child }
+      </AnimateGroupChild>
     );
   }
 
   render() {
-    return createElement(ReactTransitionGroup, {
-      childFactory: ::this._wrapChild,
-    }, this.props.children);
+    const { component, children } = this.props;
+
+    return (
+      <ReactTransitionGroup
+        component={component}
+        childFactory={::this._wrapChild}
+      >
+        { children }
+      </ReactTransitionGroup>
+    );
   }
 }
 

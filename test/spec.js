@@ -1,4 +1,4 @@
-import Animate from '../src/';
+import Animate, { translateStyle } from '../src/';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
@@ -77,5 +77,19 @@ describe('Animate', () => {
       expect(handleAnimationEnd).to.have.been.called.with('end');
       done();
     }, 1400);
+  });
+});
+
+describe('translateStyle', () => {
+  it('shoud get compatable style', () => {
+    const style = {
+      transform: 'translateY(20px)',
+      transition: 'transform .4s ease',
+    };
+
+    const translatedStyle = translateStyle(style);
+
+    expect(translatedStyle.WebkitTransform).to.equal('translateY(20px)');
+    expect(translatedStyle.WebkitTransition).to.equal('-webkit-transform .4s ease');
   });
 });

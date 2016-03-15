@@ -8,7 +8,7 @@ module.exports = {
     GroupAnimation: __dirname + '/GroupAnimation/app.js',
     SimpleAnimation: __dirname + '/SimpleAnimation/app.js',
   },
-  devtool: 'sourcemap',
+  devtool: 'inline-source-map',
   output: {
     path: __dirname,
     filename: '[name]/build.js',

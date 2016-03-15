@@ -36,7 +36,7 @@ class AnimateGroupChild extends Component {
     this.handleStyleActive(this.props.appear, done);
   }
 
-  omponentWillEnter(done) {
+  componentWillEnter(done) {
     this.handleStyleActive(this.props.enter, done);
   }
 

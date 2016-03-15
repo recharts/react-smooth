@@ -11,13 +11,13 @@ const getSTEPS = onAnimationEnd => [{
   duration: 1000,
   style: {
     opacity: 1,
+    transformOrigin: '110px 110px',
     transform: 'rotate(0deg) translate(0px, 0px)',
   },
   easing: 'ease-in',
 }, {
   duration: 1000,
   style: {
-    transformOrigin: '110px 110px',
     transform: 'rotate(500deg) translate(0px, 0px)',
   },
   easing: 'ease-in-out',

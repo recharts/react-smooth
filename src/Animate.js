@@ -4,7 +4,7 @@ import pureRender from 'pure-render-decorator';
 import _ from 'lodash';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
-import { getDashCase, getIntersectionKeys } from './util';
+import { getTransitionVal, identity, translateStyle, isEqual } from './util';
 
 @pureRender
 class Animate extends Component {
@@ -53,6 +53,9 @@ class Animate extends Component {
 
     const { isActive, attributeName, from, to, steps, children } = this.props;
 
+    this.handleStyleChange = this.handleStyleChange.bind(this);
+    this.changeStyle = this.changeStyle.bind(this);
+
     if (!isActive) {
       this.state = {};
 
@@ -98,10 +101,11 @@ class Animate extends Component {
       return;
     }
 
-    const omitSpec = _.omit(this.props, ['children', 'onAnimationEnd']);
-    const omitNextSpec = _.omit(nextProps, ['children', 'onAnimationEnd']);
+    const animatProps = ['to', 'attributeName', 'canBegin', 'isActive'];
+    const omitSpec = _.pick(this.props, ['to', 'attributeName', 'canBegin', 'isActive']);
+    const omitNextSpec = _.pick(nextProps, ['children', 'onAnimationEnd']);
 
-    if (_.isEqual(omitSpec, omitNextSpec)) {
+    if (isEqual(_.pick(this.props, animatProps), _.pick(nextProps, animatProps))) {
       return;
     }
 
@@ -113,7 +117,10 @@ class Animate extends Component {
       this.stopJSAnimation();
     }
 
-    this.runAnimation(nextProps);
+    this.runAnimation({
+      ...nextProps,
+      from: this.props.to,
+    });
   }
 
   componentWillUnmount() {
@@ -133,15 +140,13 @@ class Animate extends Component {
 
   runJSAnimation(props) {
     const { from, to, duration, easing, begin, onAnimationEnd } = props;
-    const render = style => this.setState({ style });
-    const startAnimation = configUpdate(from, to, configEasing(easing), duration, render);
+    const startAnimation = configUpdate(from, to, configEasing(easing), duration, this.changeStyle);
 
     const finalStartAnimation = () => {
       this.stopJSAnimation = startAnimation();
     };
 
     this.manager.start([
-      from,
       begin,
       finalStartAnimation,
       duration,
@@ -167,10 +172,9 @@ class Animate extends Component {
       } = nextItem;
 
       const preItem = index > 0 ? steps[index - 1] : nextItem;
-      const properties = nextProperties ||
-        getIntersectionKeys(preItem.style, style).map(getDashCase);
+      const properties = nextProperties || Object.keys(style);
 
-      if (typeof easing === 'function') {
+      if (typeof easing === 'function' || easing === 'spring') {
         return [...sequence, this.runJSAnimation.bind(this, {
           from: preItem.style,
           to: style,
@@ -179,23 +183,14 @@ class Animate extends Component {
         }), duration];
       }
 
-      const transition = properties.map(prop => {
-        return `${prop} ${duration}ms ${easing}`;
-      }).join(',');
-
+      const transition = getTransitionVal(properties, duration, easing);
       const newStyle = {
         ...preItem.style,
         ...style,
         transition,
       };
 
-      const list = [...sequence, newStyle, duration];
-
-      if (onAnimationEnd) {
-        return [...list, onAnimationEnd];
-      }
-
-      return list;
+      return [...sequence, newStyle, duration, onAnimationEnd].filter(identity);
     };
 
     return this.manager.start(
@@ -214,7 +209,6 @@ class Animate extends Component {
       begin,
       duration,
       attributeName,
-      from: propsFrom,
       to: propsTo,
       easing,
       onAnimationEnd,
@@ -224,31 +218,33 @@ class Animate extends Component {
 
     const manager = this.manager;
     
-    this.unSubscribe = manager.subscribe(::this.handleStyleChange);
+    this.unSubscribe = manager.subscribe(this.handleStyleChange);
 
     if (typeof easing === 'function' || typeof children === 'function' || easing === 'spring') {
       this.runJSAnimation(props);
       return;
     }
 
-    const from = attributeName ? { [attributeName]: propsFrom } : propsFrom;
-    const to = attributeName ? { [attributeName]: propsTo } : propsTo;
-
     if (steps.length > 1) {
       this.runStepAnimation(props);
       return;
     }
 
-    const transition = getIntersectionKeys(from, to).map(key => {
-      return `${getDashCase(key)} ${duration}ms ${easing}`;
-    }).join(',');
+    const to = attributeName ? { [attributeName]: propsTo } : propsTo;
+    const transition = getTransitionVal(Object.keys(to), duration, easing);
 
-    manager.start([from, begin, { ...to, transition }, duration, onAnimationEnd]);
+    manager.start([begin, { ...to, transition }, duration, onAnimationEnd]);
   }
 
   handleStyleChange() {
     const style = this.manager.getStyle();
-    this.setState({ style });
+    this.changeStyle(style);
+  }
+
+  changeStyle(style) {
+    this.setState({
+      style: translateStyle(style),
+    });
   }
 
   render() {

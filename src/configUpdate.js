@@ -2,7 +2,6 @@ import raf, { cancel as caf } from 'raf';
 import {
   getIntersectionKeys,
   mapObject,
-  translateStyle,
 } from './util';
 import { filter } from 'lodash';
 
@@ -90,11 +89,11 @@ export default (from, to, easing, duration, render) => {
 
     stepperStyle = calStepperVals(easing, stepperStyle, steps);
     // get union set and add compatible prefix
-    render(translateStyle({
+    render({
       ...from,
       ...to,
       ...getCurrStyle(stepperStyle),
-    }));
+    });
 
     preTime = now;
 
@@ -114,11 +113,11 @@ export default (from, to, easing, duration, render) => {
       alpha(...val, easing(t)), timingStyle);
 
     // get union set and add compatible prefix
-    render(translateStyle({
+    render({
       ...from,
       ...to,
       ...currStyle,
-    }));
+    });
 
     if (t < 1) {
       cafId = raf(update);

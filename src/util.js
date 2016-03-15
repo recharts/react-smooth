@@ -1,11 +1,32 @@
 import { intersection } from 'lodash';
 
 const PREFIX_LIST = ['Webkit', 'Moz', 'O', 'ms'];
+const IN_LINE_PREFIX_LIST = ['-webkit-', '-moz-', '-o-', '-ms-'];
 const IN_COMPATIBLE_PROPERTY = ['transform', 'transformOrigin', 'transition'];
 
 export const getIntersectionKeys = (preObj, nextObj) => {
   return intersection(Object.keys(preObj), Object.keys(nextObj));
 };
+
+export const identity = param => param;
+
+export const isEqual = (preObj, nextObj) => {
+  const keys = Object.keys(preObj);
+
+  if (keys.length !== Object.keys(nextObj).length) {
+    return false;
+  }
+
+  for (let i = 0, length = keys.length; i < length; ++i) {
+    const key = keys[i];
+
+    if (preObj[key] !== nextObj[key]) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 /*
  * @description: convert camel case to dash case
@@ -18,21 +39,25 @@ export const getDashCase = name => name.replace(/([A-Z])/g, v => '-' + v.toLower
  * (string, string) => object
  */
 export const generatePrefixStyle = (name, value) => {
-  if (!name) { return null; }
+  if (IN_COMPATIBLE_PROPERTY.indexOf(name) === -1) {
+    return { [name]: value };
+  }
 
+  const isTransition = name === 'transition';
   const camelName = name.replace(/(\w)/, v => v.toUpperCase());
+  let styleVal = value;
 
-  const result = PREFIX_LIST.reduce((res, entry) => {
+  return PREFIX_LIST.reduce((result, property, i) => {
+    if (isTransition) {
+      styleVal = value.replace(/(transform|transform-origin)/gim, '-webkit-$1');
+    }
+
     return {
-      ...res,
-      [entry + camelName]: value,
+      ...result,
+      [property + camelName]: styleVal,
     };
   }, {});
-
-  result[name] = value;
-
-  return result;
-};
+}
 
 export const log = console.log.bind(console);
 
@@ -61,12 +86,6 @@ export const debugf = (tag, f) => (...args) => {
 };
 
 /*
- * @description: check if the received property need add compatible style prefix
- * string => boolean
- */
-export const judgeNeedTranslated = property => IN_COMPATIBLE_PROPERTY.indexOf(property) !== -1;
-
-/*
  * @description: map object on every element in this object.
  * (function, object) => object
  */
@@ -85,12 +104,10 @@ export const mapObject = (fn, obj) => {
  */
 export const translateStyle = style => {
   return Object.keys(style).reduce((res, key) => {
-    if (judgeNeedTranslated(key)) {
-      return {
-        ...res,
-        ...generatePrefixStyle(key, res[key]),
-      };
-    }
+    return {
+      ...res,
+      ...generatePrefixStyle(key, res[key]),
+    };
 
     return res;
   }, style);
@@ -112,4 +129,10 @@ export const compose = (...args) => {
       firstFn(...composeArgs)
   );
 };
+
+export const getTransitionVal = (props, duration, easing) => {
+  return props.map(prop =>
+    `${getDashCase(prop)} ${duration}ms ${easing}`)
+    .join(',');
+}
 

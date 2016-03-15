@@ -25,6 +25,7 @@
     "build-umd": "NODE_ENV=production webpack src/index.js umd/ReactSmooth.js",
     "build-min": "NODE_ENV=production webpack -p src/index.js umd/ReactSmooth.min.js",
     "test": "./node_modules/.bin/karma start --single-run",
+    "test-watch": "./node_modules/.bin/karma start",
     "demo": "webpack-dev-server  --progress --port 3000  --colors --content-base demo --hot --inline --config demo/webpack.config.js",
     "lint": "eslint src"
   },
