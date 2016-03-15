@@ -1,4 +1,4 @@
-### 0.0.13 / 2016-03-15
+### 0.0.13/0.0.14 / 2016-03-15
 ===
 - fix: fix update animation judgement
 
