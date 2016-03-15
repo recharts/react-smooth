@@ -101,13 +101,13 @@ class Animate extends Component {
       return;
     }
 
-    const animatProps = ['to', 'attributeName', 'canBegin', 'isActive'];
-    const omitSpec = _.pick(this.props, ['to', 'attributeName', 'canBegin', 'isActive']);
-    const omitNextSpec = _.pick(nextProps, ['children', 'onAnimationEnd']);
+    const animateProps = ['to', 'canBegin', 'isActive'];
 
-    if (isEqual(_.pick(this.props, animatProps), _.pick(nextProps, animatProps))) {
+    if (isEqual(_.pick(this.props, animateProps), _.pick(nextProps, animateProps))) {
       return;
     }
+
+    const hasToChanged = this.props.to !== nextProps.to;
 
     if (this.manager) {
       this.manager.stop();
@@ -119,7 +119,7 @@ class Animate extends Component {
 
     this.runAnimation({
       ...nextProps,
-      from: this.props.to,
+      from: hasToChanged ? this.props.to : nextProps.from,
     });
   }
 
