@@ -103,11 +103,11 @@ class Animate extends Component {
 
     const animateProps = ['to', 'canBegin', 'isActive'];
 
-    if (isEqual(_.pick(this.props, animateProps), _.pick(nextProps, animateProps))) {
+    if (isEqual(this.props.to, nextProps.to) && this.props.canBegin && this.props.isActive) {
       return;
     }
 
-    const hasToChanged = this.props.to !== nextProps.to;
+    const isTriggered= !this.props.canBegin || !this.props.isActive;
 
     if (this.manager) {
       this.manager.stop();
@@ -119,7 +119,7 @@ class Animate extends Component {
 
     this.runAnimation({
       ...nextProps,
-      from: hasToChanged ? this.props.to : nextProps.from,
+      from: isTriggered ? nextProps.from : this.props.to,
     });
   }
 
@@ -209,6 +209,7 @@ class Animate extends Component {
       begin,
       duration,
       attributeName,
+      from: propsFrom,
       to: propsTo,
       easing,
       onAnimationEnd,
@@ -231,9 +232,10 @@ class Animate extends Component {
     }
 
     const to = attributeName ? { [attributeName]: propsTo } : propsTo;
+    const from = attributeName ? { [attributeName]: propsFrom } : propsFrom;
     const transition = getTransitionVal(Object.keys(to), duration, easing);
 
-    manager.start([begin, { ...to, transition }, duration, onAnimationEnd]);
+    manager.start([from, begin, { ...to, transition }, duration, onAnimationEnd]);
   }
 
   handleStyleChange() {
