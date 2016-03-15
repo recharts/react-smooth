@@ -10,24 +10,6 @@ export const getIntersectionKeys = (preObj, nextObj) => {
 
 export const identity = param => param;
 
-export const isEqual = (preObj, nextObj) => {
-  const keys = Object.keys(preObj);
-
-  if (keys.length !== Object.keys(nextObj).length) {
-    return false;
-  }
-
-  for (let i = 0, length = keys.length; i < length; ++i) {
-    const key = keys[i];
-
-    if (preObj[key] !== nextObj[key]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
 /*
  * @description: convert camel case to dash case
  * string => string

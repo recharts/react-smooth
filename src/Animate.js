@@ -4,7 +4,7 @@ import pureRender from 'pure-render-decorator';
 import _ from 'lodash';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
-import { getTransitionVal, identity, translateStyle, isEqual } from './util';
+import { getTransitionVal, identity, translateStyle } from './util';
 
 @pureRender
 class Animate extends Component {
@@ -103,7 +103,7 @@ class Animate extends Component {
 
     const animateProps = ['to', 'canBegin', 'isActive'];
 
-    if (isEqual(this.props.to, nextProps.to) && this.props.canBegin && this.props.isActive) {
+    if (_.isEqual(this.props.to, nextProps.to) && this.props.canBegin && this.props.isActive) {
       return;
     }
 
