@@ -1,4 +1,4 @@
-import invariant from 'invariant';
+import { warn } from './util';
 
 const ACCURACY = 1e-4;
 
@@ -51,13 +51,13 @@ export const configBezier = (...args) => {
         [x1, y1, x2, y2] = [0.0, 0.0, 0.58, 1.0];
         break;
       default:
-        invariant(false, '[configBezier]: arguments should be one of ' +
+        warn(false, '[configBezier]: arguments should be one of ' +
           'oneOf \'linear\', \'ease\', \'ease-in\', \'ease-out\', ' +
           '\'ease-in-out\', instead received %s', args);
     }
   }
 
-  invariant([x1, x2, y1, y2].every(num =>
+  warn([x1, x2, y1, y2].every(num =>
     typeof num === 'number' && num >= 0 && num <= 1),
     '[configBezier]: arguments should be x1, y1, x2, y2 of [0, 1] instead received %s',
     args,
