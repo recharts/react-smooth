@@ -1,3 +1,7 @@
+### 0.1.0
+===
+- feat: use webpack 2
+
 ### 0.0.13/0.0.15 / 2016-03-15
 ===
 - fix: using isEqual in lodash and remove isEqual in utils
