@@ -3,7 +3,7 @@ var fs = require('fs');
 var webpack = require('webpack');
 var env = process.env.NODE_ENV
 
-module.exports = {
+var config = {
   entry: './src/index.js',
 
   output: {
@@ -72,3 +72,5 @@ if (env === 'production') {
     })
   );
 }
+
+module.exports = config;
