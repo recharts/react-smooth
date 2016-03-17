@@ -57,12 +57,13 @@ class Animate extends Component {
     this.changeStyle = this.changeStyle.bind(this);
 
     if (!isActive) {
-      this.state = {};
+      this.state = { style: {} };
 
       // if children is a function and animation is not active, set style to 'to'
       if (typeof children === 'function') {
         this.state = { style: to };
       }
+
       return;
     }
 
@@ -80,7 +81,7 @@ class Animate extends Component {
         style: attributeName ? { [attributeName]: from } : from,
       };
     } else {
-      this.state = {};
+      this.state = { style: {} };
     }
   }
 
@@ -95,7 +96,7 @@ class Animate extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isActive, canBegin } = nextProps;
+    const { isActive, canBegin, attributeName } = nextProps;
 
     if (!isActive || !canBegin) {
       return;
@@ -117,9 +118,14 @@ class Animate extends Component {
       this.stopJSAnimation();
     }
 
+    const from = isTriggered ? nextProps.from : this.props.to;
+    this.setState({
+      style: attributeName ? { [attributeName]: from } : from,
+    });
+
     this.runAnimation({
       ...nextProps,
-      from: isTriggered ? nextProps.from : this.props.to,
+      from,
     });
   }
 
@@ -232,10 +238,9 @@ class Animate extends Component {
     }
 
     const to = attributeName ? { [attributeName]: propsTo } : propsTo;
-    const from = attributeName ? { [attributeName]: propsFrom } : propsFrom;
     const transition = getTransitionVal(Object.keys(to), duration, easing);
 
-    manager.start([from, begin, { ...to, transition }, duration, onAnimationEnd]);
+    manager.start([begin, { ...to, transition }, duration, onAnimationEnd]);
   }
 
   handleStyleChange() {
@@ -245,7 +250,7 @@ class Animate extends Component {
 
   changeStyle(style) {
     this.setState({
-      style: translateStyle(style),
+      style,
     });
   }
 
@@ -263,9 +268,10 @@ class Animate extends Component {
       ...others,
     } = this.props;
     const count = Children.count(children);
+    const stateStyle = translateStyle(this.state.style);
 
     if (typeof children === 'function') {
-      return children(this.state.style);
+      return children(stateStyle);
     }
 
     if (!isActive || count === 0) {
@@ -279,7 +285,7 @@ class Animate extends Component {
         ...others,
         style: {
           ...style,
-          ...this.state.style,
+          ...stateStyle,
         },
         className,
       });
