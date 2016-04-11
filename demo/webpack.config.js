@@ -8,7 +8,6 @@ module.exports = {
     GroupAnimation: __dirname + '/GroupAnimation/app.js',
     SimpleAnimation: __dirname + '/SimpleAnimation/app.js',
     Pendulum: __dirname + '/Pendulum/app.js',
-    Rope: __dirname + '/Rope/app.js',
   },
   devtool: 'inline-source-map',
   output: {
