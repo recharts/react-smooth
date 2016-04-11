@@ -1,15 +1,14 @@
 import { warn } from './util';
+import invariant from 'invariant';
 
 const ACCURACY = 1e-4;
 
-const _cubicBezier = (c1, c2) => {
-  return [
-    0,
-    3 * c1,
-    3 * c2 - 6 * c1,
-    3 * c1 - 3 * c2 + 1,
-  ];
-};
+const _cubicBezier = (c1, c2) => [
+  0,
+  3 * c1,
+  3 * c2 - 6 * c1,
+  3 * c1 - 3 * c2 + 1,
+];
 
 const _multyTime = (params, t) =>
   params.map((param, i) =>
@@ -146,4 +145,6 @@ export const configEasing = (...args) => {
 
   invariant(false, '[configEasing]: first argument type should be function or ' +
     'string, instead received %s', args);
+
+  return null;
 };

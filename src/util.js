@@ -4,9 +4,8 @@ const PREFIX_LIST = ['Webkit', 'Moz', 'O', 'ms'];
 const IN_LINE_PREFIX_LIST = ['-webkit-', '-moz-', '-o-', '-ms-'];
 const IN_COMPATIBLE_PROPERTY = ['transform', 'transformOrigin', 'transition'];
 
-export const getIntersectionKeys = (preObj, nextObj) => {
-  return intersection(Object.keys(preObj), Object.keys(nextObj));
-};
+export const getIntersectionKeys = (preObj, nextObj) =>
+  intersection(Object.keys(preObj), Object.keys(nextObj));
 
 export const identity = param => param;
 
@@ -14,7 +13,7 @@ export const identity = param => param;
  * @description: convert camel case to dash case
  * string => string
  */
-export const getDashCase = name => name.replace(/([A-Z])/g, v => '-' + v.toLowerCase());
+export const getDashCase = name => name.replace(/([A-Z])/g, v => `-${v.toLowerCase()}`);
 
 /*
  * @description: add compatible style prefix
@@ -39,7 +38,7 @@ export const generatePrefixStyle = (name, value) => {
       [property + camelName]: styleVal,
     };
   }, {});
-}
+};
 
 export const log = console.log.bind(console);
 
@@ -60,9 +59,9 @@ export const debug = name => item => {
 export const debugf = (tag, f) => (...args) => {
   const res = f(...args);
   const name = tag || f.name || 'anonymous function';
-  const argNames = '(' + args.map(JSON.stringify).join(', ') + ')';
+  const argNames = `(${args.map(JSON.stringify).join(', ')})`;
 
-  log(name + ': ' + argNames + ' => ' + JSON.stringify(res));
+  log(`${name}: ${argNames} => ${JSON.stringify(res)}`);
 
   return res;
 };
@@ -71,29 +70,21 @@ export const debugf = (tag, f) => (...args) => {
  * @description: map object on every element in this object.
  * (function, object) => object
  */
-export const mapObject = (fn, obj) => {
-  return Object.keys(obj).reduce((res, key) => {
-    return {
-      ...res,
-      [key]: fn(key, obj[key]),
-    };
-  }, {});
-};
+export const mapObject = (fn, obj) =>
+  Object.keys(obj).reduce((res, key) => ({
+    ...res,
+    [key]: fn(key, obj[key]),
+  }), {});
 
 /*
  * @description: add compatible prefix to style
  * object => object
  */
-export const translateStyle = style => {
-  return Object.keys(style).reduce((res, key) => {
-    return {
-      ...res,
-      ...generatePrefixStyle(key, res[key]),
-    };
-
-    return res;
-  }, style);
-};
+export const translateStyle = style =>
+  Object.keys(style).reduce((res, key) => ({
+    ...res,
+    ...generatePrefixStyle(key, res[key]),
+  }), style);
 
 export const compose = (...args) => {
   if (!args.length) {
@@ -112,11 +103,10 @@ export const compose = (...args) => {
   );
 };
 
-export const getTransitionVal = (props, duration, easing) => {
-  return props.map(prop =>
+export const getTransitionVal = (props, duration, easing) =>
+  props.map(prop =>
     `${getDashCase(prop)} ${duration}ms ${easing}`)
     .join(',');
-}
 
 const __DEV__ = process.env.NODE_ENV !== 'production';
 

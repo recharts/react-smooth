@@ -69,6 +69,28 @@ class Gossip extends Component {
     this.STEPS = getSTEPS(this.handleTextAniamtionBegin);
   }
 
+  handleTextAniamtionBegin() {
+    this.setState({
+      canBegin: true,
+    });
+  }
+
+  renderPath() {
+    const cx = 110;
+    const cy = 110;
+    const r = 100;
+    const sr = r / 2;
+
+    const beginPoint = createPoint(cx, cy - r);
+    const endPoint = createPoint(cx, cy + r);
+    const move = beginPoint.getPath('M');
+    const A = getArcPath(sr, 0, 0, 0, cx, cy);
+    const A2 = getArcPath(sr, 0, 0, 1, endPoint.x, endPoint.y);
+    const A3 = getArcPath(r, 0, 0, 1, beginPoint.x, beginPoint.y);
+
+    return <path d={[move, A, A2, A3].join('\n')} />;
+  }
+
   renderSmallCircles() {
     const cx = 110;
     const cy = 110;
@@ -86,22 +108,6 @@ class Gossip extends Component {
     );
 
     return <g className="small-circles">{circles}</g>;
-  }
-
-  renderPath() {
-    const cx = 110;
-    const cy = 110;
-    const r = 100;
-    const sr = r / 2;
-
-    const beginPoint = createPoint(cx, cy - r);
-    const endPoint = createPoint(cx, cy + r);
-    const move = beginPoint.getPath('M');
-    const A = getArcPath(sr, 0, 0, 0, cx, cy);
-    const A2 = getArcPath(sr, 0, 0, 1, endPoint.x, endPoint.y);
-    const A3 = getArcPath(r, 0, 0, 1, beginPoint.x, beginPoint.y);
-
-    return <path d={[move, A, A2, A3].join('\n')} />;
   }
 
   renderText() {
@@ -131,12 +137,6 @@ class Gossip extends Component {
         {this.renderText()}
       </svg>
     );
-  }
-
-  handleTextAniamtionBegin() {
-    this.setState({
-      canBegin: true,
-    });
   }
 }
 

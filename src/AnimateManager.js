@@ -1,133 +1,56 @@
-import { compose } from './util';
-import raf from 'raf';
+import setRafTimeout from './setRafTimeout';
 
-const createAnimateManager = initialStyle => {
-  let currStyle = initialStyle;
-  let handleChange = () => {};
+export default function createAnimateManager() {
+  let currStyle = {};
+  let handleChange = () => null;
   let shouldStop = false;
 
+  const setStyle = _style => {
+    if (shouldStop) {
+      return;
+    }
+
+    if (Array.isArray(_style)) {
+      if (!_style.length) { return; }
+
+      const styles = _style;
+      const [curr, ...restStyles] = styles;
+
+      if (typeof curr === 'number') {
+        setRafTimeout(setStyle.bind(null, restStyles), curr);
+
+        return;
+      }
+
+      setStyle(curr);
+      setRafTimeout(setStyle.bind(null, restStyles));
+      return;
+    }
+
+    if (typeof _style === 'object') {
+      currStyle = _style;
+      handleChange(currStyle);
+    }
+
+    if (typeof _style === 'function') {
+      _style();
+    }
+  };
+
   return {
-    subscribe: listener => {
-      handleChange = listener;
+    stop: () => {
+      shouldStop = true;
+    },
+    start: style => {
+      shouldStop = false;
+      setStyle(style);
+    },
+    subscribe: _handleChange => {
+      handleChange = _handleChange;
 
       return () => {
         handleChange = () => null;
       };
     },
-    setStyle: (style) => {
-      currStyle = style;
-      handleChange();
-    },
-    start: () => {
-      shouldStop = false;
-    },
-    getShouldStop: () => shouldStop,
-    getStyle: () => currStyle,
-    stop: () => {
-      shouldStop = true;
-    },
   };
 };
-
-const applyMiddleware = (...middlewares) => {
-  return (next) => style => {
-    var manager = next(style);
-    var setStyle = manager.setStyle;
-    var chain = [];
-
-    var middlewareAPI = {
-      ...manager,
-      setStyle: (_style) => setStyle(_style),
-    };
-    chain = middlewares.map(middleware => middleware(middlewareAPI));
-    setStyle = compose(...chain)(manager.setStyle);
-
-    return {
-      ...manager,
-      setStyle,
-      start: (_style) => {
-        manager.start();
-        return setStyle(_style);
-      },
-    };
-  };
-};
-
-const setStyleAsync = ({ setStyle, getShouldStop }) => next => {
-  let timeout = null;
-
-  return style => {
-    if (getShouldStop()) {
-      clearTimeout(timeout);
-
-      return new Promise((resolve, reject) => {
-        reject();
-      });
-    }
-
-    if ((typeof style === 'function' || Array.isArray(style))) {
-      return next(style);
-    }
-
-    return new Promise((resolve, reject) => {
-      let delay = 0;
-      let callback = next;
-
-      if (typeof style === 'number') {
-        delay = style;
-        callback = () => {};
-      }
-
-      timeout = setTimeout(() => {
-        // set style in next frame to avoid batch set style
-        let res = null;
-
-        raf(() => {
-          raf(() => {
-            res = callback(style);
-            resolve();
-            return res;
-          });
-        });
-      }, delay);
-    });
-  };
-};
-
-const sequenceMiddleware = ({ setStyle }) => next => style => {
-  if (Array.isArray(style)) {
-    const styles = style;
-
-    return styles.reduce(
-      (result, currStyle) => result.then(() => {
-        return setStyle(currStyle);
-      }).catch(() => {}),
-      Promise.resolve()
-    );
-  }
-
-  return next(style);
-};
-
-const thunkMiddeware = ({ setStyle, getStyle }) => next => style => {
-  if (typeof style === 'function') {
-    return style(setStyle, getStyle);
-  }
-
-  return next(style);
-};
-
-
-/*
- * manager.setStyle:
- * if style is an object, manager will set a new style.
- * if style is a number, manager will wait time of style microsecond.
- * if style is a function, manager will run this function bind arguments of
- *  getStyle and setStyle.
- * if style is an array, manager will run setStyle of every element in order.
- */
-const finalCreateAniamteManager = compose(
-  applyMiddleware(setStyleAsync, sequenceMiddleware, thunkMiddeware)
-)(createAnimateManager);
-
-export default finalCreateAniamteManager;

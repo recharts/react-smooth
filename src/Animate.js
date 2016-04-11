@@ -110,7 +110,7 @@ class Animate extends Component {
       return;
     }
 
-    const isTriggered= !this.props.canBegin || !this.props.isActive;
+    const isTriggered = !this.props.canBegin || !this.props.isActive;
 
     if (this.manager) {
       this.manager.stop();
@@ -245,8 +245,7 @@ class Animate extends Component {
     manager.start([begin, { ...to, transition }, duration, onAnimationEnd]);
   }
 
-  handleStyleChange() {
-    const style = this.manager.getStyle();
+  handleStyleChange(style) {
     this.changeStyle(style);
   }
 

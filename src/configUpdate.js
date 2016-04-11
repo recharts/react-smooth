@@ -5,13 +5,8 @@ import {
 } from './util';
 import { filter } from 'lodash';
 
-const alpha = (begin, end, k) => {
-  return begin + (end - begin) * k;
-};
-
-const needContinue = ({ from, to }) => {
-  return from !== to;
-};
+const alpha = (begin, end, k) => begin + (end - begin) * k;
+const needContinue = ({ from, to }) => from !== to;
 
 /*
  * @description: cal new from value and velocity in each stepper
@@ -51,33 +46,26 @@ const calStepperVals = (easing, preVals, steps) => {
 // configure update function
 export default (from, to, easing, duration, render) => {
   const interKeys = getIntersectionKeys(from, to);
-  const timingStyle = interKeys.reduce((res, key) => {
-    return {
-      ...res,
-      [key]: [from[key], to[key]],
-    };
-  }, {});
+  const timingStyle = interKeys.reduce((res, key) => ({
+    ...res,
+    [key]: [from[key], to[key]],
+  }), {});
 
-  let stepperStyle = interKeys.reduce((res, key) => {
-    return {
-      ...res,
-      [key]: {
-        from: from[key],
-        velocity: 0,
-        to: to[key],
-      },
-    };
-  }, {});
+  let stepperStyle = interKeys.reduce((res, key) => ({
+    ...res,
+    [key]: {
+      from: from[key],
+      velocity: 0,
+      to: to[key],
+    },
+  }), {});
   let cafId = -1;
   let preTime;
   let beginTime;
+  let update = () => null;
 
-  const getCurrStyle = () => {
-    return mapObject((key, val) => val.from, stepperStyle);
-  };
-  const shouldStopAnimation = () => {
-    return !filter(stepperStyle, needContinue).length;
-  };
+  const getCurrStyle = () => mapObject((key, val) => val.from, stepperStyle);
+  const shouldStopAnimation = () => !filter(stepperStyle, needContinue).length;
 
   // stepper timing function like spring
   const stepperUpdate = (now) => {
@@ -124,7 +112,7 @@ export default (from, to, easing, duration, render) => {
     }
   };
 
-  const update = easing.isStepper ? stepperUpdate : timingUpdate;
+  update = easing.isStepper ? stepperUpdate : timingUpdate;
 
   // return start animation method
   return () => {
