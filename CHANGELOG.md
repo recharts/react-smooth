@@ -1,3 +1,7 @@
+### 0.1.4 / 2016-04-12
+===
+- chore: change transition-group addons to dependencies
+
 ### 0.1.3 / 2016-04-12
 ===
 - refactor: refactor AnimateManager
