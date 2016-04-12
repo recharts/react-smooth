@@ -1,3 +1,8 @@
+### 0.1.2 / 2016-04-12
+===
+- deps: update react to 15.0.0
+- feat: use owe PureRender util
+
 ### 0.1.1 / 2016-04-05
 ===
 - feat: add shouldReAnimate prop
