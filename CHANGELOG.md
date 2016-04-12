@@ -1,3 +1,7 @@
+### 0.1.3 / 2016-04-12
+===
+- refactor: refactor AnimateManager
+
 ### 0.1.2 / 2016-04-12
 ===
 - deps: update react to 15.0.0
