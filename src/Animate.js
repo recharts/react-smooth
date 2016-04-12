@@ -1,6 +1,6 @@
 import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import createAnimateManager from './AnimateManager';
-import pureRender from 'pure-render-decorator';
+import pureRender from './PureRender';
 import _ from 'lodash';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
@@ -226,7 +226,7 @@ class Animate extends Component {
     } = props;
 
     const manager = this.manager;
-    
+
     this.unSubscribe = manager.subscribe(this.handleStyleChange);
 
     if (typeof easing === 'function' || typeof children === 'function' || easing === 'spring') {
