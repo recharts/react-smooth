@@ -1,3 +1,7 @@
+### 0.1.5 / 2016-04-13
+===
+- deps: remove pure-render-decorator
+
 ### 0.1.4 / 2016-04-12
 ===
 - chore: change transition-group addons to dependencies
