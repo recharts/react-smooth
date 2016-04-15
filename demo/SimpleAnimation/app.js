@@ -19,7 +19,7 @@ class Simple extends Component {
       <div className="simple">
         <button onClick={::this.handleClick}>click me!
         </button>
-        <Animate easing={configSpring()} from={{ y: 0 }} to={{ y: this.state.to }}>
+        <Animate easing="spring" from={{ y: 0 }} to={{ y: this.state.to }}>
           {({ y }) => (
             <div style={{
               width: 100,

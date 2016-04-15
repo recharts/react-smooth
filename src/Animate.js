@@ -100,8 +100,14 @@ class Animate extends Component {
   componentWillReceiveProps(nextProps) {
     const { isActive, canBegin, attributeName, shouldReAnimate } = nextProps;
 
-    if (!isActive || !canBegin) {
+    if (!canBegin) {
       return;
+    }
+
+    if (!isActive) {
+      this.setState({
+        style: attributeName ? { [attributeName]: nextProps.to } : nextProps.to,
+      });
     }
 
     const animateProps = ['to', 'canBegin', 'isActive'];
