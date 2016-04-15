@@ -1,3 +1,7 @@
+### 0.1.6 / 2016-04-15
+===
+- fix: fix Animate not pipe props when Animate not active 
+
 ### 0.1.5 / 2016-04-13
 ===
 - deps: remove pure-render-decorator
