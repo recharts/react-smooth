@@ -1,3 +1,7 @@
+### 0.1.7 / 2016-04-21
+===
+- fix: fix Animate trigger animate when isActive is false 
+
 ### 0.1.6 / 2016-04-15
 ===
 - fix: fix Animate not pipe props when Animate not active 
