@@ -108,6 +108,8 @@ class Animate extends Component {
       this.setState({
         style: attributeName ? { [attributeName]: nextProps.to } : nextProps.to,
       });
+
+      return;
     }
 
     const animateProps = ['to', 'canBegin', 'isActive'];
