@@ -1,3 +1,7 @@
+### 0.1.8 / 2016-05-05
+===
+- feat: add onAniamtionReStart prop 
+
 ### 0.1.7 / 2016-04-21
 ===
 - fix: fix Animate trigger animate when isActive is false 
