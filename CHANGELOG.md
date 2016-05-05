@@ -1,6 +1,6 @@
-### 0.1.8 / 2016-05-05
+### 0.1.8/0.1.9 / 2016-05-05
 ===
-- feat: add onAniamtionReStart prop 
+- feat: add onAniamtionStart prop 
 
 ### 0.1.7 / 2016-04-21
 ===
