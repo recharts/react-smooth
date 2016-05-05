@@ -35,7 +35,7 @@ class Animate extends Component {
     onAnimationEnd: PropTypes.func,
     // decide if it should reanimate with initial from style when props change
     shouldReAnimate: PropTypes.bool,
-    onAnimationReStart: PropTypes.func,
+    onAnimationStart: PropTypes.func,
   };
 
   static defaultProps = {
@@ -49,7 +49,7 @@ class Animate extends Component {
     canBegin: true,
     steps: [],
     onAnimationEnd: () => {},
-    onAnimationReStart: () => {},
+    onAnimationStart: () => {},
   };
 
   constructor(props, context) {
@@ -100,7 +100,7 @@ class Animate extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isActive, canBegin, attributeName, shouldReAnimate, onAnimationReStart } = nextProps;
+    const { isActive, canBegin, attributeName, shouldReAnimate } = nextProps;
 
     if (!canBegin) {
       return;
@@ -132,10 +132,6 @@ class Animate extends Component {
 
     const from = isTriggered || shouldReAnimate ? nextProps.from : this.props.to;
 
-    if (shouldReAnimate) {
-      onAnimationReStart();
-    }
-
     this.setState({
       style: attributeName ? { [attributeName]: from } : from,
     });
@@ -143,6 +139,7 @@ class Animate extends Component {
     this.runAnimation({
       ...nextProps,
       from,
+      begin: 0,
     });
   }
 
@@ -162,7 +159,7 @@ class Animate extends Component {
   }
 
   runJSAnimation(props) {
-    const { from, to, duration, easing, begin, onAnimationEnd } = props;
+    const { from, to, duration, easing, begin, onAnimationEnd, onAnimationStart } = props;
     const startAnimation = configUpdate(from, to, configEasing(easing), duration, this.changeStyle);
 
     const finalStartAnimation = () => {
@@ -170,6 +167,7 @@ class Animate extends Component {
     };
 
     this.manager.start([
+      onAnimationStart,
       begin,
       finalStartAnimation,
       duration,
@@ -178,7 +176,7 @@ class Animate extends Component {
   }
 
   runStepAnimation(props) {
-    const { steps, begin } = props;
+    const { steps, begin, onAnimationStart } = props;
     const { style: initialStyle, duration: initialTime = 0 } = steps[0];
 
     const addStyle = (sequence, nextItem, index) => {
@@ -218,6 +216,7 @@ class Animate extends Component {
 
     return this.manager.start(
       [
+        onAnimationStart,
         ...steps.reduce(addStyle, [initialStyle, Math.max(initialTime, begin)]),
         props.onAnimationEnd,
       ]
@@ -235,6 +234,7 @@ class Animate extends Component {
       from: propsFrom,
       to: propsTo,
       easing,
+      onAnimationStart,
       onAnimationEnd,
       steps,
       children,
@@ -257,7 +257,7 @@ class Animate extends Component {
     const to = attributeName ? { [attributeName]: propsTo } : propsTo;
     const transition = getTransitionVal(Object.keys(to), duration, easing);
 
-    manager.start([begin, { ...to, transition }, duration, onAnimationEnd]);
+    manager.start([onAnimationStart, begin, { ...to, transition }, duration, onAnimationEnd]);
   }
 
   handleStyleChange(style) {
