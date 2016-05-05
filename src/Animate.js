@@ -35,6 +35,7 @@ class Animate extends Component {
     onAnimationEnd: PropTypes.func,
     // decide if it should reanimate with initial from style when props change
     shouldReAnimate: PropTypes.bool,
+    onAnimationReStart: PropTypes.func,
   };
 
   static defaultProps = {
@@ -48,6 +49,7 @@ class Animate extends Component {
     canBegin: true,
     steps: [],
     onAnimationEnd: () => {},
+    onAnimationReStart: () => {},
   };
 
   constructor(props, context) {
@@ -98,7 +100,7 @@ class Animate extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isActive, canBegin, attributeName, shouldReAnimate } = nextProps;
+    const { isActive, canBegin, attributeName, shouldReAnimate, onAnimationReStart } = nextProps;
 
     if (!canBegin) {
       return;
@@ -129,6 +131,11 @@ class Animate extends Component {
     }
 
     const from = isTriggered || shouldReAnimate ? nextProps.from : this.props.to;
+
+    if (shouldReAnimate) {
+      onAnimationReStart();
+    }
+
     this.setState({
       style: attributeName ? { [attributeName]: from } : from,
     });
