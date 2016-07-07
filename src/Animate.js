@@ -281,6 +281,10 @@ class Animate extends Component {
       steps,
       from,
       to,
+      canBegin,
+      onAnimationEnd,
+      shouldReAnimate,
+      onAnimationReStart,
       ...others,
     } = this.props;
     const count = Children.count(children);

@@ -3,29 +3,29 @@ import invariant from 'invariant';
 
 const ACCURACY = 1e-4;
 
-const _cubicBezier = (c1, c2) => [
+const cubicBezierFactor = (c1, c2) => [
   0,
   3 * c1,
   3 * c2 - 6 * c1,
   3 * c1 - 3 * c2 + 1,
 ];
 
-const _multyTime = (params, t) =>
+const multyTime = (params, t) =>
   params.map((param, i) =>
     param * Math.pow(t, i)
   ).reduce((pre, curr) => pre + curr);
 
 const cubicBezier = (c1, c2) => t => {
-  const params = _cubicBezier(c1, c2);
+  const params = cubicBezierFactor(c1, c2);
 
-  return _multyTime(params, t);
+  return multyTime(params, t);
 };
 
 const derivativeCubicBezier = (c1, c2) => t => {
-  const params = _cubicBezier(c1, c2);
+  const params = cubicBezierFactor(c1, c2);
   const newParams = [...params.map((param, i) => param * i).slice(1), 0];
 
-  return _multyTime(newParams, t);
+  return multyTime(newParams, t);
 };
 
 // calculate cubic-bezier using Newton's method
