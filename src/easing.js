@@ -1,5 +1,4 @@
 import { warn } from './util';
-import invariant from 'invariant';
 
 const ACCURACY = 1e-4;
 
@@ -132,7 +131,7 @@ export const configEasing = (...args) => {
       case 'spring':
         return configSpring();
       default:
-        invariant(false,
+        warn(false,
           '[configEasing]: first argument should be one of \'ease\', \'ease-in\', ' +
           '\'ease-out\', \'ease-in-out\', \'linear\' and \'spring\', instead  received %s',
           args);
@@ -143,7 +142,7 @@ export const configEasing = (...args) => {
     return easing;
   }
 
-  invariant(false, '[configEasing]: first argument type should be function or ' +
+  warn(false, '[configEasing]: first argument type should be function or ' +
     'string, instead received %s', args);
 
   return null;
