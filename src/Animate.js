@@ -36,6 +36,7 @@ class Animate extends Component {
     // decide if it should reanimate with initial from style when props change
     shouldReAnimate: PropTypes.bool,
     onAnimationStart: PropTypes.func,
+    onAnimationReStart: PropTypes.func,
   };
 
   static defaultProps = {
