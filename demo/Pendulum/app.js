@@ -6,7 +6,7 @@ import { translateStyle } from 'react-smooth';
 const g = 9.8;
 
 function Circle(props) {
-  const { r, currTheta, ropeLength } = props;
+  const { r, currTheta, ropeLength, ...others } = props;
   const cx = (ropeLength - r) * Math.sin(currTheta) + ropeLength - r;
   const cy = (ropeLength - r) * Math.cos(currTheta) - r;
   const translate = `translate(${cx}px, ${cy}px)`;
@@ -26,7 +26,7 @@ function Circle(props) {
   return (
     <div className="circle-ball"
       style={translateStyle(style)}
-      { ...props }
+      { ...others }
     />
   );
 }
@@ -47,9 +47,8 @@ function Line(props) {
     <svg
       width={ropeLength * 2}
       height={ropeLength * 2}
-      viewPort={`0 0 ${ropeLength * 2} ${ropeLength * 2}`}
+      viewBox={`0 0 ${ropeLength * 2} ${ropeLength * 2}`}
       version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <line
         x1={x1}
@@ -131,33 +130,26 @@ class App extends Component {
     theta: 18,
   };
 
-  handleThetaChange(_theta) {
+  handleThetaChange(e) {
     this.setState({
-      theta: _theta,
+      theta: e.target.value,
     });
   }
 
-  handleRopeChange(ropeLength) {
-    this.setState({ ropeLength });
+  handleRopeChange(e) {
+    this.setState({
+      ropeLength: e.target.value,
+    });
   }
 
   render() {
     const { theta, ropeLength } = this.state;
 
-    const thetaValueLink = {
-      value: theta,
-      requestChange: this.handleThetaChange.bind(this),
-    };
-    const ropeValueLink = {
-      value: ropeLength,
-      requestChange: this.handleRopeChange.bind(this),
-    };
-
     return (
       <div className="pendulum-app">
-        theta: <input type="number" valueLink={thetaValueLink} placeholder="0 ~ 90" />
+        theta: <input type="number" value={theta} onChange={this.handleThetaChange.bind(this)} placeholder="0 ~ 90" />
         <br />
-        rope length: <input type="number" valueLink={ropeValueLink} placeholder="rope length" />
+        rope length: <input type="number" value={ropeLength} onChange={this.handleRopeChange.bind(this)} placeholder="rope length" />
         <Pendulum
           theta={ theta && (parseInt(theta, 10) / 180 * Math.PI) || 0.3 }
           ropeLength={ ropeLength && parseInt(ropeLength, 10) || 300 }
