@@ -46,7 +46,7 @@ class AnimateGroupChild extends Component {
 
   render() {
     return (
-      <Animate { ...this.state }>
+      <Animate {...this.state}>
         {Children.only(this.props.children)}
       </Animate>
     );
