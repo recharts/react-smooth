@@ -1,3 +1,8 @@
+0.1.10 / 2016-07-07
+==================
+
+* fix: add onAnimationReStart validation
+
 ### 0.1.8/0.1.9 / 2016-05-05
 ===
 - feat: add onAniamtionStart prop 
