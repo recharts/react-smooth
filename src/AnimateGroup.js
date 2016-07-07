@@ -15,7 +15,7 @@ class AnimateGroup extends Component {
     component: 'span',
   };
 
-  _wrapChild(child) {
+  wrapChild(child) {
     const { appear, leave, enter } = this.props;
 
     return (
@@ -24,7 +24,7 @@ class AnimateGroup extends Component {
         leave={leave}
         enter={enter}
       >
-        { child }
+        {child}
       </AnimateGroupChild>
     );
   }
@@ -35,9 +35,9 @@ class AnimateGroup extends Component {
     return (
       <ReactTransitionGroup
         component={component}
-        childFactory={::this._wrapChild}
+        childFactory={::this.wrapChild}
       >
-        { children }
+        {children}
       </ReactTransitionGroup>
     );
   }
