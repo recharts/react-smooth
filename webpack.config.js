@@ -36,8 +36,12 @@ var config = {
       commonjs: 'react',
       amd: 'react'
     },
-    'react-dom': 'ReactDOM',
-    'react-addons-transition-group': 'ReactTransitionGroup',
+    'react-addons-transition-group': {
+      root: ['React','addons','CSSTransitionGroup'],
+      commonjs2: 'react-addons-transition-group',
+      commonjs: 'react-addons-transition-group',
+      amd: 'react-addons-transition-group'
+     }
   },
 
   plugins: [
