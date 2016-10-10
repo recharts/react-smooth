@@ -41,7 +41,9 @@ export const generatePrefixStyle = (name, value) => {
   }, {});
 };
 
-export const log = console.log.bind(console);
+export const log = (...args) => {
+  console.log(...args);
+};
 
 /*
  * @description: log the value of a varible
