@@ -110,7 +110,14 @@ export default (from, to, easing, duration, render) => {
     if (t < 1) {
       cafId = raf(update);
     } else {
-      update(beginTime + duration);
+      const finalStyle = mapObject((key, val) =>
+        alpha(...val, easing(1)), timingStyle);
+
+      render({
+        ...from,
+        ...to,
+        ...finalStyle,
+      });
     }
   };
 
