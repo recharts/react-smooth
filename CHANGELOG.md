@@ -1,3 +1,8 @@
+0.1.12 / 2016-10-27
+==================
+
+* chore: fix script
+
 0.1.10 / 2016-07-07
 ==================
 
@@ -5,15 +10,15 @@
 
 ### 0.1.8/0.1.9 / 2016-05-05
 ===
-- feat: add onAniamtionStart prop 
+- feat: add onAniamtionStart prop
 
 ### 0.1.7 / 2016-04-21
 ===
-- fix: fix Animate trigger animate when isActive is false 
+- fix: fix Animate trigger animate when isActive is false
 
 ### 0.1.6 / 2016-04-15
 ===
-- fix: fix Animate not pipe props when Animate not active 
+- fix: fix Animate not pipe props when Animate not active
 
 ### 0.1.5 / 2016-04-13
 ===
