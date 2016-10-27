@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "build": "npm run build-cjs && npm run build-es6",
-    "build-cjs": "rimraf lib && babel ./src -d lib",
+    "build-cjs": "rimraf lib && babel ./src -d lib -w",
     "build-es6": "rimraf es6 && babel ./src -d es6 --blacklist=es6.modules",
     "build-umd": "NODE_ENV=development webpack src/index.js umd/ReactSmooth.js",
     "build-min": "NODE_ENV=production webpack src/index.js umd/ReactSmooth.min.js",
