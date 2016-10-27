@@ -31,7 +31,7 @@ export const generatePrefixStyle = (name, value) => {
 
   return PREFIX_LIST.reduce((result, property, i) => {
     if (isTransition) {
-      styleVal = value.replace(/(transform|transform-origin)/gim, '-webkit-$1');
+      styleVal = value.replace(/(transform|transform-origin)/gim, `${IN_LINE_PREFIX_LIST[i]}$1`);
     }
 
     return {

@@ -109,6 +109,8 @@ export default (from, to, easing, duration, render) => {
 
     if (t < 1) {
       cafId = raf(update);
+    } else {
+      update(beginTime + duration);
     }
   };
 
