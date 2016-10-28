@@ -93,6 +93,8 @@ class Animate extends Component {
   componentDidMount() {
     const { isActive, canBegin } = this.props;
 
+    this.isMounted = true;
+
     if (!isActive || !canBegin) {
       return;
     }
@@ -145,6 +147,8 @@ class Animate extends Component {
   }
 
   componentWillUnmount() {
+    this.isMounted = false;
+
     if (this.unSubscribe) {
       this.unSubscribe();
     }
@@ -266,9 +270,11 @@ class Animate extends Component {
   }
 
   changeStyle(style) {
-    this.setState({
-      style,
-    });
+    if (this.isMounted) {
+      this.setState({
+        style,
+      });
+    }
   }
 
   render() {
