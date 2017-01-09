@@ -20,14 +20,14 @@
   ],
   "scripts": {
     "build": "npm run build-cjs && npm run build-es6 && rimraf umd && npm run build-umd && npm run build-min",
-    "build-cjs": "rimraf lib && babel ./src -d lib",
-    "build-es6": "rimraf es6 && babel ./src -d es6 --blacklist=es6.modules",
-    "build-umd": "NODE_ENV=development webpack src/index.js umd/ReactSmooth.js",
-    "build-min": "NODE_ENV=production webpack src/index.js umd/ReactSmooth.min.js",
-    "test": "./node_modules/.bin/karma start --single-run",
-    "test-watch": "./node_modules/.bin/karma start",
-    "test-browser": "./node_modules/.bin/karma start",
-    "demo": "webpack-dev-server  --progress --port 4000  --colors --content-base demo --hot --inline --config demo/webpack.config.js",
+    "build-cjs": "BABEL_ENV=commonjs rimraf lib && babel ./src -d lib --plugins=transform-es2015-modules-commonjs",
+    "build-es6": "rimraf es6 && babel ./src -d es6",
+    "build-umd": "NODE_ENV=development BABEL_ENV=commonjs webpack src/index.js umd/ReactSmooth.js",
+    "build-min": "NODE_ENV=production BABEL_ENV=commonjs webpack src/index.js umd/ReactSmooth.min.js",
+    "test": "BABEL_ENV=commonjs ./node_modules/.bin/karma start --single-run",
+    "test-watch": "BABEL_ENV=commonjs ./node_modules/.bin/karma start",
+    "test-browser": "BABEL_ENV=commonjs ./node_modules/.bin/karma start",
+    "demo": "BABEL_ENV=commonjs webpack-dev-server  --progress --port 4000  --colors --content-base demo --hot --inline --config demo/webpack.config.js",
     "lint": "eslint src"
   },
   "pre-commit": [
