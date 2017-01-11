@@ -25,9 +25,9 @@
     "build-es6": "rimraf es6 && babel ./src -d es6",
     "build-umd": "NODE_ENV=development BABEL_ENV=commonjs webpack src/index.js umd/ReactSmooth.js",
     "build-min": "NODE_ENV=production BABEL_ENV=commonjs webpack src/index.js umd/ReactSmooth.min.js",
-    "test": "BABEL_ENV=commonjs ./node_modules/.bin/karma start --single-run",
-    "test-watch": "BABEL_ENV=commonjs ./node_modules/.bin/karma start",
-    "test-browser": "BABEL_ENV=commonjs ./node_modules/.bin/karma start",
+    "test": "NODE_ENV=test ./node_modules/.bin/karma start --single-run",
+    "test-watch": "NODE_ENV=test ./node_modules/.bin/karma start",
+    "test-browser": "NODE_ENV=test ./node_modules/.bin/karma start",
     "demo": "BABEL_ENV=commonjs webpack-dev-server  --progress --port 4000  --colors --content-base demo --hot --inline --config demo/webpack.config.js",
     "lint": "eslint src"
   },
