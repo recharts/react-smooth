@@ -123,7 +123,7 @@ export const configEasing = (...args) => {
   if (typeof easing === 'string') {
     switch (easing) {
       case 'ease':
-      case 'ease-int-out':
+      case 'ease-in-out':
       case 'ease-out':
       case 'ease-in':
       case 'linear':
