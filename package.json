@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build": "npm run build-cjs && npm run build-es6 && rimraf umd && npm run build-umd && npm run build-min",
-    "build-cjs": "BABEL_ENV=commonjs rimraf lib && babel ./src -d lib",
+    "build-cjs": "BABEL_ENV=commonjs rimraf lib && babel ./src -d lib  --plugins=transform-es2015-modules-commonjs",
     "build-es6": "rimraf es6 && babel ./src -d es6",
     "build-umd": "NODE_ENV=development BABEL_ENV=commonjs webpack src/index.js umd/ReactSmooth.js",
     "build-min": "NODE_ENV=production BABEL_ENV=commonjs webpack src/index.js umd/ReactSmooth.min.js",

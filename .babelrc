@@ -1,8 +1,20 @@
 {
-  plugins: ["transform-export-extensions", "transform-decorators-legacy", "lodash"],
-  presets: [["es2015", { "modules": false }], "react", "stage-0"],
+  plugins: [
+    "transform-export-extensions",
+    "transform-decorators-legacy",
+    "lodash"
+  ],
+  presets: [
+    ["es2015", { "modules": false }],
+    "react",
+    "stage-0"
+  ],
   env: {
-    commonjs: { plugins: ["transform-es2015-modules-commonjs"] },
-    test: { plugins: ["transform-es2015-modules-commonjs"] }
+    commonjs: {
+      plugins: ["transform-es2015-modules-commonjs"]
+    },
+    test: {
+      plugins: ["transform-es2015-modules-commonjs"]
+    }
   }
 }
