@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, cloneElement, Children } from 'react';
+import React, { Component, cloneElement, Children } from 'react';
+import PropTypes from 'prop-types';
 import createAnimateManager from './AnimateManager';
 import pureRender from './PureRender';
 import _ from 'lodash';
