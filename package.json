@@ -43,12 +43,12 @@
   },
   "homepage": "https://github.com/recharts/react-smooth#readme",
   "peerDependencies": {
-    "prop-types": "^15.5.8",
     "react": "^0.14.0 || ^15.0.0",
     "react-dom": "^0.14.0 || ^15.0.0"
   },
   "dependencies": {
     "lodash": "^4.16.4",
+    "prop-types": "^15.5.8",
     "raf": "^3.2.0",
     "react-addons-transition-group": "^0.14.0 || ^15.0.0"
   },
