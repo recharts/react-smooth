@@ -1,5 +1,5 @@
 import React, { Component, Children } from 'react';
-import ReactTransitionGroup from 'react-transition-group/TransitionGroup';
+import { TransitionGroup as ReactTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import AnimateGroupChild from './AnimateGroupChild';
 
