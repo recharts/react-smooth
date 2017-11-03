@@ -1,8 +1,8 @@
 import React, { Component, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import createAnimateManager from './AnimateManager';
 import pureRender from './PureRender';
-import _ from 'lodash';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
 import { getTransitionVal, identity, translateStyle } from './util';
@@ -220,13 +220,11 @@ class Animate extends Component {
       return [...sequence, newStyle, duration, onAnimationEnd].filter(identity);
     };
 
-    return this.manager.start(
-      [
-        onAnimationStart,
-        ...steps.reduce(addStyle, [initialStyle, Math.max(initialTime, begin)]),
-        props.onAnimationEnd,
-      ]
-    );
+    return this.manager.start([
+      onAnimationStart,
+      ...steps.reduce(addStyle, [initialStyle, Math.max(initialTime, begin)]),
+      props.onAnimationEnd,
+    ]);
   }
 
   runAnimation(props) {
@@ -293,7 +291,7 @@ class Animate extends Component {
       onAnimationEnd,
       shouldReAnimate,
       onAnimationReStart,
-      ...others,
+      ...others
     } = this.props;
     const count = Children.count(children);
     const stateStyle = translateStyle(this.state.style);

@@ -55,10 +55,9 @@ export const configBezier = (...args) => {
     }
   }
 
-  warn([x1, x2, y1, y2].every(num =>
-    typeof num === 'number' && num >= 0 && num <= 1),
+  warn([x1, x2, y1, y2].every(num => (typeof num === 'number' && num >= 0 && num <= 1)),
     '[configBezier]: arguments should be x1, y1, x2, y2 of [0, 1] instead received %s',
-    args
+    args,
   );
 
   const curveX = cubicBezier(x1, x2);
@@ -131,10 +130,12 @@ export const configEasing = (...args) => {
       case 'spring':
         return configSpring();
       default:
-        warn(false,
+        warn(
+          false,
           '[configEasing]: first argument should be one of \'ease\', \'ease-in\', ' +
           '\'ease-out\', \'ease-in-out\', \'linear\' and \'spring\', instead  received %s',
-          args);
+          args,
+        );
     }
   }
 

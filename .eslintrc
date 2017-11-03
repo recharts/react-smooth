@@ -22,6 +22,44 @@
 
     "strict": 0,
     "no-unused-vars": 0,
+
+    "one-var": ["error"],
+    "one-var-declaration-per-line": ["error", "initializations"],
+    "no-mixed-operators": 0,
+    "no-plusplus": 0,
+    "import/prefer-default-export": 0,
+    "react/forbid-prop-types": 0,
+    "no-bitwise": 0,
+    "object-property-newline": 0,
+    "react/no-unused-prop-types": 0,
+    "react/jsx-filename-extension": 0,
+    "class-methods-use-this": 1,
+
+    "no-continue": 0,
+    "import/no-named-as-default": 0,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["demo/**", "test/**", "*.config.js", "scripts/**", "**/Spec.js"]
+      }
+    ],
+    // Errors introduced while upgrading eslint & plugins
+    "arrow-body-style": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed"],
+    "no-restricted-properties": 1,
+    "prefer-destructuring": 1,
+    "object-curly-newline": 0,
+    "function-paren-newline": 0,
+    "react/require-default-props": 0,
+    "indent": 1,
+    "no-restricted-globals": 1,
+    "comma-dangle": 1,
+    "react/default-props-match-prop-types": 1,
+    "react/no-array-index-key": 1,
+    "no-multi-assign": 1,
+    "react/jsx-closing-tag-location": 1,
+    "react/no-unused-state": 1,
+    "react/prefer-stateless-function": 1
   },
   "plugins": [
     "react"

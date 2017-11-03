@@ -99,11 +99,7 @@ export const compose = (...args) => {
   const firstFn = fns[0];
   const tailsFn = fns.slice(1);
 
-  return (...composeArgs) =>
-    tailsFn.reduce((res, fn) =>
-      fn(res),
-      firstFn(...composeArgs)
-  );
+  return (...composeArgs) => (tailsFn.reduce((res, fn) => (fn(res)), firstFn(...composeArgs)));
 };
 
 export const getTransitionVal = (props, duration, easing) =>
@@ -121,10 +117,8 @@ export const warn = (condition, format, a, b, c, d, e, f) => {
 
     if (!condition) {
       if (format === undefined) {
-        console.warn(
-          'Minified exception occurred; use the non-minified dev environment ' +
-          'for the full error message and additional helpful warnings.'
-        );
+        console.warn('Minified exception occurred; use the non-minified dev environment ' +
+          'for the full error message and additional helpful warnings.');
       } else {
         const args = [a, b, c, d, e, f];
         let argIndex = 0;

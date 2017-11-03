@@ -1,13 +1,14 @@
 import React, { Component, Children } from 'react';
-import { TransitionGroup as ReactTransitionGroup } from 'react-transition-group';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 import PropTypes from 'prop-types';
 import AnimateGroupChild from './AnimateGroupChild';
 
 class AnimateGroup extends Component {
   static propTypes = {
     appear: PropTypes.object,
-    leave: PropTypes.object,
     enter: PropTypes.object,
+    leave: PropTypes.object,
+
     children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
     component: PropTypes.any,
   };
@@ -16,30 +17,24 @@ class AnimateGroup extends Component {
     component: 'span',
   };
 
-  wrapChild(child) {
-    const { appear, leave, enter } = this.props;
-
-    return (
-      <AnimateGroupChild
-        appear={appear}
-        leave={leave}
-        enter={enter}
-      >
-        {child}
-      </AnimateGroupChild>
-    );
-  }
-
   render() {
-    const { component, children } = this.props;
+    const { component, children, appear, enter, leave } = this.props;
 
     return (
-      <ReactTransitionGroup
-        component={component}
-        childFactory={::this.wrapChild}
-      >
-        {children}
-      </ReactTransitionGroup>
+      <TransitionGroup component={component}>
+        {
+          Children.map(children, (child, index) => ((
+            <AnimateGroupChild
+              appearOptions={appear}
+              enterOptions={enter}
+              leaveOptions={leave}
+              key={`child-${index}`}
+            >
+              {child}
+            </AnimateGroupChild>
+          )))
+        }
+      </TransitionGroup>
     );
   }
 }
