@@ -1,7 +1,7 @@
 
 module.exports = function (config) {
   config.set({
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai'],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
       'test/spec.js',
@@ -24,6 +24,26 @@ module.exports = function (config) {
     },
     webpackServer: {
       noInfo: false,
+    },
+
+    plugins: [
+      'karma-webpack',
+      'karma-mocha',
+      // 'karma-coverage',
+      'karma-chai',
+      'karma-sourcemap-loader',
+      'karma-firefox-launcher',
+      'karma-chrome-launcher',
+      // 'karma-coveralls',
+    ],
+
+    externals: {
+      jsdom: 'window',
+      'react/lib/ExecutionEnvironment': true,
+      'react/addons': 'react',
+      'react/lib/ReactContext': 'window',
+      'text-encoding': 'window',
+      'react-addons-test-utils': 'react-dom'
     },
   });
 };

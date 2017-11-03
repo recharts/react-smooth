@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import update from 'react/lib/update';
 import { AnimateGroup, configSpring } from 'react-smooth';
 
 class GroupAnimation extends Component {
@@ -15,11 +14,11 @@ class GroupAnimation extends Component {
   };
 
   handleDel(index) {
-    this.setState(update(this.state, {
-      list: {
-        $splice: [[index, 1]],
-      },
-    }));
+    const { list } = this.state;
+
+    this.setState({
+      list: [...list.slice(0, index), ...list.slice(index + 1, list.length)],
+    });
   }
 
   renderList() {

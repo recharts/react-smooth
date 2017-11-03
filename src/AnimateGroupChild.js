@@ -1,12 +1,31 @@
 import React, { Component, Children } from 'react';
+import Transition from 'react-transition-group/Transition';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import Animate from './Animate';
+
+
+const parseDurationOfSingleTransition = (options = {}) => {
+  const { steps, duration } = options;
+
+  if (steps && steps.length) {
+    return steps.reduce((result, entry) => (
+      result + (_.isNumber(entry.duration) && entry.duration > 0 ? entry.duration : 0)
+    ), 0);
+  }
+
+  if (_.isNumber(duration)) {
+    return duration;
+  }
+
+  return 0;
+};
 
 class AnimateGroupChild extends Component {
   static propTypes = {
-    appear: PropTypes.object,
-    leave: PropTypes.object,
-    enter: PropTypes.object,
+    appearOptions: PropTypes.object,
+    enterOptions: PropTypes.object,
+    leaveOptions: PropTypes.object,
     children: PropTypes.element,
   };
 
@@ -14,42 +33,56 @@ class AnimateGroupChild extends Component {
     isActive: false,
   };
 
-  handleStyleActive(style, done) {
+  handleStyleActive(style) {
     if (style) {
       const onAnimationEnd = style.onAnimationEnd ?
         () => {
           style.onAnimationEnd();
-          done();
         } :
-        done;
+        null;
 
       this.setState({
         ...style,
         onAnimationEnd,
         isActive: true,
       });
-    } else {
-      done();
     }
   }
 
-  componentWillAppear(done) {
-    this.handleStyleActive(this.props.appear, done);
+  handleEnter = (node, isAppearing) => {
+    const { appearOptions, enterOptions } = this.props;
+
+    this.handleStyleActive(isAppearing ? appearOptions : enterOptions);
   }
 
-  componentWillEnter(done) {
-    this.handleStyleActive(this.props.enter, done);
+  handleExit = () => {
+    this.handleStyleActive(this.props.leaveOptions);
   }
 
-  componentWillLeave(done) {
-    this.handleStyleActive(this.props.leave, done);
+  parseTimeout() {
+    const { appearOptions, enterOptions, leaveOptions } = this.props;
+
+    return parseDurationOfSingleTransition(appearOptions) +
+      parseDurationOfSingleTransition(enterOptions) +
+      parseDurationOfSingleTransition(leaveOptions);
   }
 
   render() {
+    const { children, appearOptions, enterOptions, leaveOptions, ...props } = this.props;
+
     return (
-      <Animate {...this.state}>
-        {Children.only(this.props.children)}
-      </Animate>
+      <Transition
+        {...props}
+        onEnter={this.handleEnter}
+        onExit={this.handleExit}
+        timeout={this.parseTimeout()}
+      >
+        {transitionState => ((
+          <Animate {...this.state}>
+            {Children.only(children)}
+          </Animate>
+        ))}
+      </Transition>
     );
   }
 }
