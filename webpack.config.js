@@ -1,9 +1,9 @@
-var path = require('path');
-var fs = require('fs');
-var webpack = require('webpack');
-var env = process.env.NODE_ENV
+const path = require('path');
+const fs = require('fs');
+const webpack = require('webpack');
+const env = process.env.NODE_ENV
 
-var config = {
+const config = {
   entry: './src/index.js',
 
   output: {

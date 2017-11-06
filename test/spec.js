@@ -1,27 +1,27 @@
 import Animate, { translateStyle } from '../src/';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-addons-test-utils';
+import chai, { expect } from 'chai';
 import spies from 'chai-spies';
-import chai from 'chai';
+import Enzyme, { mount, render } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
+Enzyme.configure({ adapter: new Adapter() });
 chai.use(spies);
-const { expect } = chai;
 
 describe('Animate', () => {
 
   it('Should change the style of children', (done) => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    const instance = mount(
       <Animate from="1" to="0" attributeName="opacity" duration={500}>
-        <div></div>
+        <div className="test-wrapper"></div>
       </Animate>
     );
-
-    expect(ReactDOM.findDOMNode(instance).style.opacity).to.equal('1');
+    expect(instance.getDOMNode().style.opacity).to.equal('1');
     setTimeout(() => {
-      expect(ReactDOM.findDOMNode(instance).style.opacity).to.equal('0');
+      expect(instance.getDOMNode().style.opacity).to.equal('0');
       done();
-    }, 600);
+    }, 700);
   });
 
   it('Should called onAnimationEnd', (done) => {
@@ -30,7 +30,7 @@ describe('Animate', () => {
       num = num + 1;
     };
 
-    const instance = ReactTestUtils.renderIntoDocument(
+    const instance = mount(
       <Animate from="1" to="0"
         attributeName="opacity"
         duration={500}
@@ -48,33 +48,44 @@ describe('Animate', () => {
   });
 
   it('Should change style as steps', (done) => {
-    let status = 'first';
-    const handleAnimationEnd = chai.spy((s) => {
-      status = s;
-    });
+    let firstStatus = 'no';
+    let secondStatus = 'no';
 
-    const instance = ReactTestUtils.renderIntoDocument(
+    const firstHandleAnimationEnd = () => {
+      firstStatus = 'yes';
+    };
+    const secondHandleAnimationEnd = () => {
+      secondStatus = 'yes';
+    };
+
+    const instance = mount(
       <Animate steps={[{
         duration: 0,
         style: { opacity: 0 },
       }, {
         duration: 500,
         style: { opacity: 1 },
-        onAnimationEnd: handleAnimationEnd.bind(this, 'second'),
+        onAnimationEnd: firstHandleAnimationEnd,
       }, {
         duration: 500,
         style: { opacity: 0.5 },
       }]}
-        onAnimationEnd={handleAnimationEnd.bind(this, 'end')}
+        onAnimationEnd={secondHandleAnimationEnd}
       >
         <div></div>
       </Animate>
     );
 
-    expect(status).to.equal('first');
+    expect(firstStatus).to.equal('no');
+    expect(secondStatus).to.equal('no');
     setTimeout(() => {
-      expect(handleAnimationEnd).to.have.been.called.with('second');
-      expect(handleAnimationEnd).to.have.been.called.with('end');
+      expect(firstStatus).to.equal('yes');
+      expect(secondStatus).to.equal('no');
+    }, 700);
+
+    setTimeout(() => {
+      expect(firstStatus).to.equal('yes');
+      expect(secondStatus).to.equal('yes');
       done();
     }, 1400);
   });

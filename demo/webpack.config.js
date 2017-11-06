@@ -19,9 +19,6 @@ module.exports = {
       'react-smooth': path.join(__dirname, '..', 'src/index.js'),
     },
   },
-  webpackServer: {
-    hot: true,
-  },
   module: {
     loaders: [
       {

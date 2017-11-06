@@ -1,9 +1,9 @@
 import raf, { cancel as caf } from 'raf';
+import { filter } from 'lodash';
 import {
   getIntersectionKeys,
   mapObject,
 } from './util';
-import { filter } from 'lodash';
 
 const alpha = (begin, end, k) => begin + (end - begin) * k;
 const needContinue = ({ from, to }) => from !== to;
@@ -68,7 +68,7 @@ export default (from, to, easing, duration, render) => {
   const shouldStopAnimation = () => !filter(stepperStyle, needContinue).length;
 
   // stepper timing function like spring
-  const stepperUpdate = (now) => {
+  const stepperUpdate = now => {
     if (!preTime) {
       preTime = now;
     }
@@ -91,7 +91,7 @@ export default (from, to, easing, duration, render) => {
   };
 
   // t => val timing function like cubic-bezier
-  const timingUpdate = (now) => {
+  const timingUpdate = now => {
     if (!beginTime) {
       beginTime = now;
     }
