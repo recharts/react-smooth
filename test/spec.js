@@ -50,13 +50,11 @@ describe('Animate', () => {
   it('Should change style as steps', (done) => {
     let firstStatus = 'no';
     let secondStatus = 'no';
-    console.log(+ new Date());
+
     const firstHandleAnimationEnd = () => {
-      console.log(+ new Date());
       firstStatus = 'yes';
     };
     const secondHandleAnimationEnd = () => {
-      console.log(+ new Date());
       secondStatus = 'yes';
     };
 
