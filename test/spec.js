@@ -21,7 +21,7 @@ describe('Animate', () => {
     setTimeout(() => {
       expect(instance.getDOMNode().style.opacity).to.equal('0');
       done();
-    }, 600);
+    }, 700);
   });
 
   it('Should called onAnimationEnd', (done) => {
@@ -50,11 +50,13 @@ describe('Animate', () => {
   it('Should change style as steps', (done) => {
     let firstStatus = 'no';
     let secondStatus = 'no';
-
+    console.log(+ new Date());
     const firstHandleAnimationEnd = () => {
+      console.log(+ new Date());
       firstStatus = 'yes';
     };
     const secondHandleAnimationEnd = () => {
+      console.log(+ new Date());
       secondStatus = 'yes';
     };
 
@@ -87,7 +89,7 @@ describe('Animate', () => {
       expect(firstStatus).to.equal('yes');
       expect(secondStatus).to.equal('yes');
       done();
-    }, 1200);
+    }, 1400);
   });
 });
 
