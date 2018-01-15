@@ -130,6 +130,9 @@ export const configEasing = (...args) => {
       case 'spring':
         return configSpring();
       default:
+        if (easing.split("(")[0] === 'cubic-bezier') {
+            return configBezier('linear');
+        }
         warn(
           false,
           '[configEasing]: first argument should be one of \'ease\', \'ease-in\', ' +
