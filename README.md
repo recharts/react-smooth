@@ -16,7 +16,7 @@ npm install --save react-smooth
 simple animation
 
 ```jsx
-<Animate to={0} from={1} attributeName="opacity">
+<Animate to="0" from="1" attributeName="opacity">
   <div />
 </Animate>
 ```
