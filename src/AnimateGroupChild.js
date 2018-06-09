@@ -1,5 +1,5 @@
 import React, { Component, Children } from 'react';
-import Transition from 'react-transition-group/Transition';
+import { Transition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Animate from './Animate';
