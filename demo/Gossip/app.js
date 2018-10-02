@@ -48,7 +48,7 @@ const createPoint = (x, y) => {
 
   return {
     getPath: cmd => [cmd, currX, currY].join(' '),
-    getCircle: (props) => <circle cx={currX} cy={currY} { ...props } />,
+    getCircle: props => <circle cx={currX} cy={currY} {...props} />,
     x: currX,
     y: currY,
   };
@@ -112,13 +112,14 @@ class Gossip extends Component {
 
   renderText() {
     return (
-      <Animate canBegin={this.state.canBegin}
+      <Animate
+        canBegin={this.state.canBegin}
         duration={1000}
         from={{ opacity: 0, transform: 'scale(1)' }}
         to={{ opacity: 1, transform: 'scale(1.5)' }}
       >
         <g style={{ transformOrigin: 'center center' }}>
-        <text x="500" y="300">May you no bug this year</text>
+          <text x="500" y="300">May you no bug this year</text>
         </g>
       </Animate>
     );

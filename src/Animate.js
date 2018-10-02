@@ -319,8 +319,6 @@ class Animate extends Component {
     };
 
     if (count === 1) {
-      const onlyChild = Children.only(children);
-
       return cloneContainer(Children.only(children));
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import { AnimateGroup, configSpring } from 'react-smooth';
+import { AnimateGroup } from 'react-smooth';
 
 class GroupAnimation extends Component {
   state = {
@@ -28,7 +28,8 @@ class GroupAnimation extends Component {
       const requestDel = this.handleDel.bind(this, index);
 
       return (
-        <div className="item-wrapper"
+        <div
+          className="item-wrapper"
           style={{
             width: 300,
             height: 50,
@@ -37,9 +38,10 @@ class GroupAnimation extends Component {
             marginBottom: 1,
             overflow: 'hidden',
           }}
-          key={'item-' + item.text}
+          key={`item-${item.text}`}
         >
-          <div className="item"
+          <div
+            className="item"
             style={{
               width: 300,
               height: 50,
@@ -49,7 +51,8 @@ class GroupAnimation extends Component {
             }}
           >
             {item.text}
-            <a href="javascript:void(0);"
+            <a
+              href="javascript:void(0);"
               className="btn del"
               style={{
                 float: 'right',
@@ -91,7 +94,8 @@ class GroupAnimation extends Component {
 
   render() {
     return (
-      <div className="group-animation"
+      <div
+        className="group-animation"
         style={{
           overflow: 'hidden',
           width: 302,

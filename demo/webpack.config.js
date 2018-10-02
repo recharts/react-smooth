@@ -1,13 +1,11 @@
-'use strict';
-
-var path = require('path');
+const path = require('path');
 
 module.exports = {
   entry: {
-    Gossip: __dirname + '/Gossip/app.js',
-    GroupAnimation: __dirname + '/GroupAnimation/app.js',
-    SimpleAnimation: __dirname + '/SimpleAnimation/app.js',
-    Pendulum: __dirname + '/Pendulum/app.js',
+    Gossip: path.join(__dirname, '/Gossip/app.js'),
+    GroupAnimation: path.join(__dirname, '/GroupAnimation/app.js'),
+    SimpleAnimation: path.join(__dirname, '/SimpleAnimation/app.js'),
+    Pendulum: path.join(__dirname, '/Pendulum/app.js'),
   },
   devtool: 'inline-source-map',
   output: {
@@ -16,18 +14,18 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react-smooth': path.join(__dirname, '..', 'src/index.js'),
+      'react-smooth': path.join(__dirname, '../src/index.js'),
     },
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [
           __dirname,
-          path.join(__dirname, '..', 'src'),
-          path.join(__dirname, '..', 'node_modules'),
+          path.join(__dirname, '../src'),
+          path.join(__dirname, '../node_modules'),
         ],
       },
     ],

@@ -11,7 +11,7 @@ const cubicBezierFactor = (c1, c2) => [
 
 const multyTime = (params, t) =>
   params.map((param, i) =>
-    param * Math.pow(t, i)
+    param * (t ** i),
   ).reduce((pre, curr) => pre + curr);
 
 const cubicBezier = (c1, c2) => t => {

@@ -1,7 +1,8 @@
 const path = require('path');
-const fs = require('fs');
 const webpack = require('webpack');
-const env = process.env.NODE_ENV
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const env = process.env.NODE_ENV;
 
 const config = {
   entry: './src/index.js',
@@ -24,25 +25,25 @@ const config = {
 
   resolve: {
     alias: {
-      'react': path.join(__dirname, './node_modules/react'),
+      react: path.join(__dirname, './node_modules/react'),
       'react-dom': path.join(__dirname, './node_modules/react-dom'),
       'react-transition-group': path.join(__dirname, './node_modules/react-transition-group'),
     }
   },
 
   externals: {
-    "react": {
+    react: {
       root: 'React',
       commonjs2: 'react',
       commonjs: 'react',
-      amd: 'react'
+      amd: 'react',
     },
     'react-transition-group': {
       root: ['ReactTransitionGroup'],
       commonjs2: 'react-transition-group',
       commonjs: 'react-transition-group',
-      amd: 'react-transition-group'
-     }
+      amd: 'react-transition-group',
+    },
   },
 
   plugins: [
@@ -52,21 +53,18 @@ const config = {
   ],
 };
 
-if (env === 'production') {
+if (env === 'analyse') {
   config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-        warnings: false
-      },
-      output: {
-        comments: false
-      },
-      sourceMap: false
-    })
+    new BundleAnalyzerPlugin(),
   );
+}
+
+if (env === 'development') {
+  config.mode = 'development';
+}
+
+if (env === 'production') {
+  config.mode = 'production';
 }
 
 module.exports = config;

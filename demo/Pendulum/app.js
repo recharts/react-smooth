@@ -25,9 +25,10 @@ function Circle(props) {
   };
 
   return (
-    <div className="circle-ball"
+    <div
+      className="circle-ball"
       style={translateStyle(style)}
-      { ...others }
+      {...others}
     />
   );
 }
