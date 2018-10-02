@@ -12,7 +12,14 @@
     "react/jsx-uses-vars": 2,
     "react/react-in-jsx-scope": 2,
     "no-var": 0,
-    "vars-on-top": 0
+    "vars-on-top": 0,
+    "prefer-destructuring": "off",
+    "no-mixed-operators": "off",
+    "no-plusplus": "off",
+    "no-continue": "off",
+    "react/require-default-props": "off",
+    "react/jsx-filename-extension": "off",
+    "react/forbid-prop-types": "off"
   },
   "plugins": [
     "react"

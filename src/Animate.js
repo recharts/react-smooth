@@ -57,7 +57,9 @@ class Animate extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const { isActive, attributeName, from, to, steps, children } = this.props;
+    const {
+      isActive, attributeName, from, to, steps, children,
+    } = this.props;
 
     this.handleStyleChange = this.handleStyleChange.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
@@ -104,7 +106,9 @@ class Animate extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isActive, canBegin, attributeName, shouldReAnimate } = nextProps;
+    const {
+      isActive, canBegin, attributeName, shouldReAnimate,
+    } = nextProps;
 
     if (!canBegin) {
       return;
@@ -117,8 +121,6 @@ class Animate extends Component {
 
       return;
     }
-
-    const animateProps = ['to', 'canBegin', 'isActive'];
 
     if (_.isEqual(this.props.to, nextProps.to) && this.props.canBegin && this.props.isActive) {
       return;
@@ -165,7 +167,9 @@ class Animate extends Component {
   }
 
   runJSAnimation(props) {
-    const { from, to, duration, easing, begin, onAnimationEnd, onAnimationStart } = props;
+    const {
+      from, to, duration, easing, begin, onAnimationEnd, onAnimationStart,
+    } = props;
     const startAnimation = configUpdate(from, to, configEasing(easing), duration, this.changeStyle);
 
     const finalStartAnimation = () => {
@@ -235,7 +239,6 @@ class Animate extends Component {
       begin,
       duration,
       attributeName,
-      from: propsFrom,
       to: propsTo,
       easing,
       onAnimationStart,
@@ -304,7 +307,7 @@ class Animate extends Component {
       return children;
     }
 
-    const cloneContainer = container => {
+    const cloneContainer = (container) => {
       const { style = {}, className } = container.props;
 
       const res = cloneElement(container, {

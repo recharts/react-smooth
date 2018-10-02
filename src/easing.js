@@ -11,16 +11,15 @@ const cubicBezierFactor = (c1, c2) => [
 
 const multyTime = (params, t) =>
   params.map((param, i) =>
-    param * (t ** i),
-  ).reduce((pre, curr) => pre + curr);
+    param * (t ** i)).reduce((pre, curr) => pre + curr);
 
-const cubicBezier = (c1, c2) => t => {
+const cubicBezier = (c1, c2) => (t) => {
   const params = cubicBezierFactor(c1, c2);
 
   return multyTime(params, t);
 };
 
-const derivativeCubicBezier = (c1, c2) => t => {
+const derivativeCubicBezier = (c1, c2) => (t) => {
   const params = cubicBezierFactor(c1, c2);
   const newParams = [...params.map((param, i) => param * i).slice(1), 0];
 
@@ -55,7 +54,8 @@ export const configBezier = (...args) => {
     }
   }
 
-  warn([x1, x2, y1, y2].every(num => (typeof num === 'number' && num >= 0 && num <= 1)),
+  warn(
+    [x1, x2, y1, y2].every(num => (typeof num === 'number' && num >= 0 && num <= 1)),
     '[configBezier]: arguments should be x1, y1, x2, y2 of [0, 1] instead received %s',
     args,
   );
@@ -63,7 +63,7 @@ export const configBezier = (...args) => {
   const curveX = cubicBezier(x1, x2);
   const curveY = cubicBezier(y1, y2);
   const derCurveX = derivativeCubicBezier(x1, x2);
-  const rangeValue = value => {
+  const rangeValue = (value) => {
     if (value > 1) {
       return 1;
     } else if (value < 0) {
@@ -73,7 +73,7 @@ export const configBezier = (...args) => {
     return value;
   };
 
-  const bezier = _t => {
+  const bezier = (_t) => {
     const t = _t > 1 ? 1 : _t;
     let x = t;
 

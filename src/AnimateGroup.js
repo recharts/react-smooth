@@ -1,10 +1,12 @@
-import React, { Component, Children } from 'react';
+import React, { Children } from 'react';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 import PropTypes from 'prop-types';
 import AnimateGroupChild from './AnimateGroupChild';
 
 function AnimateGroup(props) {
-  const { component, children, appear, enter, leave } = props;
+  const {
+    component, children, appear, enter, leave,
+  } = props;
 
   return (
     <TransitionGroup component={component}>

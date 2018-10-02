@@ -5,7 +5,7 @@ export default function createAnimateManager() {
   let handleChange = () => null;
   let shouldStop = false;
 
-  const setStyle = _style => {
+  const setStyle = (_style) => {
     if (shouldStop) {
       return;
     }
@@ -41,11 +41,11 @@ export default function createAnimateManager() {
     stop: () => {
       shouldStop = true;
     },
-    start: style => {
+    start: (style) => {
       shouldStop = false;
       setStyle(style);
     },
-    subscribe: _handleChange => {
+    subscribe: (_handleChange) => {
       handleChange = _handleChange;
 
       return () => {

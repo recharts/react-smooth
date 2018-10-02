@@ -49,7 +49,7 @@ export const log = (...args) => {
  * @description: log the value of a varible
  * string => any => any
  */
-export const debug = name => item => {
+export const debug = name => (item) => {
   log(name, item);
 
   return item;

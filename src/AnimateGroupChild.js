@@ -68,7 +68,9 @@ class AnimateGroupChild extends Component {
   }
 
   render() {
-    const { children, appearOptions, enterOptions, leaveOptions, ...props } = this.props;
+    const {
+      children, appearOptions, enterOptions, leaveOptions, ...props
+    } = this.props;
 
     return (
       <Transition
@@ -77,11 +79,11 @@ class AnimateGroupChild extends Component {
         onExit={this.handleExit}
         timeout={this.parseTimeout()}
       >
-        {transitionState => ((
+        {() => (
           <Animate {...this.state}>
             {Children.only(children)}
           </Animate>
-        ))}
+        )}
       </Transition>
     );
   }

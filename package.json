@@ -26,6 +26,7 @@
     "build-min": "cross-env NODE_ENV=production BABEL_ENV=commonjs webpack src/index.js -o umd/ReactSmooth.min.js",
     "test": "cross-env NODE_ENV=test karma start test/karma.conf.js",
     "demo": "cross-env BABEL_ENV=commonjs webpack-dev-server --progress --port 4000 --colors --content-base demo --hot --inline --config demo/webpack.config.js",
+    "autofix": "eslint src --fix",
     "lint": "eslint src"
   },
   "pre-commit": [
