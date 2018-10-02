@@ -1,3 +1,15 @@
+
+1.0.1 / 2018-10-02
+==================
+
+* chore: update babel, webpack, karma, etc.
+* fix: fix import error
+
+1.0.0 / 2017-11-06
+==================
+
+* feat: support React 16
+
 0.1.17 / 2016-12-02
 ==================
 

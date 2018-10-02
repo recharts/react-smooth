@@ -1,12 +1,11 @@
 {
   "name": "react-smooth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "react animation library",
   "main": "lib/index",
-  "jsnext:main": "es6/index",
+  "module": "es6/index",
   "files": [
     "*.md",
-    "demo",
     "es6",
     "lib",
     "umd",
