@@ -1,5 +1,4 @@
-const BABEL_ENV = process.env.BABEL_ENV
-const building = BABEL_ENV != undefined && BABEL_ENV !== 'cjs'
+const BABEL_ENV = process.env.BABEL_ENV;
 
 const plugins = [
   "lodash",
@@ -18,7 +17,7 @@ module.exports = {
   plugins: plugins,
   presets: [
     [ "@babel/preset-env", {
-      modules: building ? false : 'commonjs',
+      modules: BABEL_ENV === 'commonjs' ? 'commonjs': false,
       targets: {
         "browsers": ["last 2 versions"]
       }
