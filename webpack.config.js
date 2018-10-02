@@ -18,7 +18,7 @@ const config = {
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
       include: [
-        path.resolve(__dirname, 'src')
+        path.resolve(__dirname, 'src'),
       ],
     }],
   },
@@ -28,7 +28,7 @@ const config = {
       react: path.join(__dirname, './node_modules/react'),
       'react-dom': path.join(__dirname, './node_modules/react-dom'),
       'react-transition-group': path.join(__dirname, './node_modules/react-transition-group'),
-    }
+    },
   },
 
   externals: {
@@ -54,9 +54,7 @@ const config = {
 };
 
 if (env === 'analyse') {
-  config.plugins.push(
-    new BundleAnalyzerPlugin(),
-  );
+  config.plugins.push(new BundleAnalyzerPlugin());
 }
 
 if (env === 'development') {
