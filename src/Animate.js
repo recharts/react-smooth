@@ -1,14 +1,12 @@
-import React, { Component, cloneElement, Children } from 'react';
+import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import createAnimateManager from './AnimateManager';
-import pureRender from './PureRender';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
 import { getTransitionVal, identity, translateStyle } from './util';
 
-@pureRender
-class Animate extends Component {
+class Animate extends PureComponent {
   static displayName = 'Animate';
 
   static propTypes = {
