@@ -48,9 +48,14 @@ export const configBezier = (...args) => {
         [x1, y1, x2, y2] = [0.0, 0.0, 0.58, 1.0];
         break;
       default:
-        warn(false, '[configBezier]: arguments should be one of ' +
-          'oneOf \'linear\', \'ease\', \'ease-in\', \'ease-out\', ' +
-          '\'ease-in-out\', instead received %s', args);
+        var easing = args[0].split('(');
+        if (easing[0] === 'cubic-bezier' && easing[1].split(')')[0].split(',').length === 4) {
+          [x1, y1, x2, y2] = easing[1].split(')')[0].split(',').map(x => parseFloat(x));
+        } else {
+          warn(false, '[configBezier]: arguments should be one of ' +
+            'oneOf \'linear\', \'ease\', \'ease-in\', \'ease-out\', ' +
+            '\'ease-in-out\',\'cubic-bezier(x1,y1,x2,y2)\', instead received %s', args);
+        }
     }
   }
 
@@ -130,6 +135,9 @@ export const configEasing = (...args) => {
       case 'spring':
         return configSpring();
       default:
+        if (easing.split('(')[0] === 'cubic-bezier') {
+          return configBezier(easing);
+        }
         warn(
           false,
           '[configEasing]: first argument should be one of \'ease\', \'ease-in\', ' +
