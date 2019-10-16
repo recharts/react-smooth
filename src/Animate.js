@@ -105,28 +105,29 @@ class Animate extends Component {
     this.runAnimation(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const {
       isActive, canBegin, attributeName, shouldReAnimate,
-    } = nextProps;
+    } = this.props;
 
     if (!canBegin) {
       return;
     }
 
     if (!isActive) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        style: attributeName ? { [attributeName]: nextProps.to } : nextProps.to,
+        style: attributeName ? { [attributeName]: this.props.to } : this.props.to,
       });
 
       return;
     }
 
-    if (_.isEqual(this.props.to, nextProps.to) && this.props.canBegin && this.props.isActive) {
+    if (_.isEqual(prevProps.to, this.props.to) && prevProps.canBegin && prevProps.isActive) {
       return;
     }
 
-    const isTriggered = !this.props.canBegin || !this.props.isActive;
+    const isTriggered = !prevProps.canBegin || !prevProps.isActive;
 
     if (this.manager) {
       this.manager.stop();
@@ -136,14 +137,15 @@ class Animate extends Component {
       this.stopJSAnimation();
     }
 
-    const from = isTriggered || shouldReAnimate ? nextProps.from : this.props.to;
+    const from = isTriggered || shouldReAnimate ? this.props.from : prevProps.to;
 
+    // eslint-disable-next-line react/no-did-update-set-state
     this.setState({
       style: attributeName ? { [attributeName]: from } : from,
     });
 
     this.runAnimation({
-      ...nextProps,
+      ...this.props,
       from,
       begin: 0,
     });
