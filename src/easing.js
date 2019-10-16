@@ -47,8 +47,8 @@ export const configBezier = (...args) => {
       case 'ease-in-out':
         [x1, y1, x2, y2] = [0.0, 0.0, 0.58, 1.0];
         break;
-      default:
-        var easing = args[0].split('(');
+      default: {
+        const easing = args[0].split('(');
         if (easing[0] === 'cubic-bezier' && easing[1].split(')')[0].split(',').length === 4) {
           [x1, y1, x2, y2] = easing[1].split(')')[0].split(',').map(x => parseFloat(x));
         } else {
@@ -56,6 +56,7 @@ export const configBezier = (...args) => {
             'oneOf \'linear\', \'ease\', \'ease-in\', \'ease-out\', ' +
             '\'ease-in-out\',\'cubic-bezier(x1,y1,x2,y2)\', instead received %s', args);
         }
+      }
     }
   }
 
@@ -141,7 +142,7 @@ export const configEasing = (...args) => {
         warn(
           false,
           '[configEasing]: first argument should be one of \'ease\', \'ease-in\', ' +
-          '\'ease-out\', \'ease-in-out\', \'linear\' and \'spring\', instead  received %s',
+          '\'ease-out\', \'ease-in-out\',\'cubic-bezier(x1,y1,x2,y2)\', \'linear\' and \'spring\', instead  received %s',
           args,
         );
     }
