@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Animate, { translateStyle } from './index';
+import Animate, { translateStyle } from '../src/index';
 
 
 describe('Animate', () => {
