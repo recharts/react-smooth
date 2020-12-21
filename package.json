@@ -24,7 +24,7 @@
     "build-umd": "cross-env NODE_ENV=development BABEL_ENV=commonjs webpack -o umd/ReactSmooth.js",
     "build-min": "cross-env NODE_ENV=production BABEL_ENV=commonjs webpack -o umd/ReactSmooth.min.js",
     "test": "cross-env BABEL_ENV=commonjs jest",
-    "demo": "cross-env BABEL_ENV=commonjs webpack-dev-server --progress --port 4000 --colors --content-base demo --hot --inline --config demo/webpack.config.js",
+    "demo": "cross-env BABEL_ENV=commonjs webpack serve --content-base demo --config demo/webpack.config.js",
     "autofix": "eslint src --fix",
     "lint": "eslint src"
   },
@@ -45,7 +45,7 @@
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "lodash": "~4.17.4",
+    "lodash": "^4.17.20",
     "prop-types": "^15.6.0",
     "raf": "^3.4.0",
     "react-transition-group": "^4.0.0"
@@ -68,9 +68,6 @@
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.0.0",
     "babel-plugin-lodash": "^3.3.0",
-    "chai": "^4.1.2",
-    "chai-enzyme": "^0.8.0",
-    "chai-spies": "^0.7.1",
     "cross-env": "^5.0.5",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.0",
