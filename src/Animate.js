@@ -113,11 +113,18 @@ class Animate extends PureComponent {
     }
 
     if (!isActive) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
+      const newState = {
         style: attributeName ? { [attributeName]: this.props.to } : this.props.to,
-      });
-
+      };
+      if (this.state && this.state.style) {
+        if (
+          (attributeName && this.state.style[attributeName] !== this.props.to) ||
+          (!attributeName && this.state.style !== this.props.to)
+        ) {
+          // eslint-disable-next-line react/no-did-update-set-state
+          this.setState(newState);
+        }
+      }
       return;
     }
 
@@ -137,10 +144,18 @@ class Animate extends PureComponent {
 
     const from = isTriggered || shouldReAnimate ? this.props.from : prevProps.to;
 
-    // eslint-disable-next-line react/no-did-update-set-state
-    this.setState({
-      style: attributeName ? { [attributeName]: from } : from,
-    });
+    if (this.state && this.state.style) {
+      const newState = {
+        style: attributeName ? { [attributeName]: from } : from,
+      };
+      if (
+        (attributeName && this.state.style[attributeName] !== from) ||
+        (!attributeName && this.state.style !== from)
+      ) {
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState(newState);
+      }
+    }
 
     this.runAnimation({
       ...this.props,
