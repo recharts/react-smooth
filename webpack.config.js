@@ -5,7 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const env = process.env.NODE_ENV;
 
 const config = {
-  entry: './src/index.js',
+  entry: path.join(__dirname, './src/index.js'),
 
   output: {
     library: 'ReactSmooth',
