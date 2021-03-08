@@ -1,20 +1,24 @@
 import React, { Component, Children } from 'react';
 import { Transition } from 'react-transition-group';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import Animate from './Animate';
 
+if (Number.isFinite === undefined) {
+  Number.isFinite = function (value) {
+    return typeof value === 'number' && isFinite(value);
+  };
+}
 
 const parseDurationOfSingleTransition = (options = {}) => {
   const { steps, duration } = options;
 
   if (steps && steps.length) {
     return steps.reduce((result, entry) => (
-      result + (_.isNumber(entry.duration) && entry.duration > 0 ? entry.duration : 0)
+      result + (Number.isFinite(entry.duration) && entry.duration > 0 ? entry.duration : 0)
     ), 0);
   }
 
-  if (_.isNumber(duration)) {
+  if (Number.isFinite(duration)) {
     return duration;
   }
 

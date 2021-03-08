@@ -1,7 +1,6 @@
 const BABEL_ENV = process.env.BABEL_ENV;
 
 const plugins = [
-  'lodash',
   '@babel/plugin-proposal-export-default-from',
   '@babel/plugin-proposal-export-namespace-from',
   ['@babel/plugin-proposal-decorators', { legacy: true }],

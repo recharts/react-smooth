@@ -44,6 +44,12 @@ const config = {
       commonjs: 'react-transition-group',
       amd: 'react-transition-group',
     },
+    'prop-types': {
+      root: 'PropTypes',
+      commonjs2: 'prop-types',
+      commonjs: 'prop-types',
+      amd: 'prop-types',
+    },
   },
 
   plugins: [
