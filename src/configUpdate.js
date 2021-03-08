@@ -64,7 +64,6 @@ export default (from, to, easing, duration, render) => {
   let update = () => null;
 
   const getCurrStyle = () => mapObject((key, val) => val.from, stepperStyle);
-  console.log(needContinue);
   const shouldStopAnimation = () => !Object.values(stepperStyle).filter(needContinue).length;
 
   // stepper timing function like spring
