@@ -8,8 +8,7 @@ const config = {
   entry: path.join(__dirname, './src/index.js'),
 
   output: {
-    library: 'ReactSmooth',
-    libraryTarget: 'umd',
+    filename: `ReactSmooth${env === 'production' ? '.min' : ''}.js`,
   },
 
   module: {

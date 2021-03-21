@@ -1,3 +1,11 @@
+## 2.0.0 / 2021-03-21
+
+### chore (#48)
+
+- Changed peerDeps to react 15,16,17
+- Removed karma,chai,enzyme blablabla... and used only Jest and Testing-Library.
+- Updated devDependencies and cleared some.
+
 ## 1.0.2 / 2018-10-02
 
 ### fix
