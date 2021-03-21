@@ -1,12 +1,13 @@
-import { intersection } from 'lodash';
-
 /* eslint no-console: 0 */
 const PREFIX_LIST = ['Webkit', 'Moz', 'O', 'ms'];
 const IN_LINE_PREFIX_LIST = ['-webkit-', '-moz-', '-o-', '-ms-'];
 const IN_COMPATIBLE_PROPERTY = ['transform', 'transformOrigin', 'transition'];
 
 export const getIntersectionKeys = (preObj, nextObj) =>
-  intersection(Object.keys(preObj), Object.keys(nextObj));
+  [
+    Object.keys(preObj),
+    Object.keys(nextObj),
+  ].reduce((a, b) => a.filter(c => b.includes(c)));
 
 export const identity = param => param;
 

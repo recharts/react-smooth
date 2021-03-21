@@ -5,7 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const env = process.env.NODE_ENV;
 
 const config = {
-  entry: './src/index.js',
+  entry: path.join(__dirname, './src/index.js'),
 
   output: {
     library: 'ReactSmooth',
@@ -43,6 +43,12 @@ const config = {
       commonjs2: 'react-transition-group',
       commonjs: 'react-transition-group',
       amd: 'react-transition-group',
+    },
+    'prop-types': {
+      root: 'PropTypes',
+      commonjs2: 'prop-types',
+      commonjs: 'prop-types',
+      amd: 'prop-types',
     },
   },
 

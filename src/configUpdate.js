@@ -1,5 +1,4 @@
 import raf, { cancel as caf } from 'raf';
-import { filter } from 'lodash';
 import {
   getIntersectionKeys,
   mapObject,
@@ -65,7 +64,7 @@ export default (from, to, easing, duration, render) => {
   let update = () => null;
 
   const getCurrStyle = () => mapObject((key, val) => val.from, stepperStyle);
-  const shouldStopAnimation = () => !filter(stepperStyle, needContinue).length;
+  const shouldStopAnimation = () => !Object.values(stepperStyle).filter(needContinue).length;
 
   // stepper timing function like spring
   const stepperUpdate = (now) => {
