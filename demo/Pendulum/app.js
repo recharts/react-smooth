@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import raf, { caf } from 'raf';
 import { translateStyle } from 'react-smooth';
 
 const g = 9.8;
@@ -85,12 +84,12 @@ class Pendulum extends Component {
   };
 
   componentDidMount() {
-    this.cafId = raf(this.update.bind(this));
+    this.cafId = requestAnimationFrame(this.update.bind(this));
   }
 
   componentWillUnmount() {
     if (this.cafId) {
-      caf(this.cafId);
+      cancelAnimationFrame(this.cafId);
     }
   }
 
@@ -98,7 +97,7 @@ class Pendulum extends Component {
     if (!this.initialTime) {
       this.initialTime = now;
 
-      this.cafId = raf(this.update.bind(this));
+      this.cafId = requestAnimationFrame(this.update.bind(this));
     }
 
     const { ropeLength, theta } = this.props;
@@ -110,7 +109,7 @@ class Pendulum extends Component {
       currTheta: theta * Math.cos(omiga * (now - this.initialTime) / 1000),
     });
 
-    this.cafId = raf(this.update.bind(this));
+    this.cafId = requestAnimationFrame(this.update.bind(this));
   }
 
   render() {
