@@ -1,5 +1,4 @@
 const path = require('path');
-const defaultConfig = require('../webpack.config');
 
 const config = {
   mode: 'development',
