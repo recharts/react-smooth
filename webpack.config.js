@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const env = process.env.NODE_ENV;
 
@@ -9,24 +10,30 @@ const config = {
 
   output: {
     filename: `ReactSmooth${env === 'production' ? '.min' : ''}.js`,
+    library: 'ReactSmooth',
+    libraryTarget: 'umd',
+    globalObject: 'this',
   },
 
   module: {
-    rules: [{
-      use: 'babel-loader',
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      include: [
-        path.resolve(__dirname, 'src'),
-      ],
-    }],
+    rules: [
+      {
+        use: 'babel-loader',
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        include: [path.resolve(__dirname, 'src')],
+      },
+    ],
   },
 
   resolve: {
     alias: {
       react: path.join(__dirname, './node_modules/react'),
       'react-dom': path.join(__dirname, './node_modules/react-dom'),
-      'react-transition-group': path.join(__dirname, './node_modules/react-transition-group'),
+      'react-transition-group': path.join(
+        __dirname,
+        './node_modules/react-transition-group',
+      ),
     },
   },
 
