@@ -1,39 +1,37 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import Animate from 'react-smooth';
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
-import raf from 'raf';
+// import 'raf';
 
-class Simple extends Component {
-  state = {
+function Simple() {
+  const [state, setState] = React.useState({
     to: 100,
+  });
+
+  const handleClick = () => {
+    setState({
+      to: state.to + 100,
+    });
   };
 
-  handleClick = () => {
-    this.setState({
-      to: this.state.to + 100,
-    });
-  }
-
-  render() {
-    return (
-      <div className="simple">
-        <button onClick={this.handleClick}>click me!
-        </button>
-        <Animate easing="spring" from={{ y: 0 }} to={{ y: this.state.to }}>
-          {({ y }) => (
-            <div style={{
+  return (
+    <div className="simple">
+      <button onClick={handleClick}>click me!</button>
+      <Animate easing="spring" from={{ y: 0 }} to={{ y: state.to }}>
+        {({ y }) => (
+          <div
+            style={{
               width: 100,
               height: 100,
               backgroundColor: 'red',
               transform: `translate(0, ${y}px)`,
             }}
-            />
-          )}
-        </Animate>
-        <div className="graph" />
-      </div>
-    );
-  }
+          />
+        )}
+      </Animate>
+      <div className="graph" />
+    </div>
+  );
 }
-
-ReactDom.render(<Simple />, document.getElementById('app'));
+console.log('ReactDOM', ReactDOM);
+ReactDOM.render(<Simple />, document.getElementById('app'));

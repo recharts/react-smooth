@@ -1,54 +1,61 @@
 import Animate from 'react-smooth';
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDom from 'react-dom';
 
-const getSTEPS = onAnimationEnd => [{
-  duration: 1000,
-  style: {
-    opacity: 0,
+const getSTEPS = (onAnimationEnd) => [
+  {
+    duration: 1000,
+    style: {
+      opacity: 0,
+    },
   },
-}, {
-  duration: 1000,
-  style: {
-    opacity: 1,
-    transformOrigin: '110px 110px',
-    transform: 'rotate(0deg) translate(0px, 0px)',
+  {
+    duration: 1000,
+    style: {
+      opacity: 1,
+      transformOrigin: '110px 110px',
+      transform: 'rotate(0deg) translate(0px, 0px)',
+    },
+    easing: 'ease-in',
   },
-  easing: 'ease-in',
-}, {
-  duration: 1000,
-  style: {
-    transform: 'rotate(500deg) translate(0px, 0px)',
+  {
+    duration: 1000,
+    style: {
+      transform: 'rotate(500deg) translate(0px, 0px)',
+    },
+    easing: 'ease-in-out',
   },
-  easing: 'ease-in-out',
-}, {
-  duration: 2000,
-  style: {
-    transformOrigin: '610px 610px',
-    transform: 'rotate(1440deg) translate(500px, 500px)',
+  {
+    duration: 2000,
+    style: {
+      transformOrigin: '610px 610px',
+      transform: 'rotate(1440deg) translate(500px, 500px)',
+    },
   },
-}, {
-  duration: 50,
-  style: {
-    transformOrigin: 'center center',
-    transform: 'translate(500px, 500px) scale(1)',
+  {
+    duration: 50,
+    style: {
+      transformOrigin: 'center center',
+      transform: 'translate(500px, 500px) scale(1)',
+    },
+    onAnimationEnd,
   },
-  onAnimationEnd,
-}, {
-  duration: 1000,
-  style: {
-    transformOrigin: 'center center',
-    transform: 'translate(500px, 500px) scale(1.6)',
+  {
+    duration: 1000,
+    style: {
+      transformOrigin: 'center center',
+      transform: 'translate(500px, 500px) scale(1.6)',
+    },
   },
-}];
+];
 
 const createPoint = (x, y) => {
   const currX = x;
   const currY = y;
 
   return {
-    getPath: cmd => [cmd, currX, currY].join(' '),
-    getCircle: props => <circle cx={currX} cy={currY} {...props} />,
+    getPath: (cmd) => [cmd, currX, currY].join(' '),
+    getCircle: (props) => <circle cx={currX} cy={currY} {...props} />,
     x: currX,
     y: currY,
   };
@@ -58,7 +65,7 @@ const getArcPath = (radius, rotation, isLarge, isSweep, dx, dy) => {
   return ['A', radius, radius, rotation, isLarge, isSweep, dx, dy].join(' ');
 };
 
-class Gossip extends Component {
+class Gossip extends React.Component {
   static displayName = 'Gossip';
 
   constructor(props, ctx) {
@@ -104,7 +111,7 @@ class Gossip extends Component {
         r: tr,
         fill: i ? 'white' : 'black',
         key: i,
-      })
+      }),
     );
 
     return <g className="small-circles">{circles}</g>;
@@ -119,7 +126,9 @@ class Gossip extends Component {
         to={{ opacity: 1, transform: 'scale(1.5)' }}
       >
         <g style={{ transformOrigin: 'center center' }}>
-          <text x="500" y="300">May you no bug this year</text>
+          <text x="500" y="300">
+            May you no bug this year
+          </text>
         </g>
       </Animate>
     );
@@ -128,9 +137,14 @@ class Gossip extends Component {
   render() {
     return (
       <svg width="1000" height="1000">
-        <Animate steps={this.STEPS} >
+        <Animate steps={this.STEPS}>
           <g className="gossip">
-            <circle cx="110" cy="110" r="100" style={{ stroke: 'black', fill: 'white' }} />
+            <circle
+              cx="110"
+              cy="110"
+              r="100"
+              style={{ stroke: 'black', fill: 'white' }}
+            />
             {this.renderPath()}
             {this.renderSmallCircles()}
           </g>
