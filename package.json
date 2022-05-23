@@ -24,7 +24,7 @@
     "build-umd": "cross-env NODE_ENV=development BABEL_ENV=commonjs webpack --entry ./src/index.js -o umd",
     "build-min": "cross-env NODE_ENV=production BABEL_ENV=commonjs webpack --entry ./src/index.js -o umd",
     "test": "cross-env BABEL_ENV=test jest",
-    "demo": "webpack serve --config demo/webpack.config.js --port 4000 --host 127.0.0.1 --progress --profile --static demo/",
+    "demo": "webpack serve --config demo/webpack.config.js --port 4000 --host 127.0.0.1 --progress --profile",
     "autofix": "eslint src --fix",
     "lint": "eslint src"
   },
@@ -46,7 +46,7 @@
     "react-dom": "^15.0.0 || ^16.0.0 || ^17.0.0"
   },
   "dependencies": {
-    "fast-equals": "^2.0.0",
+    "fast-equals": "^3.0.0",
     "raf": "^3.4.0",
     "react-transition-group": "^4.4.2"
   },
