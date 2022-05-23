@@ -8,8 +8,7 @@ const config = {
   entry: path.join(__dirname, './src/index.js'),
 
   output: {
-    library: 'ReactSmooth',
-    libraryTarget: 'umd',
+    filename: `ReactSmooth${env === 'production' ? '.min' : ''}.js`,
   },
 
   module: {
@@ -43,6 +42,12 @@ const config = {
       commonjs2: 'react-transition-group',
       commonjs: 'react-transition-group',
       amd: 'react-transition-group',
+    },
+    'prop-types': {
+      root: 'PropTypes',
+      commonjs2: 'prop-types',
+      commonjs: 'prop-types',
+      amd: 'prop-types',
     },
   },
 

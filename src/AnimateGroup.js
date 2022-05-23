@@ -16,7 +16,7 @@ function AnimateGroup(props) {
             appearOptions={appear}
             enterOptions={enter}
             leaveOptions={leave}
-            key={`child-${index}`}
+            key={`child-${index}`} // eslint-disable-line
           >
             {child}
           </AnimateGroupChild>

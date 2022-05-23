@@ -1,6 +1,6 @@
 import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { deepEqual } from 'fast-equals';
 import createAnimateManager from './AnimateManager';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
@@ -128,7 +128,7 @@ class Animate extends PureComponent {
       return;
     }
 
-    if (_.isEqual(prevProps.to, this.props.to) && prevProps.canBegin && prevProps.isActive) {
+    if (deepEqual(prevProps.to, this.props.to) && prevProps.canBegin && prevProps.isActive) {
       return;
     }
 

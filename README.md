@@ -236,4 +236,4 @@ const translatedStyle = translateStyle(style);
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2015-2016 Recharts Group
+Copyright (c) 2015-2021 Recharts Group

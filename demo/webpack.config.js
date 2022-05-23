@@ -1,13 +1,14 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'development',
+  devtool: 'inline-source-map',
   entry: {
     Gossip: path.join(__dirname, '/Gossip/app.js'),
     GroupAnimation: path.join(__dirname, '/GroupAnimation/app.js'),
     SimpleAnimation: path.join(__dirname, '/SimpleAnimation/app.js'),
     Pendulum: path.join(__dirname, '/Pendulum/app.js'),
   },
-  devtool: 'inline-source-map',
   output: {
     path: __dirname,
     filename: '[name]/build.js',
