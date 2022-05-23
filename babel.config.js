@@ -5,6 +5,8 @@ const plugins = [
   '@babel/plugin-proposal-export-namespace-from',
   ['@babel/plugin-proposal-decorators', { legacy: true }],
   ['@babel/plugin-proposal-class-properties', { loose: true }],
+  ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+  ['@babel/plugin-proposal-private-methods', { loose: true }],
   '@babel/plugin-proposal-object-rest-spread',
 ];
 
@@ -12,18 +14,22 @@ if (BABEL_ENV === 'umd') {
   plugins.push('@babel/plugin-external-helpers');
 }
 
-// eslint-disable-next-line no-nested-ternary
-const babelModules = BABEL_ENV === 'commonjs' ? 'commonjs' : BABEL_ENV === 'test' ? 'auto' : false;
+const babelModules =
+  // eslint-disable-next-line no-nested-ternary
+  BABEL_ENV === 'commonjs' ? 'commonjs' : BABEL_ENV === 'test' ? 'auto' : false;
 
 module.exports = {
   plugins,
   presets: [
-    ['@babel/preset-env', {
-      modules: babelModules,
-      targets: {
-        browsers: ['last 2 versions'],
+    [
+      '@babel/preset-env',
+      {
+        modules: babelModules,
+        targets: {
+          browsers: ['last 2 versions'],
+        },
       },
-    }],
+    ],
     '@babel/preset-react',
   ],
 };

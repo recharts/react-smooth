@@ -11,7 +11,9 @@ export default function createAnimateManager() {
     }
 
     if (Array.isArray(_style)) {
-      if (!_style.length) { return; }
+      if (!_style.length) {
+        return;
+      }
 
       const styles = _style;
       const [curr, ...restStyles] = styles;
@@ -49,7 +51,9 @@ export default function createAnimateManager() {
       handleChange = _handleChange;
 
       return () => {
-        handleChange = () => null;
+        handleChange = function noChange() {
+          return null;
+        };
       };
     },
   };

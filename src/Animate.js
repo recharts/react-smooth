@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import { deepEqual } from 'fast-equals';
@@ -7,8 +8,10 @@ import configUpdate from './configUpdate';
 import { getTransitionVal, identity, translateStyle } from './util';
 
 class Animate extends PureComponent {
+  // eslint-disable-next-line react/static-property-placement
   static displayName = 'Animate';
 
+  // eslint-disable-next-line react/static-property-placement
   static propTypes = {
     from: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     to: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -17,17 +20,25 @@ class Animate extends PureComponent {
     duration: PropTypes.number,
     begin: PropTypes.number,
     easing: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    steps: PropTypes.arrayOf(PropTypes.shape({
-      duration: PropTypes.number.isRequired,
-      style: PropTypes.object.isRequired,
-      easing: PropTypes.oneOfType([
-        PropTypes.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear']),
-        PropTypes.func,
-      ]),
-      // transition css properties(dash case), optional
-      properties: PropTypes.arrayOf('string'),
-      onAnimationEnd: PropTypes.func,
-    })),
+    steps: PropTypes.arrayOf(
+      PropTypes.shape({
+        duration: PropTypes.number.isRequired,
+        style: PropTypes.object.isRequired,
+        easing: PropTypes.oneOfType([
+          PropTypes.oneOf([
+            'ease',
+            'ease-in',
+            'ease-out',
+            'ease-in-out',
+            'linear',
+          ]),
+          PropTypes.func,
+        ]),
+        // transition css properties(dash case), optional
+        properties: PropTypes.arrayOf('string'),
+        onAnimationEnd: PropTypes.func,
+      }),
+    ),
     children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     isActive: PropTypes.bool,
     canBegin: PropTypes.bool,
@@ -38,6 +49,7 @@ class Animate extends PureComponent {
     onAnimationReStart: PropTypes.func,
   };
 
+  // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
     begin: 0,
     duration: 1000,
@@ -55,9 +67,7 @@ class Animate extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
-    const {
-      isActive, attributeName, from, to, steps, children,
-    } = this.props;
+    const { isActive, attributeName, from, to, steps, children } = this.props;
 
     this.handleStyleChange = this.handleStyleChange.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
@@ -104,9 +114,7 @@ class Animate extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const {
-      isActive, canBegin, attributeName, shouldReAnimate,
-    } = this.props;
+    const { isActive, canBegin, attributeName, shouldReAnimate } = this.props;
 
     if (!canBegin) {
       return;
@@ -114,11 +122,14 @@ class Animate extends PureComponent {
 
     if (!isActive) {
       const newState = {
-        style: attributeName ? { [attributeName]: this.props.to } : this.props.to,
+        style: attributeName
+          ? { [attributeName]: this.props.to }
+          : this.props.to,
       };
       if (this.state && this.state.style) {
         if (
-          (attributeName && this.state.style[attributeName] !== this.props.to) ||
+          (attributeName &&
+            this.state.style[attributeName] !== this.props.to) ||
           (!attributeName && this.state.style !== this.props.to)
         ) {
           // eslint-disable-next-line react/no-did-update-set-state
@@ -128,7 +139,11 @@ class Animate extends PureComponent {
       return;
     }
 
-    if (deepEqual(prevProps.to, this.props.to) && prevProps.canBegin && prevProps.isActive) {
+    if (
+      deepEqual(prevProps.to, this.props.to) &&
+      prevProps.canBegin &&
+      prevProps.isActive
+    ) {
       return;
     }
 
@@ -142,7 +157,8 @@ class Animate extends PureComponent {
       this.stopJSAnimation();
     }
 
-    const from = isTriggered || shouldReAnimate ? this.props.from : prevProps.to;
+    const from =
+      isTriggered || shouldReAnimate ? this.props.from : prevProps.to;
 
     if (this.state && this.state.style) {
       const newState = {
@@ -181,11 +197,24 @@ class Animate extends PureComponent {
     }
   }
 
+  // eslint-disable-next-line react/sort-comp
   runJSAnimation(props) {
     const {
-      from, to, duration, easing, begin, onAnimationEnd, onAnimationStart,
+      from,
+      to,
+      duration,
+      easing,
+      begin,
+      onAnimationEnd,
+      onAnimationStart,
     } = props;
-    const startAnimation = configUpdate(from, to, configEasing(easing), duration, this.changeStyle);
+    const startAnimation = configUpdate(
+      from,
+      to,
+      configEasing(easing),
+      duration,
+      this.changeStyle,
+    );
 
     const finalStartAnimation = () => {
       this.stopJSAnimation = startAnimation();
@@ -221,12 +250,16 @@ class Animate extends PureComponent {
       const properties = nextProperties || Object.keys(style);
 
       if (typeof easing === 'function' || easing === 'spring') {
-        return [...sequence, this.runJSAnimation.bind(this, {
-          from: preItem.style,
-          to: style,
+        return [
+          ...sequence,
+          this.runJSAnimation.bind(this, {
+            from: preItem.style,
+            to: style,
+            duration,
+            easing,
+          }),
           duration,
-          easing,
-        }), duration];
+        ];
       }
 
       const transition = getTransitionVal(properties, duration, easing);
@@ -266,7 +299,11 @@ class Animate extends PureComponent {
 
     this.unSubscribe = manager.subscribe(this.handleStyleChange);
 
-    if (typeof easing === 'function' || typeof children === 'function' || easing === 'spring') {
+    if (
+      typeof easing === 'function' ||
+      typeof children === 'function' ||
+      easing === 'spring'
+    ) {
       this.runJSAnimation(props);
       return;
     }
@@ -279,7 +316,13 @@ class Animate extends PureComponent {
     const to = attributeName ? { [attributeName]: propsTo } : propsTo;
     const transition = getTransitionVal(Object.keys(to), duration, easing);
 
-    manager.start([onAnimationStart, begin, { ...to, transition }, duration, onAnimationEnd]);
+    manager.start([
+      onAnimationStart,
+      begin,
+      { ...to, transition },
+      duration,
+      onAnimationEnd,
+    ]);
   }
 
   handleStyleChange(style) {
@@ -340,7 +383,9 @@ class Animate extends PureComponent {
       return cloneContainer(Children.only(children));
     }
 
-    return <div>{Children.map(children, child => cloneContainer(child))}</div>;
+    return (
+      <div>{Children.map(children, (child) => cloneContainer(child))}</div>
+    );
   }
 }
 

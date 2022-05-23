@@ -96,8 +96,7 @@ export default (from, to, easing, duration, render) => {
     }
 
     const t = (now - beginTime) / duration;
-    const currStyle = mapObject((key, val) =>
-      alpha(...val, easing(t)), timingStyle);
+    const currStyle = mapObject((key, val) => alpha(...val, easing(t)), timingStyle);
 
     // get union set and add compatible prefix
     render({
@@ -109,8 +108,7 @@ export default (from, to, easing, duration, render) => {
     if (t < 1) {
       cafId = raf(update);
     } else {
-      const finalStyle = mapObject((key, val) =>
-        alpha(...val, easing(1)), timingStyle);
+      const finalStyle = mapObject((key, val) => alpha(...val, easing(1)), timingStyle);
 
       render({
         ...from,

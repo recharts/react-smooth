@@ -1,5 +1,5 @@
 {
-  "extends": "eslint-config-airbnb",
+  "extends": ["eslint-config-airbnb", "prettier"],
   "env": {
     "browser": true,
     "jest": true,
@@ -22,7 +22,5 @@
     "react/jsx-filename-extension": "off",
     "react/forbid-prop-types": "off"
   },
-  "plugins": [
-    "react"
-  ]
+  "plugins": ["react", "prettier"]
 }
