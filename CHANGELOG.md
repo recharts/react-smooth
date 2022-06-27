@@ -1,3 +1,10 @@
+## 2.0.1 / 2022-06-27
+
+### feat
+
+- feat: allow React 18
+- Remove raf polyfill for IE9
+
 ## 2.0.0 / 2021-03-21
 
 ### chore (#48)
