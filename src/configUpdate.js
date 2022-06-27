@@ -1,8 +1,4 @@
-import raf, { cancel as caf } from 'raf';
-import {
-  getIntersectionKeys,
-  mapObject,
-} from './util';
+import { getIntersectionKeys, mapObject } from './util';
 
 const alpha = (begin, end, k) => begin + (end - begin) * k;
 const needContinue = ({ from, to }) => from !== to;
@@ -85,7 +81,7 @@ export default (from, to, easing, duration, render) => {
     preTime = now;
 
     if (!shouldStopAnimation()) {
-      cafId = raf(update);
+      cafId = requestAnimationFrame(update);
     }
   };
 
@@ -107,7 +103,7 @@ export default (from, to, easing, duration, render) => {
     });
 
     if (t < 1) {
-      cafId = raf(update);
+      cafId = requestAnimationFrame(update);
     } else {
       const finalStyle = mapObject((key, val) =>
         alpha(...val, easing(1)), timingStyle);
@@ -124,11 +120,11 @@ export default (from, to, easing, duration, render) => {
 
   // return start animation method
   return () => {
-    raf(update);
+    requestAnimationFrame(update);
 
     // return stop animation method
     return () => {
-      caf(cafId);
+      cancelAnimationFrame(cafId);
     };
   };
 };

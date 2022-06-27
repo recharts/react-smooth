@@ -1,7 +1,6 @@
 import Animate from 'react-smooth';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import raf from 'raf';
 
 class Simple extends Component {
   state = {
