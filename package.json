@@ -26,7 +26,8 @@
     "test": "cross-env BABEL_ENV=test jest",
     "demo": "webpack serve --config demo/webpack.config.js --port 4000 --host 127.0.0.1 --progress --profile --content-base demo/",
     "autofix": "eslint src --fix",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "prepare": "npm run build"
   },
   "pre-commit": [
     "lint"
