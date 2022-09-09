@@ -44,6 +44,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
+import deepEqual from 'fast-deep-equal';
 import createAnimateManager from './AnimateManager';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
@@ -147,6 +148,10 @@ var Animate = /*#__PURE__*/function (_PureComponent) {
           }
         }
 
+        return;
+      }
+
+      if (deepEqual(prevProps.to, this.props.to) && prevProps.canBegin && prevProps.isActive) {
         return;
       }
 

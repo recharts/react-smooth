@@ -1,5 +1,6 @@
 import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
+import deepEqual from 'fast-deep-equal';
 import createAnimateManager from './AnimateManager';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
@@ -124,6 +125,10 @@ class Animate extends PureComponent {
           this.setState(newState);
         }
       }
+      return;
+    }
+
+    if (deepEqual(prevProps.to, this.props.to) && prevProps.canBegin && prevProps.isActive) {
       return;
     }
 
