@@ -1,6 +1,6 @@
 import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
-import { deepEqual } from 'fast-equals';
+import deepEqual from 'fast-deep-equal';
 import createAnimateManager from './AnimateManager';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
@@ -48,8 +48,8 @@ class Animate extends PureComponent {
     isActive: true,
     canBegin: true,
     steps: [],
-    onAnimationEnd: () => {},
-    onAnimationStart: () => {},
+    onAnimationEnd: () => { },
+    onAnimationStart: () => { },
   };
 
   constructor(props, context) {
