@@ -1,3 +1,13 @@
+## 2.0.2 / 2023-02-23
+
+### chore
+
+- upgrade `fast-equals` to latest. No breaking changes - see https://github.com/planttheidea/fast-equals/blob/master/CHANGELOG.md
+- don't upgrade `react-transition-group` in minor release as this requires dropping support for react <16.6
+- upgrade devDependencies
+- update babel config
+- update deprecated eslint parser
+
 ## 2.0.1 / 2022-06-27
 
 ### feat
