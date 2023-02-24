@@ -5,13 +5,15 @@ export default function createAnimateManager() {
   let handleChange = () => null;
   let shouldStop = false;
 
-  const setStyle = (_style) => {
+  const setStyle = _style => {
     if (shouldStop) {
       return;
     }
 
     if (Array.isArray(_style)) {
-      if (!_style.length) { return; }
+      if (!_style.length) {
+        return;
+      }
 
       const styles = _style;
       const [curr, ...restStyles] = styles;
@@ -41,11 +43,11 @@ export default function createAnimateManager() {
     stop: () => {
       shouldStop = true;
     },
-    start: (style) => {
+    start: style => {
       shouldStop = false;
       setStyle(style);
     },
-    subscribe: (_handleChange) => {
+    subscribe: _handleChange => {
       handleChange = _handleChange;
 
       return () => {

@@ -13,8 +13,7 @@ if (BABEL_ENV === 'umd') {
 }
 
 // eslint-disable-next-line no-nested-ternary
-const babelModules =
-  BABEL_ENV === 'commonjs' ? 'commonjs' : BABEL_ENV === 'test' ? 'auto' : false;
+const babelModules = BABEL_ENV === 'commonjs' ? 'commonjs' : BABEL_ENV === 'test' ? 'auto' : false;
 
 module.exports = {
   plugins,
