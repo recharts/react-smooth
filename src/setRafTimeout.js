@@ -1,7 +1,7 @@
 export default function setRafTimeout(callback, timeout = 0) {
   let currTime = -1;
 
-  const shouldUpdate = (now) => {
+  const shouldUpdate = now => {
     if (currTime < 0) {
       currTime = now;
     }

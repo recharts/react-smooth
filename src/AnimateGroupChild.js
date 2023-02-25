@@ -13,9 +13,10 @@ const parseDurationOfSingleTransition = (options = {}) => {
   const { steps, duration } = options;
 
   if (steps && steps.length) {
-    return steps.reduce((result, entry) => (
-      result + (Number.isFinite(entry.duration) && entry.duration > 0 ? entry.duration : 0)
-    ), 0);
+    return steps.reduce(
+      (result, entry) => result + (Number.isFinite(entry.duration) && entry.duration > 0 ? entry.duration : 0),
+      0,
+    );
   }
 
   if (Number.isFinite(duration)) {
@@ -26,24 +27,20 @@ const parseDurationOfSingleTransition = (options = {}) => {
 };
 
 class AnimateGroupChild extends Component {
-  static propTypes = {
-    appearOptions: PropTypes.object,
-    enterOptions: PropTypes.object,
-    leaveOptions: PropTypes.object,
-    children: PropTypes.element,
-  };
-
-  state = {
-    isActive: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      isActive: false,
+    };
+  }
 
   handleStyleActive(style) {
     if (style) {
-      const onAnimationEnd = style.onAnimationEnd ?
-        () => {
-          style.onAnimationEnd();
-        } :
-        null;
+      const onAnimationEnd = style.onAnimationEnd
+        ? () => {
+            style.onAnimationEnd();
+          }
+        : null;
 
       this.setState({
         ...style,
@@ -57,40 +54,39 @@ class AnimateGroupChild extends Component {
     const { appearOptions, enterOptions } = this.props;
 
     this.handleStyleActive(isAppearing ? appearOptions : enterOptions);
-  }
+  };
 
   handleExit = () => {
-    this.handleStyleActive(this.props.leaveOptions);
-  }
+    const { leaveOptions } = this.props;
+    this.handleStyleActive(leaveOptions);
+  };
 
   parseTimeout() {
     const { appearOptions, enterOptions, leaveOptions } = this.props;
 
-    return parseDurationOfSingleTransition(appearOptions) +
+    return (
+      parseDurationOfSingleTransition(appearOptions) +
       parseDurationOfSingleTransition(enterOptions) +
-      parseDurationOfSingleTransition(leaveOptions);
+      parseDurationOfSingleTransition(leaveOptions)
+    );
   }
 
   render() {
-    const {
-      children, appearOptions, enterOptions, leaveOptions, ...props
-    } = this.props;
+    const { children, appearOptions, enterOptions, leaveOptions, ...props } = this.props;
 
     return (
-      <Transition
-        {...props}
-        onEnter={this.handleEnter}
-        onExit={this.handleExit}
-        timeout={this.parseTimeout()}
-      >
-        {() => (
-          <Animate {...this.state}>
-            {Children.only(children)}
-          </Animate>
-        )}
+      <Transition {...props} onEnter={this.handleEnter} onExit={this.handleExit} timeout={this.parseTimeout()}>
+        {() => <Animate {...this.state}>{Children.only(children)}</Animate>}
       </Transition>
     );
   }
 }
+
+AnimateGroupChild.propTypes = {
+  appearOptions: PropTypes.object,
+  enterOptions: PropTypes.object,
+  leaveOptions: PropTypes.object,
+  children: PropTypes.element,
+};
 
 export default AnimateGroupChild;

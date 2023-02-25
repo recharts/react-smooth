@@ -41,19 +41,25 @@ const calStepperVals = (easing, preVals, steps) => {
 // configure update function
 export default (from, to, easing, duration, render) => {
   const interKeys = getIntersectionKeys(from, to);
-  const timingStyle = interKeys.reduce((res, key) => ({
-    ...res,
-    [key]: [from[key], to[key]],
-  }), {});
+  const timingStyle = interKeys.reduce(
+    (res, key) => ({
+      ...res,
+      [key]: [from[key], to[key]],
+    }),
+    {},
+  );
 
-  let stepperStyle = interKeys.reduce((res, key) => ({
-    ...res,
-    [key]: {
-      from: from[key],
-      velocity: 0,
-      to: to[key],
-    },
-  }), {});
+  let stepperStyle = interKeys.reduce(
+    (res, key) => ({
+      ...res,
+      [key]: {
+        from: from[key],
+        velocity: 0,
+        to: to[key],
+      },
+    }),
+    {},
+  );
   let cafId = -1;
   let preTime;
   let beginTime;
@@ -63,7 +69,7 @@ export default (from, to, easing, duration, render) => {
   const shouldStopAnimation = () => !Object.values(stepperStyle).filter(needContinue).length;
 
   // stepper timing function like spring
-  const stepperUpdate = (now) => {
+  const stepperUpdate = now => {
     if (!preTime) {
       preTime = now;
     }
@@ -86,14 +92,13 @@ export default (from, to, easing, duration, render) => {
   };
 
   // t => val timing function like cubic-bezier
-  const timingUpdate = (now) => {
+  const timingUpdate = now => {
     if (!beginTime) {
       beginTime = now;
     }
 
     const t = (now - beginTime) / duration;
-    const currStyle = mapObject((key, val) =>
-      alpha(...val, easing(t)), timingStyle);
+    const currStyle = mapObject((key, val) => alpha(...val, easing(t)), timingStyle);
 
     // get union set and add compatible prefix
     render({
@@ -105,8 +110,7 @@ export default (from, to, easing, duration, render) => {
     if (t < 1) {
       cafId = requestAnimationFrame(update);
     } else {
-      const finalStyle = mapObject((key, val) =>
-        alpha(...val, easing(1)), timingStyle);
+      const finalStyle = mapObject((key, val) => alpha(...val, easing(1)), timingStyle);
 
       render({
         ...from,

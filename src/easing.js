@@ -2,24 +2,17 @@ import { warn } from './util';
 
 const ACCURACY = 1e-4;
 
-const cubicBezierFactor = (c1, c2) => [
-  0,
-  3 * c1,
-  3 * c2 - 6 * c1,
-  3 * c1 - 3 * c2 + 1,
-];
+const cubicBezierFactor = (c1, c2) => [0, 3 * c1, 3 * c2 - 6 * c1, 3 * c1 - 3 * c2 + 1];
 
-const multyTime = (params, t) =>
-  params.map((param, i) =>
-    param * (t ** i)).reduce((pre, curr) => pre + curr);
+const multyTime = (params, t) => params.map((param, i) => param * t ** i).reduce((pre, curr) => pre + curr);
 
-const cubicBezier = (c1, c2) => (t) => {
+const cubicBezier = (c1, c2) => t => {
   const params = cubicBezierFactor(c1, c2);
 
   return multyTime(params, t);
 };
 
-const derivativeCubicBezier = (c1, c2) => (t) => {
+const derivativeCubicBezier = (c1, c2) => t => {
   const params = cubicBezierFactor(c1, c2);
   const newParams = [...params.map((param, i) => param * i).slice(1), 0];
 
@@ -50,18 +43,25 @@ export const configBezier = (...args) => {
       default: {
         const easing = args[0].split('(');
         if (easing[0] === 'cubic-bezier' && easing[1].split(')')[0].split(',').length === 4) {
-          [x1, y1, x2, y2] = easing[1].split(')')[0].split(',').map(x => parseFloat(x));
+          [x1, y1, x2, y2] = easing[1]
+            .split(')')[0]
+            .split(',')
+            .map(x => parseFloat(x));
         } else {
-          warn(false, '[configBezier]: arguments should be one of ' +
-            'oneOf \'linear\', \'ease\', \'ease-in\', \'ease-out\', ' +
-            '\'ease-in-out\',\'cubic-bezier(x1,y1,x2,y2)\', instead received %s', args);
+          warn(
+            false,
+            '[configBezier]: arguments should be one of ' +
+              "oneOf 'linear', 'ease', 'ease-in', 'ease-out', " +
+              "'ease-in-out','cubic-bezier(x1,y1,x2,y2)', instead received %s",
+            args,
+          );
         }
       }
     }
   }
 
   warn(
-    [x1, x2, y1, y2].every(num => (typeof num === 'number' && num >= 0 && num <= 1)),
+    [x1, x2, y1, y2].every(num => typeof num === 'number' && num >= 0 && num <= 1),
     '[configBezier]: arguments should be x1, y1, x2, y2 of [0, 1] instead received %s',
     args,
   );
@@ -69,17 +69,18 @@ export const configBezier = (...args) => {
   const curveX = cubicBezier(x1, x2);
   const curveY = cubicBezier(y1, y2);
   const derCurveX = derivativeCubicBezier(x1, x2);
-  const rangeValue = (value) => {
+  const rangeValue = value => {
     if (value > 1) {
       return 1;
-    } else if (value < 0) {
+    }
+    if (value < 0) {
       return 0;
     }
 
     return value;
   };
 
-  const bezier = (_t) => {
+  const bezier = _t => {
     const t = _t > 1 ? 1 : _t;
     let x = t;
 
@@ -107,8 +108,8 @@ export const configSpring = (config = {}) => {
   const stepper = (currX, destX, currV) => {
     const FSpring = -(currX - destX) * stiff;
     const FDamping = currV * damping;
-    const newV = currV + (FSpring - FDamping) * dt / 1000;
-    const newX = currV * dt / 1000 + currX;
+    const newV = currV + ((FSpring - FDamping) * dt) / 1000;
+    const newX = (currV * dt) / 1000 + currX;
 
     if (Math.abs(newX - destX) < ACCURACY && Math.abs(newV) < ACCURACY) {
       return [destX, 0];
@@ -141,8 +142,8 @@ export const configEasing = (...args) => {
         }
         warn(
           false,
-          '[configEasing]: first argument should be one of \'ease\', \'ease-in\', ' +
-          '\'ease-out\', \'ease-in-out\',\'cubic-bezier(x1,y1,x2,y2)\', \'linear\' and \'spring\', instead  received %s',
+          "[configEasing]: first argument should be one of 'ease', 'ease-in', " +
+            "'ease-out', 'ease-in-out','cubic-bezier(x1,y1,x2,y2)', 'linear' and 'spring', instead  received %s",
           args,
         );
     }
@@ -152,8 +153,7 @@ export const configEasing = (...args) => {
     return easing;
   }
 
-  warn(false, '[configEasing]: first argument type should be function or ' +
-    'string, instead received %s', args);
+  warn(false, '[configEasing]: first argument type should be function or string, instead received %s', args);
 
   return null;
 };

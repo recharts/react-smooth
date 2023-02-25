@@ -1,5 +1,5 @@
 {
-  "extends": "eslint-config-airbnb",
+  "extends": ["eslint-config-airbnb", "plugin:prettier/recommended", "prettier"],
   "env": {
     "browser": true,
     "jest": true,
@@ -20,7 +20,8 @@
     "no-continue": "off",
     "react/require-default-props": "off",
     "react/jsx-filename-extension": "off",
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+    "react/jsx-props-no-spreading": "off"
   },
   "plugins": ["react"]
 }

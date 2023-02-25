@@ -4,24 +4,20 @@ import PropTypes from 'prop-types';
 import AnimateGroupChild from './AnimateGroupChild';
 
 function AnimateGroup(props) {
-  const {
-    component, children, appear, enter, leave,
-  } = props;
+  const { component, children, appear, enter, leave } = props;
 
   return (
     <TransitionGroup component={component}>
-      {
-        Children.map(children, (child, index) => ((
-          <AnimateGroupChild
-            appearOptions={appear}
-            enterOptions={enter}
-            leaveOptions={leave}
+      {Children.map(children, (child, index) => (
+        <AnimateGroupChild
+          appearOptions={appear}
+          enterOptions={enter}
+          leaveOptions={leave}
             key={`child-${index}`} // eslint-disable-line
-          >
-            {child}
-          </AnimateGroupChild>
-        )))
-      }
+        >
+          {child}
+        </AnimateGroupChild>
+      ))}
     </TransitionGroup>
   );
 }
