@@ -20,7 +20,7 @@ export const getDashCase = name => name.replace(/([A-Z])/g, v => `-${v.toLowerCa
  */
 export const generatePrefixStyle = (name, value) => {
   if (IN_COMPATIBLE_PROPERTY.indexOf(name) === -1) {
-    return { [name]: value };
+    return { [name]: Number.isNaN(value) ? 0 : value };
   }
 
   const isTransition = name === 'transition';
