@@ -1,3 +1,9 @@
+## 2.0.3 / 2023-05-08
+
+### fix
+
+- treat `duration={0}` as if animation is not active by doing a check and returning early. This fixes a bug where NaN can cause a crash in the browser.
+
 ## 2.0.2 / 2023-02-23
 
 ### chore

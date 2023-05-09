@@ -10,12 +10,12 @@ class Animate extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
-    const { isActive, attributeName, from, to, steps, children } = this.props;
+    const { isActive, attributeName, from, to, steps, children, duration } = this.props;
 
     this.handleStyleChange = this.handleStyleChange.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
 
-    if (!isActive) {
+    if (!isActive || duration <= 0) {
       this.state = { style: {} };
 
       // if children is a function and animation is not active, set style to 'to'
@@ -255,7 +255,7 @@ class Animate extends PureComponent {
       return children(stateStyle);
     }
 
-    if (!isActive || count === 0) {
+    if (!isActive || count === 0 || duration <= 0) {
       return children;
     }
 
