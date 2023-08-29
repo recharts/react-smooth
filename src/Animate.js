@@ -112,6 +112,7 @@ class Animate extends PureComponent {
 
   componentWillUnmount() {
     this.mounted = false;
+    const { onAnimationEnd } = this.props;
 
     if (this.unSubscribe) {
       this.unSubscribe();
@@ -124,6 +125,10 @@ class Animate extends PureComponent {
 
     if (this.stopJSAnimation) {
       this.stopJSAnimation();
+    }
+
+    if (onAnimationEnd) {
+      onAnimationEnd();
     }
   }
 
