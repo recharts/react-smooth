@@ -10,7 +10,7 @@ export default function setRafTimeout(callback, timeout = 0) {
       callback(now);
       currTime = -1;
     } else {
-      requestAnimationFrame(shouldUpdate);
+      if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(shouldUpdate);
     }
   };
 
