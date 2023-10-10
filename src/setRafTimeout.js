@@ -1,3 +1,7 @@
+function safeRequestAnimationFrame(callback) {
+  if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(callback);
+}
+
 export default function setRafTimeout(callback, timeout = 0) {
   let currTime = -1;
 
@@ -10,7 +14,7 @@ export default function setRafTimeout(callback, timeout = 0) {
       callback(now);
       currTime = -1;
     } else {
-      requestAnimationFrame(shouldUpdate);
+      safeRequestAnimationFrame(shouldUpdate);
     }
   };
 
