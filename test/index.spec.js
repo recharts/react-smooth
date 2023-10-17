@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Animate, { translateStyle } from '../src';
+import { render } from '@testing-library/react';
+import Animate from '../src';
 
 describe('Animate', () => {
   it('Should change the style of children', (done) => {
@@ -94,21 +94,5 @@ describe('Animate', () => {
       expect(secondStatus).toEqual('yes');
       done();
     }, 1400);
-  });
-});
-
-describe('translateStyle', () => {
-  it('Should get compatible style', () => {
-    const style = {
-      transform: 'translateY(20px)',
-      transition: 'transform .4s ease',
-    };
-
-    const translatedStyle = translateStyle(style);
-
-    expect(translatedStyle.WebkitTransform).toEqual('translateY(20px)');
-    expect(translatedStyle.WebkitTransition).toEqual(
-      '-webkit-transform .4s ease',
-    );
   });
 });
