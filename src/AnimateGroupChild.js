@@ -3,12 +3,6 @@ import { Transition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import Animate from './Animate';
 
-if (Number.isFinite === undefined) {
-  Number.isFinite = function (value) {
-    return typeof value === 'number' && isFinite(value);
-  };
-}
-
 const parseDurationOfSingleTransition = (options = {}) => {
   const { steps, duration } = options;
 
