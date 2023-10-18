@@ -1,7 +1,4 @@
 /* eslint no-console: 0 */
-const PREFIX_LIST = ['Webkit', 'Moz', 'O', 'ms'];
-const IN_LINE_PREFIX_LIST = ['-webkit-', '-moz-', '-o-', '-ms-'];
-const IN_COMPATIBLE_PROPERTY = ['transform', 'transformOrigin', 'transition'];
 
 export const getIntersectionKeys = (preObj, nextObj) =>
   [Object.keys(preObj), Object.keys(nextObj)].reduce((a, b) => a.filter(c => b.includes(c)));
@@ -13,31 +10,6 @@ export const identity = param => param;
  * string => string
  */
 export const getDashCase = name => name.replace(/([A-Z])/g, v => `-${v.toLowerCase()}`);
-
-/*
- * @description: add compatible style prefix
- * (string, string) => object
- */
-export const generatePrefixStyle = (name, value) => {
-  if (IN_COMPATIBLE_PROPERTY.indexOf(name) === -1) {
-    return { [name]: Number.isNaN(value) ? 0 : value };
-  }
-
-  const isTransition = name === 'transition';
-  const camelName = name.replace(/(\w)/, v => v.toUpperCase());
-  let styleVal = value;
-
-  return PREFIX_LIST.reduce((result, property, i) => {
-    if (isTransition) {
-      styleVal = value.replace(/(transform|transform-origin)/gim, `${IN_LINE_PREFIX_LIST[i]}$1`);
-    }
-
-    return {
-      ...result,
-      [property + camelName]: styleVal,
-    };
-  }, {});
-};
 
 export const log = (...args) => {
   console.log(...args);
@@ -81,32 +53,6 @@ export const mapObject = (fn, obj) =>
     }),
     {},
   );
-
-/*
- * @description: add compatible prefix to style
- * object => object
- */
-export const translateStyle = style =>
-  Object.keys(style).reduce(
-    (res, key) => ({
-      ...res,
-      ...generatePrefixStyle(key, res[key]),
-    }),
-    style,
-  );
-
-export const compose = (...args) => {
-  if (!args.length) {
-    return identity;
-  }
-
-  const fns = args.reverse();
-  // first function can receive multiply arguments
-  const firstFn = fns[0];
-  const tailsFn = fns.slice(1);
-
-  return (...composeArgs) => tailsFn.reduce((res, fn) => fn(res), firstFn(...composeArgs));
-};
 
 export const getTransitionVal = (props, duration, easing) =>
   props.map(prop => `${getDashCase(prop)} ${duration}ms ${easing}`).join(',');

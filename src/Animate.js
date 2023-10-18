@@ -4,7 +4,7 @@ import { deepEqual } from 'fast-equals';
 import createAnimateManager from './AnimateManager';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
-import { getTransitionVal, identity, translateStyle } from './util';
+import { getTransitionVal, identity } from './util';
 
 class Animate extends PureComponent {
   constructor(props, context) {
@@ -254,7 +254,7 @@ class Animate extends PureComponent {
     } = this.props;
     const count = Children.count(children);
     // eslint-disable-next-line react/destructuring-assignment
-    const stateStyle = translateStyle(this.state.style);
+    const stateStyle = this.state.style;
 
     if (typeof children === 'function') {
       return children(stateStyle);
