@@ -1,3 +1,28 @@
+## 3.0.0 / 2023-10-18
+
+### refactor / chore
+
+- upgrade dependencies
+
+# BREAKING CHANGE
+
+Remove some unused/unneeded code which drops support for older browser versions. Results in slightly decreased bundle size.
+
+- remove unneeded polyfill for translateStyle - [browser support since 2017](https://caniuse.com/?search=transforms)
+- remove unneeded polyfill for `Number.isFinite` - [browser support since 2015](https://caniuse.com/?search=Number.isFinite) AND polyfilled by babel/core-js
+
+## 2.0.5 / 2023-10-10
+
+### fix
+
+- Check if `requestAnimationFrame` is defined in shouldUpdate
+
+## 2.0.4 / 2023-09-12
+
+### fix
+
+- call `onAnimationEnd` on unmount
+
 ## 2.0.3 / 2023-05-08
 
 ### fix
