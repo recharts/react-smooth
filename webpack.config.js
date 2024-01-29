@@ -12,14 +12,14 @@ const config = {
   },
 
   module: {
-    rules: [{
-      use: 'babel-loader',
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      include: [
-        path.resolve(__dirname, 'src'),
-      ],
-    }],
+    rules: [
+      {
+        use: 'babel-loader',
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        include: [path.resolve(__dirname, 'src')],
+      },
+    ],
   },
 
   resolve: {
@@ -42,12 +42,6 @@ const config = {
       commonjs2: 'react-transition-group',
       commonjs: 'react-transition-group',
       amd: 'react-transition-group',
-    },
-    'prop-types': {
-      root: 'PropTypes',
-      commonjs2: 'prop-types',
-      commonjs: 'prop-types',
-      amd: 'prop-types',
     },
   },
 
