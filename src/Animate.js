@@ -97,7 +97,7 @@ class Animate extends PureComponent {
       const newState = {
         style: attributeName ? { [attributeName]: from } : from,
       };
-      if ((attributeName && [attributeName] !== from) || (!attributeName && style !== from)) {
+      if ((attributeName && style[attributeName] !== from) || (!attributeName && style !== from)) {
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState(newState);
       }
