@@ -15,7 +15,7 @@ const config = {
     rules: [
       {
         use: 'babel-loader',
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         include: [path.resolve(__dirname, 'src')],
       },
@@ -28,6 +28,7 @@ const config = {
       'react-dom': path.join(__dirname, './node_modules/react-dom'),
       'react-transition-group': path.join(__dirname, './node_modules/react-transition-group'),
     },
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
   },
 
   externals: {
