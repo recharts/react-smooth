@@ -1,10 +1,9 @@
-import '@testing-library/jest-dom';
 import React from 'react';
 import { render } from '@testing-library/react';
 import Animate from '../src';
 
 describe('Animate', () => {
-  it('Should change the style of children', (done) => {
+  it('Should change the style of children', done => {
     const { container } = render(
       <Animate from="1" to="0" attributeName="opacity" duration={500}>
         <div className="test-wrapper" />
@@ -23,20 +22,14 @@ describe('Animate', () => {
     }, 700);
   });
 
-  it('Should called onAnimationEnd', (done) => {
+  it('Should called onAnimationEnd', done => {
     let num = 0;
     const handleAnimationEnd = () => {
       num += 1;
     };
 
     render(
-      <Animate
-        from="1"
-        to="0"
-        attributeName="opacity"
-        duration={500}
-        onAnimationEnd={handleAnimationEnd}
-      >
+      <Animate from="1" to="0" attributeName="opacity" duration={500} onAnimationEnd={handleAnimationEnd}>
         <div />
       </Animate>,
     );
@@ -48,7 +41,7 @@ describe('Animate', () => {
     }, 700);
   });
 
-  it('Should change style as steps', (done) => {
+  it('Should change style as steps', done => {
     let firstStatus = 'no';
     let secondStatus = 'no';
 
