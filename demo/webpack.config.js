@@ -18,16 +18,19 @@ module.exports = {
       'react-smooth': path.join(__dirname, '../src/index.js'),
     },
   },
+  devServer: {
+    static: {
+      directory: 'demo/',
+    },
+    port: 4000,
+    host: '127.0.0.1',
+  },
   module: {
     rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [
-          __dirname,
-          path.join(__dirname, '../src'),
-          path.join(__dirname, '../node_modules'),
-        ],
+        include: [__dirname, path.join(__dirname, '../src'), path.join(__dirname, '../node_modules')],
       },
     ],
   },

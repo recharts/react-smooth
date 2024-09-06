@@ -3,15 +3,23 @@ import ReactDom from 'react-dom';
 import { AnimateGroup } from 'react-smooth';
 
 class GroupAnimation extends Component {
-  state = {
-    list: [{
-      text: 'first...',
-    }, {
-      text: 'second...',
-    }, {
-      text: 'third...',
-    }],
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      list: [
+        {
+          text: 'first...',
+        },
+        {
+          text: 'second...',
+        },
+        {
+          text: 'third...',
+        },
+      ],
+    };
+  }
 
   handleDel(index) {
     const { list } = this.state;
@@ -51,8 +59,8 @@ class GroupAnimation extends Component {
             }}
           >
             {item.text}
-            <a
-              href="javascript:void(0);"
+            <button
+              type="button"
               className="btn del"
               style={{
                 float: 'right',
@@ -61,35 +69,35 @@ class GroupAnimation extends Component {
               onClick={requestDel}
             >
               del
-            </a>
+            </button>
           </div>
         </div>
       );
     });
 
-    const leaveSteps = [{
-      duration: 0,
-      style: {
-        transform: 'translateX(0)',
+    const leaveSteps = [
+      {
+        duration: 0,
+        style: {
+          transform: 'translateX(0)',
+        },
       },
-    }, {
-      duration: 1000,
-      style: {
-        transform: 'translateX(302px)',
-        height: 50,
+      {
+        duration: 1000,
+        style: {
+          transform: 'translateX(302px)',
+          height: 50,
+        },
       },
-    }, {
-      duration: 1000,
-      style: {
-        height: 0,
+      {
+        duration: 1000,
+        style: {
+          height: 0,
+        },
       },
-    }];
+    ];
 
-    return (
-      <AnimateGroup leave={{ steps: leaveSteps }}>
-        { items }
-      </AnimateGroup>
-    );
+    return <AnimateGroup leave={{ steps: leaveSteps }}>{items}</AnimateGroup>;
   }
 
   render() {

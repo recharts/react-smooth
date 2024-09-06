@@ -1,7 +1,7 @@
+/* eslint-disable max-classes-per-file */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import { translateStyle } from 'react-smooth';
 
 const g = 9.8;
 
@@ -17,19 +17,13 @@ function Circle(props) {
     borderRadius: r,
     transform: translate,
     WebkitTransform: translate,
-    background: `radial-gradient(circle at ${r * 2 / 3}px ${r * 2 / 3}px,#5cabff,#000)`,
+    background: `radial-gradient(circle at ${(r * 2) / 3}px ${(r * 2) / 3}px,#5cabff,#000)`,
     position: 'absolute',
     top: 0,
     left: 0,
   };
 
-  return (
-    <div
-      className="circle-ball"
-      style={translateStyle(style)}
-      {...others}
-    />
-  );
+  return <div className="circle-ball" style={style} {...others} />;
 }
 
 Circle.prototype.propTypes = {
@@ -58,10 +52,10 @@ function Line(props) {
         y2={y2}
         stroke="black"
         strokeWidth="2"
-        style={translateStyle({
-          transform: `rotate(${-currTheta / Math.PI * 180}deg)`,
+        style={{
+          transform: `rotate(${(-currTheta / Math.PI) * 180}deg)`,
           transformOrigin: 'top',
-        })}
+        }}
       />
     </svg>
   );
@@ -73,15 +67,15 @@ Line.prototype.propTypes = {
 };
 
 class Pendulum extends Component {
-  static propTypes = {
-    ropeLength: PropTypes.number,
-    theta: PropTypes.number,
-    radius: PropTypes.number,
-  };
+  constructor(props) {
+    super(props);
 
-  state = {
-    currTheta: this.props.theta,
-  };
+    const { theta } = this.props;
+
+    this.state = {
+      currTheta: theta,
+    };
+  }
 
   componentDidMount() {
     this.cafId = requestAnimationFrame(this.update.bind(this));
@@ -101,12 +95,10 @@ class Pendulum extends Component {
     }
 
     const { ropeLength, theta } = this.props;
-    const { currTheta } = this.state;
-    const A = theta;
-    const omiga = Math.sqrt(g / ropeLength * 200);
+    const omiga = Math.sqrt((g / ropeLength) * 200);
 
     this.setState({
-      currTheta: theta * Math.cos(omiga * (now - this.initialTime) / 1000),
+      currTheta: theta * Math.cos((omiga * (now - this.initialTime)) / 1000),
     });
 
     this.cafId = requestAnimationFrame(this.update.bind(this));
@@ -125,11 +117,21 @@ class Pendulum extends Component {
   }
 }
 
+Pendulum.propTypes = {
+  ropeLength: PropTypes.number,
+  theta: PropTypes.number,
+  radius: PropTypes.number,
+};
+
 class App extends Component {
-  state = {
-    ropeLength: 300,
-    theta: 18,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ropeLength: 300,
+      theta: 18,
+    };
+  }
 
   handleThetaChange(e) {
     this.setState({
@@ -148,12 +150,14 @@ class App extends Component {
 
     return (
       <div className="pendulum-app">
-        theta: <input type="number" value={theta} onChange={this.handleThetaChange.bind(this)} placeholder="0 ~ 90" />
+        theta:
+        <input type="number" value={theta} onChange={this.handleThetaChange.bind(this)} placeholder="0 ~ 90" />
         <br />
-        rope length: <input type="number" value={ropeLength} onChange={this.handleRopeChange.bind(this)} placeholder="rope length" />
+        rope length:&nbsp;
+        <input type="number" value={ropeLength} onChange={this.handleRopeChange.bind(this)} placeholder="rope length" />
         <Pendulum
-          theta={ theta && (parseInt(theta, 10) / 180 * Math.PI) || 0.3 }
-          ropeLength={ ropeLength && parseInt(ropeLength, 10) || 300 }
+          theta={(theta && (parseInt(theta, 10) / 180) * Math.PI) || 0.3}
+          ropeLength={(ropeLength && parseInt(ropeLength, 10)) || 300}
           radius={30}
         />
       </div>
