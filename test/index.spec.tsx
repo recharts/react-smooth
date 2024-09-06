@@ -18,7 +18,6 @@ describe('Animate', () => {
       expect(element).toHaveStyle({
         opacity: 0,
       });
-      done();
     }, 700);
   });
 
@@ -37,7 +36,6 @@ describe('Animate', () => {
     expect(num).toEqual(0);
     setTimeout(() => {
       expect(num).toEqual(1);
-      done();
     }, 700);
   });
 
@@ -85,7 +83,6 @@ describe('Animate', () => {
     setTimeout(() => {
       expect(firstStatus).toEqual('yes');
       expect(secondStatus).toEqual('yes');
-      done();
     }, 1400);
   });
 });

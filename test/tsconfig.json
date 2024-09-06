@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "noEmit": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "target": "es6",
+    "types": ["vitest/globals"]
+  },
+  "include": ["./**/*", "../types.d.ts"]
+}
