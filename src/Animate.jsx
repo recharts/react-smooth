@@ -4,7 +4,7 @@ import { deepEqual } from 'fast-equals';
 import createAnimateManager from './AnimateManager';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
-import { getTransitionVal, identity } from './util';
+import { getTransitionVal } from './util';
 
 class Animate extends PureComponent {
   constructor(props, context) {
@@ -189,7 +189,7 @@ class Animate extends PureComponent {
         transition,
       };
 
-      return [...sequence, newStyle, duration, onAnimationEnd].filter(identity);
+      return [...sequence, newStyle, duration, onAnimationEnd].filter(s => s);
     };
 
     return this.manager.start([

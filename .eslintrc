@@ -2,12 +2,20 @@
   "extends": ["eslint-config-airbnb", "plugin:prettier/recommended", "prettier"],
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "no-restricted-globals": [1, "isFinite"],
-    "valid-jsdoc": 2,
+    "valid-jsdoc": [
+      "error",
+      {
+        "requireReturnType": false,
+        "requireParamType": false
+      }
+    ],
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
     "react/react-in-jsx-scope": 2,
@@ -21,6 +29,5 @@
     "react/jsx-filename-extension": "off",
     "react/forbid-prop-types": "off",
     "react/jsx-props-no-spreading": "off"
-  },
-  "plugins": ["react"]
+  }
 }
