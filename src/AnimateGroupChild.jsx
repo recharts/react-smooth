@@ -66,6 +66,7 @@ class AnimateGroupChild extends Component {
   }
 
   render() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { children, appearOptions, enterOptions, leaveOptions, ...props } = this.props;
 
     return (

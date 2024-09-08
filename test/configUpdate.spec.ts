@@ -1,7 +1,5 @@
-import * as util from '../src/util';
 import animationFunction, { alpha } from '../src/configUpdate';
 import { configEasing } from '../src/easing';
-import { waitFor } from '@testing-library/react';
 
 let requestAnimationFrameMock;
 let cancelAnimationFrameMock;
@@ -65,10 +63,10 @@ describe('animationFunction', () => {
   });
 
   it('should use timingUpdate if easing.isStepper is false', () => {
-    easing = vi.fn(() => vi.fn());
+    easing = configEasing('spring');
     const from = { x: 0, y: 0 };
     const to = { x: 100, y: 100 };
-    const duration = 1;
+    const duration = 20;
 
     const startAnimation = animationFunction(from, to, easing, duration, render);
     startAnimation();
@@ -102,6 +100,7 @@ describe('animationFunction', () => {
 
     startAnimation();
     vi.advanceTimersToNextFrame();
+    vi.runAllTimers();
 
     expect(render).toHaveBeenCalledWith({
       x: from.x,
