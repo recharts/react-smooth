@@ -15,6 +15,7 @@
     "sourceMap": true,
     "target": "es6",
     "types": ["vitest/globals"],
+    "lib": ["Dom"],
     "allowJs": true
   },
   "include": ["./src/**/*"]

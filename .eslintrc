@@ -1,5 +1,11 @@
 {
-  "extends": ["eslint-config-airbnb", "plugin:prettier/recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "eslint-config-airbnb",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
   "env": {
     "browser": true,
     "node": true,
@@ -7,6 +13,13 @@
   },
   "parser": "@typescript-eslint/parser",
   "plugins": ["react", "@typescript-eslint"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   "rules": {
     "no-restricted-globals": [1, "isFinite"],
     "valid-jsdoc": [
@@ -14,6 +27,16 @@
       {
         "requireReturnType": false,
         "requireParamType": false
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
       }
     ],
     "react/jsx-uses-react": 2,
@@ -25,6 +48,7 @@
     "no-mixed-operators": "off",
     "no-plusplus": "off",
     "no-continue": "off",
+    "no-unused-vars": "off",
     "react/require-default-props": "off",
     "react/jsx-filename-extension": "off",
     "react/forbid-prop-types": "off",
