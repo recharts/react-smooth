@@ -1,6 +1,6 @@
 import { getIntersectionKeys, mapObject } from './util';
 
-const alpha = (begin, end, k) => begin + (end - begin) * k;
+export const alpha = (begin, end, k) => begin + (end - begin) * k;
 const needContinue = ({ from, to }) => from !== to;
 
 /*
