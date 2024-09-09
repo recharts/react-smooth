@@ -170,7 +170,7 @@ const translatedStyle = translateStyle(style);
           <td>onAnimationEnd</td>
           <td>function</td>
           <td>() => null</td>
-          <td>called when animation finished</td>
+          <td>called when animation is finished</td>
         </tr>
         <tr>
           <td>attributeName</td>
@@ -227,7 +227,7 @@ const translatedStyle = translateStyle(style);
           <td>leave</td>
           <td>object</td>
           <td>undefined</td>
-          <td>configure element appear animation</td>
+          <td>configure element exit animation</td>
         </tr>
     </tbody>
 </table>
