@@ -1,11 +1,15 @@
 import setRafTimeout from './setRafTimeout';
 
+type ReactSmoothStyleType = string | string[] | Record<string, unknown> | (() => void);
+
+type HandleChangeFn = (currentStyle?: ReactSmoothStyleType) => null | void;
+
 export default function createAnimateManager() {
   let currStyle = {};
-  let handleChange = () => null;
+  let handleChange: (currentStyle?: ReactSmoothStyleType) => null | void = () => null;
   let shouldStop = false;
 
-  const setStyle = _style => {
+  const setStyle = (_style: ReactSmoothStyleType) => {
     if (shouldStop) {
       return;
     }
@@ -43,11 +47,11 @@ export default function createAnimateManager() {
     stop: () => {
       shouldStop = true;
     },
-    start: style => {
+    start: (style: ReactSmoothStyleType) => {
       shouldStop = false;
       setStyle(style);
     },
-    subscribe: _handleChange => {
+    subscribe: (_handleChange: HandleChangeFn) => {
       handleChange = _handleChange;
 
       return () => {
