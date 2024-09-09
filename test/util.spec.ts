@@ -112,6 +112,7 @@ describe('warn', () => {
   it('should log an error message when format is undefined', () => {
     // Set environment to development
     process.env.NODE_ENV = 'development';
+    // @ts-expect-error - testing undefined format
     warn(false);
     expect(console.warn).toHaveBeenCalledWith(
       `Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.`,
@@ -128,6 +129,7 @@ describe('warn', () => {
   it('should log the default error message when condition is false and format is undefined', () => {
     // Set environment to development
     process.env.NODE_ENV = 'development';
+    // @ts-expect-error - testing undefined format
     warn(false);
     expect(console.warn).toHaveBeenCalledWith(`LogUtils requires an error message argument`);
     expect(console.warn).toHaveBeenCalledWith(

@@ -7,3 +7,5 @@ es6
 coverage
 npm-debug.log
 *.orig
+build
+types

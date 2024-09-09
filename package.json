@@ -4,6 +4,7 @@
   "description": "react animation library",
   "main": "lib/index",
   "module": "es6/index",
+  "types": "types/index.d.ts",
   "files": [
     "*.md",
     "es6",
@@ -18,11 +19,12 @@
     "react-component"
   ],
   "scripts": {
-    "build": "npm run build-cjs && npm run build-es6 && rimraf umd && npm run build-umd && npm run build-min",
+    "build": "npm run build-types && npm run build-cjs && npm run build-es6 && rimraf umd && npm run build-umd && npm run build-min",
     "build-cjs": "rimraf lib && cross-env BABEL_ENV=commonjs babel ./src -d lib",
     "build-es6": "rimraf es6 && babel ./src -d es6",
-    "build-umd": "cross-env NODE_ENV=development BABEL_ENV=commonjs webpack --entry ./src/index.js -o umd",
-    "build-min": "cross-env NODE_ENV=production BABEL_ENV=commonjs webpack --entry ./src/index.js -o umd",
+    "build-umd": "cross-env NODE_ENV=development BABEL_ENV=commonjs webpack --entry ./src/index.ts -o umd",
+    "build-min": "cross-env NODE_ENV=production BABEL_ENV=commonjs webpack --entry ./src/index.ts -o umd",
+    "build-types": "rimraf types && tsc",
     "test": "vitest run --config vitest.config.mts",
     "test-coverage": "vitest run --config vitest.config.mts --coverage",
     "demo": "webpack serve --config demo/webpack.config.js --progress --profile",

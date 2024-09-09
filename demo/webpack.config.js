@@ -15,7 +15,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react-smooth': path.join(__dirname, '../src/index.js'),
+      'react-smooth': path.join(__dirname, '../src/index.ts'),
     },
   },
   devServer: {

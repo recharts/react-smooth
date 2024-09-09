@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import { deepEqual } from 'fast-equals';
@@ -7,8 +8,8 @@ import configUpdate from './configUpdate';
 import { getTransitionVal } from './util';
 
 class Animate extends PureComponent {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     const { isActive, attributeName, from, to, steps, children, duration } = this.props;
 

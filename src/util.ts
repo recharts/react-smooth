@@ -6,7 +6,7 @@
  * @param {object} nextObj next object
  * @returns an array of keys that exist in both objects
  */
-export const getIntersectionKeys = (preObj, nextObj) =>
+export const getIntersectionKeys = (preObj: Record<string, unknown>, nextObj: Record<string, unknown>): string[] =>
   [Object.keys(preObj), Object.keys(nextObj)].reduce((a, b) => a.filter(c => b.includes(c)));
 
 /**
@@ -14,7 +14,7 @@ export const getIntersectionKeys = (preObj, nextObj) =>
  * @param {string} name string variable
  * @returns dash case string
  */
-export const getDashCase = name => name.replace(/([A-Z])/g, v => `-${v.toLowerCase()}`);
+export const getDashCase = (name: string) => name.replace(/([A-Z])/g, v => `-${v.toLowerCase()}`);
 
 /**
  * Maps an object to another object
@@ -22,7 +22,7 @@ export const getDashCase = name => name.replace(/([A-Z])/g, v => `-${v.toLowerCa
  * @param {object} obj object to map
  * @returns mapped object
  */
-export const mapObject = (fn, obj) =>
+export const mapObject = (fn: (key: string, value: unknown) => void, obj: Record<string, unknown>) =>
   Object.keys(obj).reduce(
     (res, key) => ({
       ...res,
@@ -34,16 +34,25 @@ export const mapObject = (fn, obj) =>
 /**
  * Gets the transition value for a set of properties
  * @param {array} props array of properties
- * @param {string} duration duration of transition
+ * @param {string | number} duration duration of transition
  * @param {string} easing easing of transition
  * @returns transition value
  */
-export const getTransitionVal = (props, duration, easing) =>
+export const getTransitionVal = (props: string[], duration: number | string, easing: string) =>
   props.map(prop => `${getDashCase(prop)} ${duration}ms ${easing}`).join(',');
 
 const isDev = () => process.env.NODE_ENV !== 'production';
 
-export const warn = (condition, format, a, b, c, d, e, f) => {
+export const warn = (
+  condition: boolean,
+  format: string,
+  a?: string,
+  b?: string,
+  c?: string,
+  d?: string,
+  e?: string,
+  f?: string,
+) => {
   if (isDev() && typeof console !== 'undefined' && console.warn) {
     if (format === undefined) {
       console.warn('LogUtils requires an error message argument');
