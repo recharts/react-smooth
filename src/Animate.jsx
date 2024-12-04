@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
-import { deepEqual } from 'fast-equals';
+import deepEqual from 'fast-deep-equal/es6/react';
 import createAnimateManager from './AnimateManager';
 import { configEasing } from './easing';
 import configUpdate from './configUpdate';
