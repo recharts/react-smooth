@@ -5,7 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const env = process.env.NODE_ENV;
 
 const config = {
-  entry: path.join(__dirname, './src/index'),
+  entry: path.join(__dirname, './src/index.ts'),
 
   output: {
     filename: `ReactSmooth${env === 'production' ? '.min' : ''}.js`,
