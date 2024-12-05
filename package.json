@@ -48,8 +48,8 @@
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "dependencies": {
-    "fast-equals": "^5.0.1",
     "prop-types": "^15.8.1",
+    "react-fast-compare": "^3.2.2",
     "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
