@@ -46,8 +46,8 @@
   },
   "dependencies": {
     "fast-equals": "^5.0.1",
-    "react-transition-group": "^4.4.5",
-    "prop-types": "^15.8.1"
+    "prop-types": "^15.8.1",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",
